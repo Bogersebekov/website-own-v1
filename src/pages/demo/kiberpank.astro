@@ -1,0 +1,270 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Демо №2: приёмы из разбора киберпанка (jetix-os: 10-CP2077-UI-GRAMMAR, style-canon §4–§5),
+// перекрашенные в токены сайта: оранжевый знак, синий акцент, стекло. Название и ассеты игры не берём.
+// Не в меню, не в sitemap, noindex. Тексты и коды в плашках — заглушки.
+const rows = ['Строка списка', 'Ещё одна строка', 'Третья строка', 'Четвёртая строка'];
+const cells = [
+  { s: 'ok', t: 'Статус: работает' },
+  { s: 'build', t: 'Статус: строится' },
+  { s: 'soon', t: 'Статус: скоро' },
+];
+---
+<Base title="Демо: киберпанк-приёмы" description="Черновик: плашки и движения из разбора киберпанка" noindex>
+  <div class="edge" aria-hidden="true">REF JTX-DEMO-02 · 00032 05 54 08</div>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="label label--or">Демо 2 · 13.10.2026</p>
+      <h1>Плашки и движения из разбора киберпанка</h1>
+      <span class="hair"></span>
+      <p class="lead">Восемь движений и восемь плашек из каталога, который лежит в jetix-os (UI Grammar, style-canon). Форма и ритм оттуда, цвета наши: оранжевый как знак, синий как акцент. Всё до 300 мс, кроме фоновой волны. Тексты заглушки.</p>
+    </div>
+  </section>
+
+  <!-- Движения -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Движение 1 · развёртка панели</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <div class="m1 chamfer tabbed" style="--c:14px"><span class="m1__in"><span class="code">REF JTX-01</span><strong>Панель растёт от левой кромки</strong></span></div>
+      <p class="muted note">Плашка раскрывается слева направо за 200 мс, текст проявляется после. В каталоге: №1.</p>
+    </div>
+  </section>
+
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Движение 2 · каскад строк</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <ul class="m2">{rows.map((r, i) => <li style={`--i:${i}`}>{r}</li>)}</ul>
+      <p class="muted note">Строки выходят с шагом 40 мс. В каталоге: №2.</p>
+    </div>
+  </section>
+
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Движение 3 · печатающийся текст</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <p class="m3" data-type="Служебная подпись набирается по символам_" aria-label="Служебная подпись набирается по символам"></p>
+      <p class="muted note">Только для коротких подписей, 10 строк JS. Не для абзацев. В каталоге: №3.</p>
+    </div>
+  </section>
+
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Движение 4 · заполнение шкалы</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <div class="m4"><div class="meter"><i></i></div><span class="m4__n" data-count="66">0</span><span class="code">%</span></div>
+      <p class="muted note">Шкала сегментами, число догоняет её. Значение 66 тут заглушка, на сайте будут только реальные числа. В каталоге: №6.</p>
+    </div>
+  </section>
+
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Движение 5 · мерцание и дребезг</p></header>
+      <div class="m5">
+        <span class="chip chamfer flick" style="--c:10px;--dl:0s">Мерцает редко</span>
+        <span class="chip chamfer flick" style="--c:10px;--dl:2.3s">Несинхронно</span>
+        <span class="chip chamfer jit" style="--c:10px" tabindex="0">Дребезг: наведи</span>
+      </div>
+      <p class="muted note">Мерцание раз в 8 секунд на 1–2 кадра, у каждого свой сдвиг. Дребезг только при наведении, 300 мс. Постоянно не делаем. В каталоге: №4, №5.</p>
+    </div>
+  </section>
+
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Движение 6 · глитч на переходе</p></header>
+      <a class="m6 glitch" href="#m6" data-text="Наведи на заголовок">Наведи на заголовок</a>
+      <p class="muted note">Раздвоение и срезы один раз за 300 мс, только на смене экрана или при наведении. Постоянный глитч в каталоге запрещён. В каталоге: №7.</p>
+    </div>
+  </section>
+
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Движение 7 · бегущая волна</p></header>
+      <div class="m7 chamfer" style="--c:18px"><span class="code">Блок с волной</span><strong>Светлая полоса проходит раз в 7 секунд</strong></div>
+      <p class="muted note">Фоновая петля, не интерфейс. Альфа до 6%, ставим только на плашки без длинного текста. В каталоге: №8.</p>
+    </div>
+  </section>
+
+  <!-- Плашки -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Плашки · форма</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <div class="plates">
+        <div class="p-holder"><span class="code">Плашка с хвостом</span><p>Текст в фигуре с отростком: показывает, откуда пришла мысль.</p></div>
+        <div class="p-brackets"><span class="code">Скобки по углам</span><p>Вместо сплошной рамки четыре уголка. Наши скобки для фото уже так умеют.</p></div>
+        <div class="p-rail"><span class="code">Рельса секции</span><div class="rail"><i></i><i></i><i class="on"></i><i></i></div><p>Линия на всю ширину из сегментов, один подсвечен.</p></div>
+        <div class="p-tabbed chamfer tabbed" style="--c:14px"><span class="code">Язычок на кромке</span><p>Узнаваемый силуэт: приподнятый ярлык слева.</p></div>
+      </div>
+      <p class="muted note">Каталог: №2, №3, №4, №6.</p>
+    </div>
+  </section>
+
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Плашки · статус цветом по краю</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <div class="cells">
+        {cells.map((c, i) => <div class={`cell cell--${c.s}`} style={`--i:${i}`}><span class="code">Ячейка 0{i + 1}</span><strong>{c.t}</strong></div>)}
+      </div>
+      <p class="muted note">Статус кодируется полоской слева, а не цветом всей плашки: зелёный готово, синий строится, оранжевый скоро. Под наши карточки «Чем занят». Каталог: №12.</p>
+    </div>
+  </section>
+
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Плашки · четыре ступени плотности</p></header>
+      <div class="steps">
+        <button class="step chamfer" style="--c:10px" data-lvl="1" type="button">Покой 8%</button>
+        <button class="step chamfer is-hover" style="--c:10px" data-lvl="2" type="button">Наведение 18%</button>
+        <button class="step chamfer is-active" style="--c:10px" data-lvl="3" type="button">Активно 32%</button>
+        <button class="step chamfer is-sel" style="--c:10px" data-lvl="4" type="button">Выбрано 100%</button>
+      </div>
+      <p class="muted note">Состояния отличаются плотностью заливки, а не сменой цвета. Наведи на любую кнопку. Каталог: №17 (покой, наведение, активно, выбрано).</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="label">Что не берём</p>
+      <p class="lead">Постоянный глитч, заметные сканлайны, круговые шкалы, японский декор, жёлтый цвет и название игры. Это зафиксировано в каноне: «грамматику берём, ассеты нет».</p>
+      <p class="muted">Палитра игры (красный и голубой) у нас не используется. Руслан, если нужен именно красно-голубой вариант, скажи, сделаю третье демо.</p>
+    </div>
+  </section>
+
+  <div class="legend" aria-hidden="true"><span><b>R</b>Повторить</span><span><b>↓</b>Дальше</span></div>
+
+  <script>
+    const demos = document.querySelectorAll<HTMLElement>('[data-demo]');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const typeEls = document.querySelectorAll<HTMLElement>('.m3');
+    const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+    let timers: number[] = [];
+    function typeIt(el: HTMLElement) {
+      const full = el.dataset.type || '';
+      if (reduce) { el.textContent = full; return; }
+      el.textContent = ''; let i = 0;
+      const t = window.setInterval(() => { el.textContent = full.slice(0, ++i); if (i >= full.length) clearInterval(t); }, 35);
+      timers.push(t);
+    }
+    function count(el: HTMLElement) {
+      const to = Number(el.dataset.count); if (reduce) { el.textContent = String(to); return; }
+      const t0 = performance.now(), dur = 700;
+      const f = (n: number) => { const p = Math.min(1, (n - t0) / dur); el.textContent = String(Math.round(to * p)); if (p < 1) requestAnimationFrame(f); };
+      requestAnimationFrame(f);
+    }
+    function play(d: HTMLElement) {
+      d.classList.remove('is-play'); void d.offsetWidth;
+      requestAnimationFrame(() => d.classList.add('is-play'));
+      d.querySelectorAll<HTMLElement>('.m3').forEach(typeIt);
+      d.querySelectorAll<HTMLElement>('[data-count]').forEach(count);
+    }
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) {
+        const el = e.target as HTMLElement;
+        el.classList.toggle('run', e.isIntersecting);
+        if (e.isIntersecting) play(el); else el.classList.remove('is-play');
+      }
+    }, { threshold: 0.35 });
+    demos.forEach((d) => { io.observe(d); d.querySelector('.replay')?.addEventListener('click', () => play(d)); });
+  </script>
+</Base>
+
+<style>
+  .demo__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .note { margin-top: 28px; max-width: 64ch; font-size: 15px; }
+  .edge { display: none; }
+  @media (min-width: 1200px) { .edge { display: block; position: fixed; left: 14px; top: 50%; transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl; font-weight: 400; font-size: 10px; letter-spacing: .35em; color: var(--ink-orn); pointer-events: none; z-index: 1; } }
+
+  /* форма: язычок на верхней кромке + срез. Язычок выступает на 5px вверх */
+  .tabbed { --c: 14px; clip-path: polygon(0 0, 78px 0, 88px 5px, 100% 5px, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%); }
+
+  /* 1: развёртка */
+  .m1 { min-height: 96px; display: grid; align-items: center; padding: 22px 26px; background: var(--glass-bg); border-left: 3px solid var(--or-mark);
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); transition: clip-path 200ms var(--ease); }
+  .is-play .m1 { clip-path: polygon(0 0, 78px 0, 88px 5px, 100% 5px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%); }
+  .m1__in { display: grid; gap: 6px; opacity: 0; transition: opacity 160ms var(--ease) 90ms; }
+  .is-play .m1__in { opacity: 1; }
+  .m1 strong, .p-holder strong { font-weight: 400; color: var(--ink-max); }
+
+  /* 2: каскад */
+  .m2 { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; max-width: 460px; }
+  .m2 li { padding: 14px 20px; background: linear-gradient(90deg, rgba(247,247,248,.10), rgba(247,247,248,.02)); border-left: 2px solid var(--or-mark);
+    opacity: 0; transform: translateX(-10px); transition: opacity 200ms var(--ease), transform 200ms var(--ease); transition-delay: calc(var(--i) * 40ms); }
+  .is-play .m2 li { opacity: 1; transform: none; }
+
+  /* 3: печать */
+  .m3 { min-height: 1.6em; font-weight: 400; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--acc-txt); margin: 0; }
+
+  /* 4: шкала */
+  .m4 { display: flex; align-items: center; gap: 14px; max-width: 520px; }
+  .meter { flex: 1; height: 6px; background: var(--border-faint); }
+  .meter i { display: block; height: 100%; background: var(--acc-fill); transform-origin: left; transform: scaleX(0); transition: transform 300ms var(--ease);
+    -webkit-mask: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 9px); mask: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 9px); }
+  .is-play .meter i { transform: scaleX(.66); transition-duration: 700ms; }
+  .m4__n { font-family: var(--font-head); font-size: 28px; color: var(--acc-txt); min-width: 2ch; text-align: right; }
+
+  /* 5: мерцание и дребезг */
+  .m5 { display: flex; flex-wrap: wrap; gap: 14px; }
+  .chip { display: inline-block; padding: 14px 22px; background: var(--glass-bg); border: 0; color: var(--ink); font: 400 13px var(--font-body); letter-spacing: .14em; text-transform: uppercase; }
+  .run .flick { animation: flick 8s steps(1) infinite; animation-delay: var(--dl); }
+  @keyframes flick { 0%, 96.5%, 100% { opacity: 1; } 97% { opacity: .35; } 98% { opacity: .85; } }
+  .jit:hover, .jit:focus-visible { animation: jit 300ms steps(1) 1; }
+  @keyframes jit { 0% { transform: translateX(0); } 25% { transform: translateX(-2px); } 50% { transform: translateX(2px); } 75% { transform: translateX(-1px); } 100% { transform: translateX(0); } }
+
+  /* 6: глитч */
+  .glitch { position: relative; display: inline-block; font-family: var(--font-head); text-transform: uppercase; font-size: clamp(26px, 5vw, 48px); color: var(--ink-max); }
+  .glitch::before, .glitch::after { content: attr(data-text); position: absolute; inset: 0; pointer-events: none; clip-path: inset(0 0 100% 0); mix-blend-mode: screen; }
+  .glitch::before { color: var(--or-mark); transform: translate(-3px, 0); }
+  .glitch::after { color: var(--acc-edge); transform: translate(3px, 0); }
+  .glitch:hover::before, .glitch:hover::after, .glitch:focus-visible::before, .glitch:focus-visible::after { animation: slice 300ms steps(1) 1; }
+  @keyframes slice { 0% { clip-path: inset(0 0 100% 0); } 20% { clip-path: inset(18% 0 62% 0); } 45% { clip-path: inset(55% 0 28% 0); } 70% { clip-path: inset(72% 0 12% 0); } 100% { clip-path: inset(0 0 100% 0); } }
+
+  /* 7: волна */
+  .m7 { position: relative; overflow: hidden; display: grid; gap: 6px; padding: 28px 26px; background: var(--glass-bg); border: 1px solid var(--glass-edge); }
+  .m7 strong { font-weight: 400; color: var(--ink-max); }
+  .m7::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 0 40%, rgba(247,247,248,.06) 50%, transparent 60% 100%); background-size: 100% 300%; background-position: 0 100%; animation: wave 7s linear infinite; animation-play-state: paused; }
+  .run .m7::after { animation-play-state: running; }
+  @keyframes wave { to { background-position: 0 -100%; } }
+
+  /* плашки */
+  .plates { display: grid; gap: 22px; grid-template-columns: 1fr; }
+  @media (min-width: 800px) { .plates { grid-template-columns: repeat(2, 1fr); } }
+  .plates > * { opacity: 0; transform: translateY(10px); transition: opacity 240ms var(--ease), transform 240ms var(--ease); }
+  .plates > *:nth-child(2) { transition-delay: 70ms; } .plates > *:nth-child(3) { transition-delay: 140ms; } .plates > *:nth-child(4) { transition-delay: 210ms; }
+  .is-play .plates > * { opacity: 1; transform: none; }
+  .plates p { margin: 8px 0 0; color: var(--ink-2); font-size: 15px; }
+  .p-holder { position: relative; padding: 22px 24px 22px 28px; background: var(--glass-bg); border-left: 3px solid var(--or-mark); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%); }
+  .p-brackets { position: relative; padding: 24px; }
+  .p-brackets::before, .p-brackets::after { content: ''; position: absolute; width: 18px; height: 18px; border: 1px solid var(--or-mark); }
+  .p-brackets::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+  .p-brackets::after { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+  .p-rail { padding: 18px 0; }
+  .rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 12px; }
+  .rail i { height: 2px; background: var(--ink-orn); opacity: .5; }
+  .rail i.on { background: var(--or-mark); opacity: 1; height: 4px; margin-top: -1px; }
+  .p-tabbed { padding: 28px 24px 22px; background: var(--glass-bg); }
+
+  .cells { display: grid; gap: 8px; max-width: 520px; }
+  .cell { position: relative; display: grid; gap: 4px; padding: 14px 18px 14px 24px; background: linear-gradient(90deg, rgba(247,247,248,.08), rgba(247,247,248,.02));
+    clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%); opacity: 0; transform: translateX(-10px); transition: opacity 240ms var(--ease), transform 240ms var(--ease); transition-delay: calc(var(--i) * 70ms); }
+  .is-play .cell { opacity: 1; transform: none; }
+  .cell::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--ink-3); }
+  .cell--ok::before { background: var(--ok-txt); } .cell--build::before { background: var(--acc-edge); } .cell--soon::before { background: var(--or-mark); }
+  .cell strong { font-weight: 400; color: var(--ink-max); }
+
+  .steps { display: flex; flex-wrap: wrap; gap: 10px; }
+  .step { --f: .08; padding: 14px 22px; border: 0; cursor: pointer; font: 400 13px var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-max);
+    background: rgba(48, 110, 232, var(--f)); box-shadow: inset 0 0 0 1px rgba(48, 110, 232, calc(var(--f) + .2)); transition: background var(--t-fast) var(--ease); }
+  .step:hover, .step.is-hover { --f: .18; } .step.is-active { --f: .32; } .step.is-sel { --f: 1; }
+
+  .legend { display: none; }
+  @media (min-width: 1000px) { .legend { position: fixed; right: 32px; bottom: 22px; display: flex; gap: 26px; z-index: 5; pointer-events: none; }
+    .legend span { font-weight: 400; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+    .legend b { display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 8px; border: 1px solid var(--or-mark); border-radius: 50%; font-size: 10px; color: var(--or-txt); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .m1 { clip-path: polygon(0 0, 78px 0, 88px 5px, 100% 5px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%); transition: none; }
+    .m1__in, .m2 li, .plates > *, .cell { opacity: 1; transform: none; transition: none; }
+    .meter i { transform: scaleX(.66); transition: none; }
+    .flick, .m7::after, .jit:hover, .glitch:hover::before, .glitch:hover::after { animation: none; }
+    .step { transition: none; }
+  }
+</style>
