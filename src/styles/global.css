@@ -133,3 +133,90 @@ img { max-width: 100%; display: block; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .card, .btn { transition: none; }
 }
+
+/* ── Плитки (bento), вариант B «Плитки». Без анимаций. ── */
+.bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+.bento-page { padding-block: clamp(24px, 5vw, 56px) clamp(32px, 6vw, 72px); }
+.tile { grid-column: span 12; min-width: 0; padding: 24px; background: var(--srf-1); border: 1px solid var(--border); }
+.tile--hl { --c: 26px; position: relative; border: 0; background: var(--glass-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.tile--hl::before { content: ''; position: absolute; inset: 0; pointer-events: none; border: 1px solid var(--glass-edge); clip-path: inherit; }
+.tile--hl::after { content: ''; position: absolute; top: 0; left: var(--c); right: 10px; height: 2px; background: var(--or-hair); }
+@media (min-width: 900px) {
+  .s4 { grid-column: span 4; } .s5 { grid-column: span 5; } .s6 { grid-column: span 6; }
+  .s7 { grid-column: span 7; } .s8 { grid-column: span 8; }
+}
+.tile h1 { font-size: clamp(19px, 3.8vw, 44px); overflow-wrap: break-word; }
+.tile h2 { font-size: clamp(20px, 3vw, 32px); overflow-wrap: break-word; }
+.tile h3 { font-size: clamp(16px, 1.75vw, 21px); margin: 8px 0 10px; overflow-wrap: break-word; }
+.tile p { color: var(--rw-gray-700); font-size: 16px; }
+.tile .lead { color: var(--ink-2); margin: 18px 0 26px; max-width: 46ch; font-size: clamp(16px, 1.8vw, 19px); }
+.tile .btn { margin-top: 4px; }
+.tile .tlink { display: inline-block; margin-top: 16px; font-weight: 800; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--acc-txt); }
+.tile .tlink::after { content: ' →'; }
+.tile .tlink:hover { color: var(--acc-txt-max); }
+.tile__row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.tile--col { display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
+.tile--col h3 { font-size: clamp(16px, 1.6vw, 20px); margin: 0; }
+.big80 { font-family: var(--font-head); font-size: clamp(72px, 12vw, 140px); line-height: .9; color: var(--ink-max); }
+.big80 small { font-size: .22em; color: var(--or-txt); letter-spacing: .1em; margin-left: 10px; }
+.mini { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
+.mini--3 { grid-template-columns: repeat(3, 1fr); }
+.mini div { padding: 12px; background: var(--srf-2); border: 1px solid var(--border-soft); min-width: 0; }
+.mini b { display: block; font-family: var(--font-head); font-weight: 400; font-size: clamp(20px, 3vw, 30px); color: var(--ink-max); overflow-wrap: anywhere; }
+.mini span { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.path { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; }
+.path i { flex: 1; height: 2px; background: linear-gradient(90deg, var(--acc-edge), var(--or-hair)); }
+.path em { font-style: normal; font-family: var(--font-head); font-size: 20px; color: var(--ink-max); }
+.tlist { margin-top: 12px; }
+.tlist div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border-soft); align-items: baseline; }
+.tlist h3 { margin: 0; font-size: 18px; }
+.tile .tget { margin-top: 10px; color: var(--ink-2); font-size: 15px; }
+.tile .tfoot { margin-top: 14px; color: var(--ink-2); font-size: 15px; }
+.tile .acc { margin-top: 14px; color: var(--acc-txt-max); font-size: 15px; }
+.handle { display: block; font-family: var(--font-head); font-size: clamp(20px, 3.4vw, 30px); color: var(--ink-max); margin: 6px 0 16px; text-transform: uppercase; overflow-wrap: anywhere; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chip { padding: 6px 12px; border: 1px solid var(--glass-edge); font-weight: 400; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+.facts4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+@media (min-width: 900px) { .facts4 { grid-template-columns: repeat(4, 1fr); } }
+.tile--soft { background: var(--srf-2); border-style: solid; }
+.tile--stub { border-style: dashed; border-color: var(--ink-orn); background: transparent; }
+@media (max-width: 520px) { .tile { padding: 20px; } .mini--3 { gap: 6px; } .mini--3 div { padding: 10px 8px; } }
+
+/* ── Рельса: вертикальная линия, узлы-разделы, плитки появляются по ходу прокрутки ── */
+.track { position: relative; padding-block: clamp(24px, 5vw, 48px) clamp(40px, 7vw, 80px); display: grid; gap: clamp(36px, 6vw, 64px); }
+.track::before { content: ''; position: absolute; left: 19px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+.rs { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 0 16px; scroll-margin-top: 72px; position: relative; }
+.rs__node-col { position: relative; }
+.rs__node { position: sticky; top: 84px; display: grid; place-items: center; width: 40px; height: 40px; background: var(--srf-app);
+  border: 1px solid var(--or-mark); color: var(--or-txt); font-weight: 400; font-size: 12px; letter-spacing: .08em;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+.rs__name { display: none; position: sticky; top: 132px; margin-top: 10px; writing-mode: vertical-rl; transform: rotate(180deg); color: var(--ink-3); width: 40px; text-align: center; }
+@media (min-width: 1100px) { .rs__name { display: block; } }
+@media (max-width: 640px) {
+  .track::before { left: 15px; }
+  .rs { grid-template-columns: 32px minmax(0, 1fr); gap: 0 10px; }
+  .rs__node { width: 32px; height: 32px; font-size: 11px; top: 76px; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+}
+/* появление плиток: чистый CSS по прокрутке; где не поддерживается, плитки видны сразу */
+@keyframes tile-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@supports (animation-timeline: view()) {
+  .rs .tile { animation: tile-in linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+}
+@media (prefers-reduced-motion: reduce) { .rs .tile { animation: none; } }
+.bento-page { padding: 0; }
+
+/* первый экран с фото */
+.photo { position: relative; padding: 0; background: var(--srf-2); aspect-ratio: 1 / 1; overflow: hidden; --c: 26px;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; border: 1px solid var(--glass-edge); clip-path: inherit; }
+.nowstrip { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; }
+.nowstrip h3 { margin: 0; font-size: clamp(15px, 1.6vw, 19px); }
+/* ссылки-стрелки: зона нажатия 44 px */
+.tile .tlink { padding-block: 12px; margin-top: 4px; }
+
+/* факты: одна плитка на ячейку, число не ломается по символам */
+.facts4 .mini { display: block; margin-top: 0; }
+.facts4 .mini b { overflow-wrap: normal; white-space: nowrap; font-size: clamp(24px, 5vw, 34px); }
+.facts4 .mini span { display: block; margin-top: 4px; font-size: 11px; }

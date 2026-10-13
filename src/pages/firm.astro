@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import Rail from '../components/Rail.astro';
+import RailSection from '../components/RailSection.astro';
+import Contact from '../components/Contact.astro';
+import { firm as f, vision, site } from '../data/site.ru';
+const tg = site.links.telegram || '#contact';
+---
+<Base title={f.title} description={f.description}>
+  <Rail>
+    <RailSection id="top" n="01" name="Старт">
+      <div class="tile tile--hl">
+        <div class="tile__row">
+          <p class="label label--or" style="margin:0">{f.label}</p>
+          <span class="status status--build">{f.status}</span>
+        </div>
+        <h1 style="margin-top:18px">{f.h1}</h1>
+        <p class="lead">{f.lead}</p>
+        <a class="btn" href={tg}>{f.cta} →</a>
+      </div>
+    </RailSection>
+
+    <RailSection id="idea" n="02" name="Идея">
+      <div class="tile s7">
+        <p class="label label--or">{f.ideaLabel}</p>
+        <div class="idea">
+          {f.idea.map((t, i) => <div class="idea__row"><span class="code">0{i + 1}</span><h3>{t}</h3></div>)}
+        </div>
+      </div>
+      <div class="tile s5">
+        <p class="label">{vision.teamsLabel}</p>
+        <div class="tlist">
+          {vision.teams.map((t) => <div><h3>{t.title}</h3>{t.note && <span class="code">{t.note}</span>}</div>)}
+        </div>
+        <p class="acc">{vision.first}</p>
+      </div>
+    </RailSection>
+
+    <RailSection id="tools" n="03" name="Инструменты">
+      <div class="tile s6">
+        <p class="label label--or">{f.toolsLabel}</p>
+        <h3>{f.toolsTitle}</h3>
+        <p>{f.toolsText}</p>
+      </div>
+      <div class="tile s6">
+        <p class="label label--or">{f.whoLabel}</p>
+        <div class="chips">{f.who.map((w) => <span class="chip">{w}</span>)}</div>
+      </div>
+      <div class="tile tile--stub"><p class="muted">{f.stub}</p></div>
+    </RailSection>
+
+    <RailSection id="contact" n="04" name="Связь"><Contact /></RailSection>
+  </Rail>
+</Base>
+<style>
+  .idea { margin-top: 8px; }
+  .idea__row { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--border-soft); }
+  .idea__row h3 { margin: 0; font-size: clamp(16px, 2vw, 20px); }
+</style>

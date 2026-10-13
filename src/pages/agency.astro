@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import Rail from '../components/Rail.astro';
+import RailSection from '../components/RailSection.astro';
+import Contact from '../components/Contact.astro';
+import { agency as a, facts, site } from '../data/site.ru';
+const tg = site.links.telegram || '#contact';
+---
+<Base title={a.title} description={a.description}>
+  <Rail>
+    <RailSection id="top" n="01" name="Старт">
+      <div class="tile tile--hl">
+        <div class="tile__row">
+          <p class="label label--or" style="margin:0">{a.label}</p>
+          <span class="status">{a.status}</span>
+        </div>
+        <h1 style="margin-top:18px">{a.h1}</h1>
+        <p class="lead">{a.lead}</p>
+        <a class="btn" href={tg}>{a.cta} →</a>
+      </div>
+    </RailSection>
+
+    <RailSection id="include" n="02" name="Состав">
+      <div class="tile tile--soft">
+        <p class="label label--or">{a.includeLabel}</p>
+        <h2>{a.includeTitle}</h2>
+        <div class="inc">
+          {a.include.map((i) => (
+            <div class="inc__item">
+              <span class="code">{i.code}</span>
+              <h3>{i.title}</h3>
+              <p>{i.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </RailSection>
+
+    <RailSection id="facts" n="03" name="Факты">
+      <div class="tile">
+        <p class="label label--or">{a.factsLabel}</p>
+        <div class="facts4">
+          {facts.map((f) => <div class="mini"><div><b>{f.value}</b><span>{f.label}</span></div></div>)}
+        </div>
+      </div>
+    </RailSection>
+
+    <RailSection id="case" n="04" name="Пример">
+      <div class="tile tile--stub">
+        <p class="label">{a.caseLabel}</p>
+        <h3>{a.caseTitle}</h3>
+        <p>{a.caseText}</p>
+      </div>
+    </RailSection>
+
+    <RailSection id="interview" n="05" name="Интервью">
+      <div class="tile">
+        <p class="label label--or">{a.interview.label}</p>
+        <h3>{a.interview.title}</h3>
+        <p>{a.interview.text}</p>
+        <a class="tlink" href={tg}>{a.interview.cta}</a>
+      </div>
+    </RailSection>
+
+    <RailSection id="contact" n="06" name="Связь"><Contact /></RailSection>
+  </Rail>
+</Base>
+<style>
+  .inc { display: grid; gap: 12px; margin-top: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+  .inc__item { padding: 18px; background: var(--srf-1); border: 1px solid var(--border); min-width: 0; }
+  .inc__item p { font-size: 15px; }
+</style>
