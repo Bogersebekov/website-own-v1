@@ -34,9 +34,11 @@
 ## Хостинг и домен
 
 - Сборка и деплой: `.github/workflows/deploy.yml`, push в `main` → сайт обновлён за 1–2 минуты.
-- Пока домен не подключён: `https://bogersebekov.github.io/website-own-v1/`.
-- Подключить домен: файл `public/CNAME` с доменом, в `astro.config.mjs` `SITE_URL` и `SITE_BASE=/`,
-  у регистратора A-записи GitHub Pages (185.199.108.153, .109.153, .110.153, .111.153) или CNAME на
-  `bogersebekov.github.io` для поддомена. Инструкция: https://docs.astro.build/en/guides/deploy/github/
+- Домен: **jetixagency.com** (слово Руслана 13.10). `public/CNAME` уже лежит, `site` в `astro.config.mjs` = домен, `base` = `/`.
+- DNS у регистратора (делает Руслан): для `jetixagency.com` четыре A-записи 185.199.108.153, 185.199.109.153,
+  185.199.110.153, 185.199.111.153; для `www` CNAME на `bogersebekov.github.io`. Старые A-записи на VPS
+  с корня убрать, сервер видео перевести на поддомен (например `video.jetixagency.com` → IP VPS).
+- В GitHub: Settings → Pages → Custom domain `jetixagency.com`, после проверки DNS включить Enforce HTTPS.
+  Инструкция: https://docs.astro.build/en/guides/deploy/github/
 - ⚠️ GitHub Pages на приватном репозитории требует GitHub Pro. Если тариф бесплатный — репозиторий
   делаем публичным (код сайта и так виден всем) или переезжаем на Cloudflare Pages (тоже бесплатно).
