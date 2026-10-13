@@ -1,0 +1,222 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Демо-страница анимаций. Не в меню, не в sitemap, noindex. Главную не трогает.
+// Всё на CSS + 15 строк JS, без библиотек: вес ≈ 0 КБ. Анимируем только transform, opacity, clip-path, filter.
+const words = ['Заголовок', 'появляется', 'по', 'словам'];
+const steps = ['Интервью', 'Упаковка', 'Продукт'];
+const rooms = ['01', '02', '03', '04'];
+---
+<Base title="Демо анимаций" description="Черновик: варианты анимаций для выбора" noindex>
+  <div class="progress" aria-hidden="true"></div>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="label label--or">Демо · 13.10.2026</p>
+      <h1>Анимации: выбери, что оставить</h1>
+      <span class="hair"></span>
+      <p class="lead">Шесть вариантов в стиле Jetix. У каждого есть кнопка «Повторить» и подпись: сколько длится и что стоит по весу. Тексты здесь заглушки, на главную ничего не попало.</p>
+    </div>
+  </section>
+
+  <!-- A -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head">
+        <p class="code">A · заголовок по словам</p>
+        <button class="btn btn--ghost replay" type="button">Повторить</button>
+      </header>
+      <h2 class="a-words" aria-label={words.join(' ')}>
+        {words.map((w, i) => <span class="a-word" style={`--i:${i}`} aria-hidden="true">{w}&nbsp;</span>)}
+      </h2>
+      <p class="muted note">Слова выходят из размытия за 240 мс с шагом 60 мс, один раз. Идея с rauno.me/craft (Blur Reveal), код наш. Вес: 0 КБ. Для героя: лучший кандидат.</p>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head">
+        <p class="code">B · раскрытие фото срезом</p>
+        <button class="btn btn--ghost replay" type="button">Повторить</button>
+      </header>
+      <div class="b-frame frame">
+        <div class="b-photo chamfer" style="--c:34px">
+          <span class="b-ph">место под фото</span>
+        </div>
+      </div>
+      <p class="muted note">Рамка раскрывается из угла по форме нашего среза за 300 мс (clip-path). Когда придёт фото, оно встанет на это место. Вес: 0 КБ.</p>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head">
+        <p class="code">C · вместо текста: схема из форм</p>
+        <button class="btn btn--ghost replay" type="button">Повторить</button>
+      </header>
+      <div class="c-flow">
+        <svg class="c-line" viewBox="0 0 1000 4" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="0" y1="2" x2="1000" y2="2" pathLength="1" />
+        </svg>
+        {steps.map((s, i) => (
+          <div class="c-node" style={`--i:${i}`}>
+            <span class="c-ico chamfer" style="--c:12px" aria-hidden="true">
+              {i === 0 && <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h13" /></svg>}
+              {i === 1 && <svg viewBox="0 0 24 24"><path d="M4 8l8-4 8 4v8l-8 4-8-4z M4 8l8 4 8-4 M12 12v8" /></svg>}
+              {i === 2 && <svg viewBox="0 0 24 24"><path d="M5 19L19 5 M9 5h10v10" /></svg>}
+            </span>
+            <span class="c-cap">{s}</span>
+          </div>
+        ))}
+      </div>
+      <p class="muted note">Абзац про процесс заменён на линию, которая прорисовывается, и три значка со словом. Длинный текст уходит, остаётся одно слово на шаг. Вес: 0 КБ, значки SVG. Это ответ на «слишком много текста».</p>
+    </div>
+  </section>
+
+  <!-- D -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head">
+        <p class="code">D · карточки ступенькой</p>
+        <button class="btn btn--ghost replay" type="button">Повторить</button>
+      </header>
+      <div class="grid grid--4 d-grid">
+        {rooms.map((r, i) => (
+          <article class="card d-card" style={`--i:${i}`}>
+            <span class="card__top"></span>
+            <p class="code">Комната {r}</p>
+            <div class="d-bar"><i></i></div>
+          </article>
+        ))}
+      </div>
+      <p class="muted note">Четыре карточки появляются со сдвигом 70 мс, каждая 280 мс. Внутри вместо абзаца шкала или значок. Наведение: подъём на 3 px. Вес: 0 КБ.</p>
+    </div>
+  </section>
+
+  <!-- E -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head">
+        <p class="code">E · линия прогресса и пункты меню</p>
+      </header>
+      <nav class="e-nav" aria-label="Пример меню">
+        <a href="#e">Главная</a><a href="#e">Журнал</a><a href="#e">Контакты</a>
+      </nav>
+      <p class="muted note">Сверху страницы тонкая оранжевая линия растёт по мере прокрутки (сейчас видна, прокрути вниз). Подчёркивание пунктов прорисовывается за 200 мс при наведении. В браузерах без нужной функции линия просто не показывается. Вес: 0 КБ, работает вне главного потока.</p>
+    </div>
+  </section>
+
+  <!-- F -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head">
+        <p class="code">F · живой фон: медленное кольцо</p>
+      </header>
+      <div class="f-stage" aria-hidden="true">
+        <svg viewBox="-100 -100 200 200" class="f-ring">
+          <circle r="80" /><circle r="56" class="f-d" /><path d="M-80 0H-64 M80 0H64 M0 -80V-64 M0 80V64" />
+        </svg>
+      </div>
+      <p class="muted note">Фоновая петля 60 секунд, только вращение. Единственная анимация, которая дольше 300 мс: это фон, не интерфейс. Ставится на паузу, когда блок вне экрана. Вес: 0 КБ.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="label">Про вес и «лаги»</p>
+      <p class="lead">Все шесть работают на CSS и браузер рисует их на видеокарте. Для сравнения: Rive добавляет ≈150 КБ и WebAssembly, Lottie ≈60 КБ плюс файл, GSAP ≈25 КБ. Цифры примерные, проверим при выборе. Подробности в <code>proposals/2026-10-13-animacii.md</code>.</p>
+      <p class="muted">Если у человека включено «уменьшить движение», все блоки сразу показывают итог без анимации.</p>
+    </div>
+  </section>
+
+  <script>
+    const demos = document.querySelectorAll<HTMLElement>('[data-demo]');
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) {
+        const el = e.target as HTMLElement;
+        el.classList.toggle('run', e.isIntersecting);
+        if (!e.isIntersecting) el.classList.remove('is-play');
+        else requestAnimationFrame(() => el.classList.add('is-play'));
+      }
+    }, { threshold: 0.35 });
+    demos.forEach((d) => {
+      io.observe(d);
+      d.querySelector('.replay')?.addEventListener('click', () => {
+        d.classList.remove('is-play');
+        void d.offsetWidth;
+        requestAnimationFrame(() => d.classList.add('is-play'));
+      });
+    });
+  </script>
+</Base>
+
+<style>
+  .demo__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .note { margin-top: 28px; max-width: 64ch; font-size: 15px; }
+
+  /* A: слова из размытия */
+  .a-words { font-size: clamp(30px, 7vw, 64px); }
+  .a-word { display: inline-block; opacity: 0; filter: blur(10px); transform: translateY(8px);
+    transition: opacity 240ms var(--ease), filter 240ms var(--ease), transform 240ms var(--ease); transition-delay: calc(var(--i) * 60ms); }
+  .is-play .a-word { opacity: 1; filter: none; transform: none; }
+
+  /* B: раскрытие среза */
+  .b-frame { max-width: 520px; }
+  .b-photo { aspect-ratio: 4 / 5; display: grid; place-items: center; background: var(--glass-bg); position: relative;
+    clip-path: polygon(0 0, 0 0, 0 0, 0 0, 0 0, 0 0);
+    transition: clip-path 300ms var(--ease); }
+  .is-play .b-photo { clip-path: polygon(34px 0, 100% 0, 100% calc(100% - 34px), calc(100% - 34px) 100%, 0 100%, 0 34px); }
+  .b-ph { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; }
+
+  /* C: схема */
+  .c-flow { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-top: 6px; }
+  .c-line { position: absolute; left: 8%; right: 8%; top: 36px; width: 84%; height: 4px; overflow: visible; }
+  .c-line line { stroke: var(--or-mark); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 300ms var(--ease); }
+  .is-play .c-line line { stroke-dashoffset: 0; transition-duration: 800ms; transition-timing-function: linear; }
+  .c-node { position: relative; display: grid; justify-items: center; gap: 14px; opacity: 0; transform: translateY(10px);
+    transition: opacity 240ms var(--ease), transform 240ms var(--ease); transition-delay: calc(var(--i) * 260ms); }
+  .is-play .c-node { opacity: 1; transform: none; }
+  .c-ico { width: 60px; height: 60px; display: grid; place-items: center; background: var(--srf-1); border: 1px solid var(--glass-edge); }
+  .c-ico svg { width: 26px; height: 26px; fill: none; stroke: var(--acc-txt); stroke-width: 1.6; stroke-linecap: square; stroke-linejoin: miter; }
+  .c-cap { font-weight: 400; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); }
+
+  /* D: карточки */
+  .d-card { opacity: 0; transform: translateY(14px); transition: opacity 280ms var(--ease), transform 280ms var(--ease), background var(--t-fast) var(--ease); transition-delay: calc(var(--i) * 70ms), calc(var(--i) * 70ms), 0ms; min-height: 120px; }
+  .is-play .d-card { opacity: 1; transform: none; }
+  .is-play .d-card:hover { transform: translateY(-3px); transition-delay: 0ms; }
+  .d-bar { margin-top: 22px; height: 4px; background: var(--border-soft); }
+  .d-bar i { display: block; height: 100%; width: 100%; background: var(--acc-fill); transform-origin: left; transform: scaleX(0); transition: transform 300ms var(--ease); transition-delay: calc(var(--i) * 70ms + 200ms); }
+  .is-play .d-bar i { transform: scaleX(calc(.35 + var(--i) * .2)); }
+
+  /* E: прогресс и меню */
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 20; background: var(--or-mark); transform-origin: left; transform: scaleX(0); pointer-events: none; }
+  @supports (animation-timeline: scroll()) {
+    .progress { animation: grow linear both; animation-timeline: scroll(root); }
+    @keyframes grow { to { transform: scaleX(1); } }
+  }
+  .e-nav { display: flex; gap: 32px; flex-wrap: wrap; font-weight: 400; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; }
+  .e-nav a { position: relative; color: var(--ink-2); padding: 6px 0; transition: color var(--t-fast) var(--ease); }
+  .e-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--or-mark); transform: scaleX(0); transform-origin: left; transition: transform var(--t-fast) var(--ease); }
+  .e-nav a:hover { color: var(--ink-max); }
+  .e-nav a:hover::after, .e-nav a:focus-visible::after { transform: scaleX(1); }
+
+  /* F: кольцо */
+  .f-stage { display: grid; place-items: center; padding: 24px 0; }
+  .f-ring { width: min(280px, 70vw); height: auto; fill: none; stroke: var(--or-mark); stroke-width: .6; opacity: .7; animation: spin 60s linear infinite; animation-play-state: paused; }
+  .run .f-ring { animation-play-state: running; }
+  .f-d { stroke-dasharray: 2 5; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 560px) { .c-ico { width: 48px; height: 48px; } .c-line { top: 30px; } .c-cap { font-size: 11px; letter-spacing: .1em; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .a-word, .c-node, .d-card { opacity: 1; filter: none; transform: none; transition: none; }
+    .b-photo { clip-path: polygon(34px 0, 100% 0, 100% calc(100% - 34px), calc(100% - 34px) 100%, 0 100%, 0 34px); transition: none; }
+    .c-line line { stroke-dashoffset: 0; transition: none; }
+    .d-bar i { transform: scaleX(.5); transition: none; }
+    .progress, .f-ring { animation: none; }
+    .progress { display: none; }
+  }
+</style>
