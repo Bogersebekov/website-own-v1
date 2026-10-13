@@ -1,0 +1,23 @@
+---
+import { projects, site } from '../data/site.ru';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = (h: string, title: string) => {
+  if (title === 'Life OS') return site.links.lifeOs || '#contact';
+  return `${base}${h}`;
+};
+---
+<span id="projects" class="anchor" aria-hidden="true"></span>
+{projects.items.map((p) => (
+  <div class="tile s4">
+    <div class="tile__row">
+      <span class="code">{p.code}</span>
+      <span class={`status ${p.tone === 'build' ? 'status--build' : ''}`}>{p.status}</span>
+    </div>
+    <h3>{p.title}</h3>
+    <p>{p.text}</p>
+    <a class="tlink" href={href(p.cta.href, p.title)}>{p.cta.label}</a>
+  </div>
+))}
+<style>
+  .anchor { grid-column: 1 / -1; height: 0; scroll-margin-top: 80px; }
+</style>

@@ -1,0 +1,19 @@
+---
+import { vision } from '../data/site.ru';
+---
+<div class="tile tile--hl s7" id="vision">
+  <p class="label label--or">{vision.label}</p>
+  <div class="big80">{vision.number}<small>{vision.unit}</small></div>
+  <p style="margin-top:16px">{vision.lead}</p>
+  <p class="tfoot">{vision.text}</p>
+</div>
+<div class="tile s5">
+  <p class="label">{vision.teamsLabel}</p>
+  <div class="tlist">
+    {vision.teams.map((t) => (
+      <div><h3>{t.title}</h3>{t.note && <span class="code">{t.note}</span>}</div>
+    ))}
+  </div>
+  <p class="acc">{vision.first}</p>
+</div>
+<style>#vision { scroll-margin-top: 80px; }</style>

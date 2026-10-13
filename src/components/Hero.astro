@@ -1,38 +1,14 @@
 ---
-import { hero, site } from '../data/site.ru';
-const tg = site.links.telegram || hero.secondary.href;
+import { hero, nowStatus, site } from '../data/site.ru';
+const tg = site.links.telegram || hero.primary.href;
 ---
-<section class="hero section" id="top">
-  <span class="rail code">JETIX · RU · 2026</span>
-  <div class="wrap hero__in">
-    <div class="hero__txt">
-      <p class="label label--or reveal">{hero.label}</p>
-      <h1 class="reveal" style="--d:60ms">{hero.title}</h1>
-      <span class="hair reveal" style="--d:120ms"></span>
-      <p class="lead reveal" style="--d:160ms">{hero.lead}</p>
-      <div class="hero__cta reveal" style="--d:220ms">
-        <a class="btn" href={hero.primary.href}>{hero.primary.label}</a>
-        <a class="btn btn--ghost" href={tg}>{hero.secondary.label}</a>
-      </div>
-    </div>
-    <div class="hero__photo reveal" style="--d:140ms" aria-hidden="true">
-      <div class="frame hero__img chamfer" style="--c:16px">
-        <span class="code hero__imgLabel">{hero.photoLabel}</span>
-      </div>
-    </div>
-  </div>
-</section>
-<style>
-  .hero { padding-top: clamp(48px, 8vw, 96px); }
-  .hero__in { display: grid; gap: 36px; align-items: center; }
-  .hero__cta { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; margin-top: 28px; }
-  .hero__photo { order: 1; }
-  .hero__img { aspect-ratio: 16 / 10; max-width: 420px; background:
-    linear-gradient(160deg, var(--srf-2), var(--srf-app) 70%); display: grid; place-items: end start; padding: 14px; }
-  .hero__imgLabel { color: var(--ink-3); }
-  @media (min-width: 900px) {
-    .hero__in { grid-template-columns: 1.25fr 1fr; gap: 56px; }
-    .hero__photo { order: 0; justify-self: end; width: 100%; }
-    .hero__img { width: 100%; aspect-ratio: 4 / 5; }
-  }
-</style>
+<div class="tile tile--hl s8" id="top">
+  <p class="label label--or">{hero.label}</p>
+  <h1>{hero.title}</h1>
+  <p class="lead">{hero.lead}</p>
+  <a class="btn" href={tg}>{hero.primary.label} →</a>
+</div>
+<div class="tile tile--col s4">
+  <span class="status">{nowStatus.label}</span>
+  <h3>{nowStatus.text}</h3>
+</div>
