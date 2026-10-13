@@ -253,3 +253,33 @@ img { max-width: 100%; display: block; }
   .hero--1 .hero__text h1, .hero--2 .hero__text h1, .hero--3 .hero__text h1 { font-size: clamp(18px, 4.9vw, 34px); }
   .hero--2 .hero__text { padding: 22px 20px; }
 }
+
+/* первый экран на всю высоту окна: при открытии виден только герой, дальше разделы по прокрутке */
+.rs { padding-block: clamp(64px, 11vw, 140px); }
+@media (min-width: 900px) {
+  .rs:has(.hero) { min-height: calc(100svh - 64px); display: flex; flex-direction: column; padding-block: 28px 32px; }
+  .rs:has(.hero) > .bento { flex: 1; grid-template-rows: minmax(0, 1fr); }
+  .hero { min-height: 0; grid-template-rows: minmax(0, 1fr) auto; }
+  .hero__text { align-self: center; }
+  .hero--1 .photo { aspect-ratio: auto; max-height: none; height: 100%; }
+  .hero--1 .photo { grid-row: 1; grid-column: 2; }
+  .hero--1 .hero__text { grid-row: 1; grid-column: 1; }
+  .hero--1 > .nowstrip { grid-row: 2; }
+  .hero--1 { align-items: stretch; }
+  .hero--2 .photo { inset: 0; }
+  .hero--2 { grid-template-rows: minmax(0, 1fr) auto; }
+  .hero--2 .hero__text { align-self: center; }
+  .hero--3 { grid-template-rows: minmax(0, 1fr) auto; }
+  .hero--3 .photo { aspect-ratio: auto; height: 100%; grid-row: 1; order: 0; }
+  .hero--3 .hero__text { order: 0; position: absolute; left: 0; bottom: 96px; z-index: 2; padding: 0 clamp(24px, 4vw, 56px); max-width: 880px; }
+  .hero--3 .photo::before { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(19,17,28,.95) 0%, rgba(19,17,28,.55) 45%, rgba(19,17,28,0) 75%); z-index: 1; }
+  .hero--3 .nowstrip { grid-row: 2; margin-top: 0; margin-inline: 0; }
+}
+@media (min-width: 900px) {
+  .hero--3 .photo { min-height: 0; }
+  .hero--3 .photo img { position: absolute; inset: 0; }
+  .hero--2 .hero__text { max-width: 880px; }
+  .hero--2 .hero__text h1 { font-size: clamp(22px, 3vw, 42px); }
+  .hero--3 .hero__text h1 { font-size: clamp(22px, 4vw, 54px); }
+}
+@media (min-width: 900px) { .hero--3 .hero__text h1 { font-size: clamp(22px, 3.2vw, 44px); } }
