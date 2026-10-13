@@ -1,0 +1,43 @@
+/* hero-fx.css — свечение, тени и движения 3, 6, 7 для первого экрана. Только transform и opacity.
+   Цвета из токенов сайта. Длительности интерфейса ≤300 мс, свечение и волна фоновые петли. */
+
+.fx { position: relative; isolation: isolate; }
+
+/* Свечение сзади: два мягких пятна перекатываются из стороны в сторону. Градиент уже размыт сам,
+   blur-фильтр не анимируем, двигаем только transform. */
+.fx__glow { position: absolute; inset: -10% -20%; z-index: -1; pointer-events: none; overflow: hidden; }
+.fx__glow i { position: absolute; top: 5%; width: 55%; aspect-ratio: 1; border-radius: 50%; will-change: transform; }
+.fx__glow i:nth-child(1) { left: 0; background: radial-gradient(closest-side, rgba(255, 85, 0, .26), transparent 72%); animation: fx-roll-a 14s ease-in-out infinite alternate; }
+.fx__glow i:nth-child(2) { right: 0; top: 25%; background: radial-gradient(closest-side, rgba(48, 110, 232, .20), transparent 72%); animation: fx-roll-b 18s ease-in-out infinite alternate; }
+@keyframes fx-roll-a { from { transform: translate3d(-8%, 0, 0) scale(1); } to { transform: translate3d(70%, 12%, 0) scale(1.15); } }
+@keyframes fx-roll-b { from { transform: translate3d(8%, 0, 0) scale(1.1); } to { transform: translate3d(-70%, -10%, 0) scale(.95); } }
+
+/* Тени: объём под стеклом, под кнопками и чипами, мягкая тень заголовка */
+.fx .fx-title { text-shadow: 0 2px 24px rgba(0, 0, 0, .55); }
+.fx .fx-plate { filter: drop-shadow(0 18px 28px rgba(0, 0, 0, .45)); }
+.fx .fx-btn { filter: drop-shadow(0 8px 16px rgba(31, 78, 173, .35)); }
+
+/* 3. Печать подписи */
+.fx .fx-typed { min-height: 1.5em; }
+
+/* 6. Глитч заголовка при наведении, один раз, 300 мс */
+.fx .fx-glitch { position: relative; }
+.fx .fx-glitch::before, .fx .fx-glitch::after { content: attr(data-text); position: absolute; inset: 0; pointer-events: none; clip-path: inset(0 0 100% 0); mix-blend-mode: screen; font: inherit; text-transform: inherit; line-height: inherit; text-shadow: none; }
+.fx .fx-glitch::before { color: var(--or-mark); transform: translate(-3px, 0); }
+.fx .fx-glitch::after { color: var(--acc-edge); transform: translate(3px, 0); }
+.fx .fx-glitch:hover::before, .fx .fx-glitch:hover::after, .fx .fx-glitch:focus-visible::before, .fx .fx-glitch:focus-visible::after { animation: fx-slice 300ms steps(1) 1; }
+@keyframes fx-slice { 0% { clip-path: inset(0 0 100% 0); } 20% { clip-path: inset(18% 0 62% 0); } 45% { clip-path: inset(55% 0 28% 0); } 70% { clip-path: inset(72% 0 12% 0); } 100% { clip-path: inset(0 0 100% 0); } }
+
+/* 7. Бегущая волна по плашке: до 6% альфы, раз в 7 секунд */
+.fx .fx-wave { position: relative; overflow: hidden; }
+.fx .fx-wave::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 0 40%, rgba(247, 247, 248, .06) 50%, transparent 60% 100%); background-size: 100% 300%; background-position: 0 100%; animation: fx-wave 7s linear infinite; }
+@keyframes fx-wave { to { background-position: 0 -100%; } }
+
+/* пауза, когда блок вне экрана (класс ставит скрипт) */
+.fx:not(.fx--on) .fx__glow i, .fx:not(.fx--on) .fx-wave::after { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx__glow i, .fx .fx-wave::after, .fx .fx-glitch::before, .fx .fx-glitch::after { animation: none; }
+  .fx__glow i:nth-child(1) { transform: translate3d(10%, 0, 0); }
+  .fx__glow i:nth-child(2) { transform: translate3d(-10%, 0, 0); }
+}

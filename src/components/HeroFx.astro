@@ -1,0 +1,23 @@
+---
+// Обёртка первого экрана: свечение сзади + тени + движения 3, 6, 7. Внутрь кладётся любой герой.
+// Классы для содержимого: fx-title (заголовок, тень), fx-glitch + data-text (глитч), fx-typed + data-type (печать),
+// fx-plate (стеклянная плашка, тень), fx-wave (волна по плашке), fx-btn (тень под кнопкой).
+import '../styles/hero-fx.css';
+---
+<div class="fx" data-fx>
+  <div class="fx__glow" aria-hidden="true"><i></i><i></i></div>
+  <slot />
+</div>
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function typeIt(el: HTMLElement) {
+    const full = el.dataset.type || '';
+    if (reduce) { el.textContent = full; return; }
+    el.textContent = ''; let i = 0;
+    const t = window.setInterval(() => { el.textContent = full.slice(0, ++i); if (i >= full.length) clearInterval(t); }, 30);
+  }
+  document.querySelectorAll<HTMLElement>('[data-fx]').forEach((fx) => {
+    fx.querySelectorAll<HTMLElement>('.fx-typed').forEach(typeIt);
+    new IntersectionObserver((es) => es.forEach((e) => fx.classList.toggle('fx--on', e.isIntersecting))).observe(fx);
+  });
+</script>

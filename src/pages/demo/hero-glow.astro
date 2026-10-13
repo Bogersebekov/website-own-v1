@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import HeroFx from '../../components/HeroFx.astro';
+import { hero } from '../../data/site.ru';
+const chips = ['Позиционирование', 'Контент', 'Интервью', 'Сайт', 'Продажи'];
+---
+<Base title="Демо: первый экран со свечением" description="Черновик: вариант 1 со свечением, тенями и движениями 3, 6, 7" noindex>
+  <HeroFx>
+    <section class="section hg">
+      <div class="wrap">
+        <p class="label label--or fx-typed" data-type={hero.label}></p>
+        <h1 class="fx-title fx-glitch hg__t" data-text={hero.title} tabindex="0">{hero.title}</h1>
+        <span class="hair"></span>
+        <p class="lead">Помогаю специалистам выйти в публичность и зарабатывать на экспертизе.</p>
+        <ul class="hg__chips">{chips.map((c) => <li class="hg__chip chamfer fx-plate fx-wave" style="--c:10px">{c}</li>)}</ul>
+        <div class="hg__cta"><a class="btn fx-btn" href="#top">{hero.primary.label}</a><a class="btn btn--ghost" href="#top">{hero.secondary.label}</a></div>
+      </div>
+    </section>
+  </HeroFx>
+</Base>
+<style>
+  .hg { padding-top: clamp(64px, 11vw, 140px); padding-bottom: clamp(64px, 11vw, 140px); }
+  .hg__t { max-width: 18ch; font-size: clamp(30px, 6.2vw, 64px); }
+  .hg__chips { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .hg__chip { padding: 10px 18px; background: var(--glass-bg); font: 400 12px var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+  .hg__cta { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; margin-top: 30px; }
+</style>
