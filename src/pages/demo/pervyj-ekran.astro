@@ -1,0 +1,216 @@
+---
+import Base from '../../layouts/Base.astro';
+import { hero } from '../../data/site.ru';
+
+// Демо 3: три варианта первого экрана, движения 3, 6, 7 из киберпанк-демо и шесть плашек поинтереснее.
+// Тексты героя настоящие (из site.ru.ts), чипы собраны из слов его же абзаца. Фото и коды в плашках заглушки.
+// Не в меню, не в sitemap, noindex.
+const chips = ['Позиционирование', 'Контент', 'Интервью', 'Сайт', 'Продажи'];
+const plates = [
+  { k: 'a', t: 'Двойной срез', d: 'Срезаны два противоположных угла, как деталь на станке.' },
+  { k: 'b', t: 'Смещённая рамка', d: 'Контур сдвинут за плашку: объём без тени.' },
+  { k: 'c', t: 'Выноска', d: 'Тонкая линия уходит к точке: плашка «показывает» на предмет.' },
+  { k: 'd', t: 'Штриховка и язычок', d: 'Полоса значения под диагональной штриховкой.' },
+  { k: 'e', t: 'Слои стопкой', d: 'Три слоя, при наведении расходятся на пару пикселей.' },
+  { k: 'f', t: 'Бегущая кромка', d: 'По верхней кромке проходит световая точка, раз в 6 секунд.' },
+];
+---
+<Base title="Демо: первый экран и плашки" description="Черновик: варианты первого экрана, движения 3, 6, 7 и плашки" noindex>
+  <div class="edge" aria-hidden="true">REF JTX-DEMO-03 · 00032 05 54 08</div>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="label label--or">Демо 3 · 13.10.2026</p>
+      <h1>Первый экран, три варианта</h1>
+      <span class="hair"></span>
+      <p class="lead">В каждом применены движения 3 (печать), 6 (глитч при наведении) и 7 (волна). Текст героя твой, без правок.</p>
+    </div>
+  </section>
+
+  <!-- H1 -->
+  <section class="section demo h1" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Вариант 1 · название, одна строка, чипы</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <p class="label label--or typed" data-type={hero.label}></p>
+      <h2 class="big glitch" data-text={hero.title} tabindex="0">{hero.title}</h2>
+      <p class="lead">Помогаю специалистам выйти в публичность и зарабатывать на экспертизе.</p>
+      <ul class="chips">{chips.map((c, i) => <li class="chip chamfer" style={`--c:10px;--i:${i}`}>{c}</li>)}</ul>
+      <div class="cta"><a class="btn" href="#h1">{hero.primary.label}</a><a class="btn btn--ghost" href="#h1">{hero.secondary.label}</a></div>
+      <p class="muted note">Абзац заменён одной строкой и пятью словами из него. Самый короткий по тексту.</p>
+    </div>
+  </section>
+
+  <!-- H2 -->
+  <section class="section demo h2" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Вариант 2 · терминал: заголовок слева, панель справа</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <div class="h2__grid">
+        <div>
+          <p class="label label--or typed" data-type={hero.label}></p>
+          <h2 class="big glitch" data-text={hero.title} tabindex="0">{hero.title}</h2>
+          <div class="cta"><a class="btn" href="#h2">{hero.primary.label}</a><a class="btn btn--ghost" href="#h2">{hero.secondary.label}</a></div>
+        </div>
+        <aside class="panel tabbed wave">
+          <span class="code">Сейчас · REF JTX-02</span>
+          <ul><li>Jetix Agency</li><li>Консалтинговая фирма</li><li>Интервью</li><li>Live OS</li></ul>
+          <span class="code">Четыре дела, статусы в блоке ниже</span>
+        </aside>
+      </div>
+      <p class="muted note">Абзац уходит в панель: четыре дела списком (названия из блока «Чем занят»). Справа бегущая волна.</p>
+    </div>
+  </section>
+
+  <!-- H3 -->
+  <section class="section demo h3" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Вариант 3 · крупное фото, заголовок поверх</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <div class="h3__stage frame chamfer wave" style="--c:34px">
+        <span class="code h3__ph">Здесь фото · IMG_01</span>
+        <div class="h3__txt">
+          <p class="label label--or typed" data-type={hero.label}></p>
+          <h2 class="big glitch" data-text={hero.title} tabindex="0">{hero.title}</h2>
+          <div class="cta"><a class="btn" href="#h3">{hero.primary.label}</a></div>
+        </div>
+      </div>
+      <p class="muted note">Фото на всю ширину, текст на стекле поверх. Подходит, когда придёт сильное фото. Сейчас заглушка.</p>
+    </div>
+  </section>
+
+  <!-- Рельса -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Рельса · два варианта</p></header>
+      <p class="code">Вариант 1 · простая линия</p>
+      <div class="rail1"></div>
+      <p class="code" style="margin-top:28px">Вариант 2 · сегменты</p>
+      <div class="rail2"><i></i><i></i><i class="on"></i><i></i></div>
+      <p class="muted note">Не уверен, какую «рельсу» ты имел в виду, поэтому обе тут. Скажи номер или опиши словами.</p>
+    </div>
+  </section>
+
+  <!-- Плашки -->
+  <section class="section demo" data-demo>
+    <div class="wrap">
+      <header class="demo__head"><p class="code">Плашки · шесть вариантов поинтереснее</p><button class="btn btn--ghost replay" type="button">Повторить</button></header>
+      <div class="plates">
+        {plates.map((p, i) => (
+          <article class={`pl pl--${p.k}`} style={`--i:${i}`} tabindex="0">
+            <span class="pl__l1"></span><span class="pl__l2"></span>
+            <span class="code">Плашка {p.k.toUpperCase()}</span>
+            <h3>{p.t}</h3>
+            <p>{p.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function typeIt(el: HTMLElement) {
+      const full = el.dataset.type || '';
+      if (reduce) { el.textContent = full; return; }
+      el.textContent = ''; let i = 0;
+      const t = window.setInterval(() => { el.textContent = full.slice(0, ++i); if (i >= full.length) clearInterval(t); }, 30);
+    }
+    function play(d: HTMLElement) {
+      d.classList.remove('is-play'); void d.offsetWidth;
+      requestAnimationFrame(() => d.classList.add('is-play'));
+      d.querySelectorAll<HTMLElement>('.typed').forEach(typeIt);
+    }
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) {
+        const el = e.target as HTMLElement;
+        el.classList.toggle('run', e.isIntersecting);
+        if (e.isIntersecting) play(el); else el.classList.remove('is-play');
+      }
+    }, { threshold: 0.3 });
+    document.querySelectorAll<HTMLElement>('[data-demo]').forEach((d) => { io.observe(d); d.querySelector('.replay')?.addEventListener('click', () => play(d)); });
+  </script>
+</Base>
+
+<style>
+  .demo__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .note { margin-top: 28px; max-width: 64ch; font-size: 15px; }
+  .edge { display: none; }
+  @media (min-width: 1200px) { .edge { display: block; position: fixed; left: 14px; top: 50%; transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl; font-weight: 400; font-size: 10px; letter-spacing: .35em; color: var(--ink-orn); pointer-events: none; z-index: 1; } }
+  .typed { min-height: 1.5em; }
+  .big { font-size: clamp(28px, 5.4vw, 56px); max-width: 18ch; margin-bottom: 22px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; margin-top: 28px; }
+
+  /* глитч 6: при наведении, один раз, 300 мс */
+  .glitch { position: relative; display: block; }
+  .glitch::before, .glitch::after { content: attr(data-text); position: absolute; inset: 0; pointer-events: none; clip-path: inset(0 0 100% 0); mix-blend-mode: screen; font: inherit; text-transform: inherit; line-height: inherit; }
+  .glitch::before { color: var(--or-mark); transform: translate(-3px, 0); }
+  .glitch::after { color: var(--acc-edge); transform: translate(3px, 0); }
+  .glitch:hover::before, .glitch:hover::after, .glitch:focus-visible::before, .glitch:focus-visible::after { animation: slice 300ms steps(1) 1; }
+  @keyframes slice { 0% { clip-path: inset(0 0 100% 0); } 20% { clip-path: inset(18% 0 62% 0); } 45% { clip-path: inset(55% 0 28% 0); } 70% { clip-path: inset(72% 0 12% 0); } 100% { clip-path: inset(0 0 100% 0); } }
+
+  /* волна 7: ≤6% альфы, 7 секунд */
+  .wave { position: relative; overflow: hidden; }
+  .wave::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 0 40%, rgba(247,247,248,.06) 50%, transparent 60% 100%); background-size: 100% 300%; background-position: 0 100%; animation: wave 7s linear infinite; animation-play-state: paused; }
+  .run .wave::after { animation-play-state: running; }
+  @keyframes wave { to { background-position: 0 -100%; } }
+
+  /* форма: язычок */
+  .tabbed { clip-path: polygon(0 0, 78px 0, 88px 5px, 100% 5px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%); }
+
+  /* H1 */
+  .chips { list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { padding: 10px 18px; background: var(--glass-bg); font: 400 12px var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink);
+    opacity: 0; transform: translateY(8px); transition: opacity 240ms var(--ease), transform 240ms var(--ease); transition-delay: calc(var(--i) * 60ms + 200ms); }
+  .is-play .chip { opacity: 1; transform: none; }
+
+  /* H2 */
+  .h2__grid { display: grid; gap: 32px; align-items: center; }
+  @media (min-width: 900px) { .h2__grid { grid-template-columns: 1.4fr 1fr; gap: 56px; } }
+  .panel { display: grid; gap: 14px; padding: 28px 26px 22px; background: var(--glass-bg); border-left: 3px solid var(--or-mark); }
+  .panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .panel li { padding: 12px 16px; background: linear-gradient(90deg, rgba(247,247,248,.10), rgba(247,247,248,.02)); color: var(--ink-max);
+    opacity: 0; transform: translateX(-10px); transition: opacity 200ms var(--ease), transform 200ms var(--ease); }
+  .is-play .panel li { opacity: 1; transform: none; }
+  .panel li:nth-child(2) { transition-delay: 40ms; } .panel li:nth-child(3) { transition-delay: 80ms; } .panel li:nth-child(4) { transition-delay: 120ms; }
+
+  /* H3 */
+  .h3__stage { position: relative; min-height: 420px; display: grid; align-items: end; background: linear-gradient(160deg, var(--srf-2), var(--srf-app) 70%); padding: 28px; }
+  .h3__ph { position: absolute; top: 20px; right: 28px; color: var(--ink-3); }
+  .h3__txt { position: relative; max-width: 560px; padding: 26px 28px; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-left: 3px solid var(--or-mark); z-index: 1; }
+  .h3__txt .big { margin-bottom: 0; }
+
+  /* рельсы */
+  .rail1 { height: 1px; background: var(--or-hair); margin-top: 14px; opacity: .8; }
+  .rail2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 14px; }
+  .rail2 i { height: 2px; background: var(--ink-orn); opacity: .5; } .rail2 i.on { height: 4px; margin-top: -1px; background: var(--or-mark); opacity: 1; }
+
+  /* плашки */
+  .plates { display: grid; gap: 28px; grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .plates { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .plates { grid-template-columns: repeat(3, 1fr); } }
+  .pl { position: relative; padding: 28px 26px; min-height: 170px; background: var(--glass-bg); color: var(--ink);
+    opacity: 0; transform: translateY(12px); transition: opacity 260ms var(--ease), transform 260ms var(--ease), background var(--t-fast) var(--ease); transition-delay: calc(var(--i) * 60ms); }
+  .is-play .pl { opacity: 1; transform: none; }
+  .pl h3 { margin: 8px 0 8px; } .pl p { margin: 0; color: var(--ink-2); font-size: 15px; }
+  .pl__l1, .pl__l2 { position: absolute; pointer-events: none; }
+  .pl--a { clip-path: polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px); border-top: 2px solid var(--or-mark); }
+  .pl--a::after { content: ''; position: absolute; right: 0; top: 0; width: 24px; height: 24px; background: var(--or-mark); clip-path: polygon(0 0, 100% 0, 100% 100%); opacity: .5; }
+  .pl--b { background: transparent; box-shadow: inset 0 0 0 1px var(--glass-edge); }
+  .pl--b .pl__l1 { inset: 10px -10px -10px 10px; border: 1px solid var(--or-mark); opacity: .55; z-index: -1; transition: transform var(--t-fast) var(--ease); }
+  .pl--b:hover .pl__l1, .pl--b:focus-visible .pl__l1 { transform: translate(4px, 4px); }
+  .pl--b { background: var(--glass-bg); }
+  .pl--c { padding-right: 70px; border-left: 3px solid var(--or-mark); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
+  .pl--c .pl__l1 { right: 0; top: 30px; width: 50px; height: 1px; background: var(--or-mark); }
+  .pl--c .pl__l2 { right: 0; top: 26px; width: 8px; height: 8px; background: var(--or-mark); transform: rotate(45deg); }
+  .pl--d { background: repeating-linear-gradient(135deg, rgba(247,247,248,.06) 0 1px, transparent 1px 5px), var(--glass-bg); clip-path: polygon(0 0, 64px 0, 74px 5px, 100% 5px, 100% 100%, 0 100%); padding-top: 34px; }
+  .pl--e { background: var(--glass-bg); box-shadow: 8px 8px 0 -1px rgba(247,247,248,.05), 16px 16px 0 -2px rgba(247,247,248,.03); transition: box-shadow var(--t-fast) var(--ease), transform 260ms var(--ease), opacity 260ms var(--ease); }
+  .pl--e:hover, .pl--e:focus-visible { box-shadow: 12px 12px 0 -1px rgba(247,247,248,.08), 24px 24px 0 -2px rgba(247,247,248,.05); }
+  .pl--f { overflow: hidden; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); border-top: 1px solid var(--glass-edge); }
+  .pl--f .pl__l1 { left: 0; top: 0; height: 2px; width: 60px; background: linear-gradient(90deg, transparent, var(--or-mark)); animation: run 6s linear infinite; animation-play-state: paused; }
+  .run .pl--f .pl__l1 { animation-play-state: running; }
+  @keyframes run { from { transform: translateX(-60px); } to { transform: translateX(520px); } }
+  .pl:hover, .pl:focus-visible { background: rgba(28, 26, 40, .7); outline: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chip, .panel li, .pl { opacity: 1; transform: none; transition: none; }
+    .glitch:hover::before, .glitch:hover::after, .wave::after, .pl--f .pl__l1 { animation: none; }
+  }
+</style>
