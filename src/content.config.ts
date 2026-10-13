@@ -15,4 +15,19 @@ const journal = defineCollection({
   }),
 });
 
-export const collections = { journal };
+// Видео для рассылки: одна запись = одна страница jetixagency.com/v/<имя-файла>/.
+// id — код записи из ссылки Cap (cap.jetixagency.com/s/КОД). Сами видео лежат на сервере, не в репозитории.
+const videos = defineCollection({
+  loader: glob({ base: './src/content/videos', pattern: '**/*.md' }),
+  schema: z.object({
+    title: z.string(),
+    id: z.string().regex(/^[A-Za-z0-9_-]{4,64}$/),
+    date: z.coerce.date(),
+    description: z.string().optional(),
+    // Обложка для превью ссылки: файл в public/v/, например /v/primer.jpg
+    poster: z.string().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { journal, videos };

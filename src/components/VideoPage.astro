@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, watch as w } from '../data/site.ru';
+interface Props { title?: string; description?: string; id?: string; poster?: string }
+const { title, description, id, poster } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const tg = site.links.telegram || `${base}/#contact`;
+---
+<Base title={title ? `${title} · Руслан Романович` : w.title} description={description || w.description} image={poster} noindex>
+  <section class="section">
+    <div class="wrap watch">
+      <p class="label label--or">{w.label}</p>
+      <h1>{title || w.h1}</h1>
+      <span class="hair"></span>
+      <p class="lead">{description || w.lead}</p>
+
+      <div class="player frame">
+        <div class="player__box">
+          {id ? (
+            <iframe src={`${w.embedBase}${id}`} title={title || 'Видео'} allow="fullscreen; picture-in-picture; autoplay" allowfullscreen loading="lazy"></iframe>
+          ) : (
+            <div class="player__empty"><p class="label">{w.emptyTitle}</p><p>{w.emptyText}</p></div>
+          )}
+        </div>
+      </div>
+      {id && <p class="open"><a class="btn btn--ghost" href={`${w.pageBase}${id}`} rel="noopener">{w.openLabel}</a></p>}
+
+      <div class="next tile tile--soft">
+        <p class="label label--or">{w.nextLabel}</p>
+        <h2>{w.nextTitle}</h2>
+        <p>{w.nextText}</p>
+        <div class="next__btns">
+          <a class="btn" href={`${base}/`}>{w.ctaSite} →</a>
+          <a class="btn btn--ghost" href={tg}>{w.ctaTelegram}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .watch { max-width: 960px; }
+  .player { margin-top: 28px; }
+  .player__box { position: relative; aspect-ratio: 16 / 9; background: var(--srf-2); border: 1px solid var(--border-soft); overflow: hidden; }
+  .player__box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .player__empty { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; padding: 24px; gap: 6px; }
+  .player__empty p { margin: 0; color: var(--ink-2); max-width: 44ch; }
+  .open { margin: 12px 0 0; }
+  .next { margin-top: clamp(32px, 6vw, 56px); padding: 28px 26px; }
+  .next h2 { font-size: clamp(20px, 3vw, 30px); margin: 0 0 10px; }
+  .next p { color: var(--rw-gray-700); }
+  .next__btns { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 18px; }
+</style>
