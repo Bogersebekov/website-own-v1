@@ -347,3 +347,14 @@ img { max-width: 100%; display: block; }
 @media (min-width: 900px) { .hero--1 .photo-wrap--cut { width: min(100%, 600px, calc(100svh - 240px)); } }
 .photo-wrap--cut .photo img { -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent 100%); mask-image: linear-gradient(180deg, #000 80%, transparent 100%); }
 @media (min-width: 900px) { .hero--1 .photo-wrap--cut { width: min(100%, 640px, calc(100svh - 200px)); } }
+
+/* плашки с хорошо видимым срезом двух углов (верх-слева, низ-справа) и тонкой кромкой по всему контуру, включая срезы */
+.tile, .photo { --c: 30px; --ring: polygon(evenodd,
+  var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c),
+  calc(var(--c) + .42px) 1px, calc(100% - 1px) 1px, calc(100% - 1px) calc(100% - var(--c) - .42px), calc(100% - var(--c) - .42px) calc(100% - 1px), 1px calc(100% - 1px), 1px calc(var(--c) + .42px)); }
+.tile:not(.tile--hl):not(.tile--stub), .photo { clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.tile:not(.tile--hl):not(.tile--stub)::before, .photo::after { border: 0; background: rgba(247,247,248,.22); clip-path: var(--ring); }
+.tile:not(.tile--hl):not(.tile--stub)::after { left: calc(var(--c) + 8px); right: 24px; }
+.tile:not(.tile--hl):not(.tile--stub) { padding-top: 28px; }
+.nowstrip { --c: 22px; }
+.photo-wrap--cut .photo::after { display: none; }

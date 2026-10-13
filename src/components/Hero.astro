@@ -5,7 +5,7 @@ import photoCut from '../assets/photo/ruslan-cut.png';
 import { hero, nowStatus, site } from '../data/site.ru';
 const tg = site.links.telegram || hero.primary.href;
 const variant = process.env.HERO_VARIANT || '1';
-const cut = process.env.HERO_PHOTO !== 'sq';
+const cut = process.env.HERO_PHOTO === 'cut';
 const photo = cut ? photoCut : photoSq;
 ---
 <div class={`hero hero--${variant}`}>
