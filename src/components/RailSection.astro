@@ -1,12 +1,10 @@
 ---
-// Раздел на рельсе: узел слева (липнет при прокрутке) и плитки справа.
-interface Props { id: string; n: string; name: string }
-const { id, n, name } = Astro.props;
+// Раздел страницы: метка «// 02 · Проекты», необязательный заголовок и плашки.
+interface Props { id: string; n: string; name: string; title?: string }
+const { id, n, name, title } = Astro.props;
 ---
 <section class="rs" id={id} aria-label={name}>
-  <div class="rs__node-col">
-    <span class="rs__node" aria-hidden="true">{n}</span>
-    <span class="rs__name code" aria-hidden="true">{name}</span>
-  </div>
+  <p class="rs__kicker code" aria-hidden="true">// {n} · {name}</p>
+  {title && <h2 class="rs__title">{title}</h2>}
   <div class="bento"><slot /></div>
 </section>
