@@ -1,9 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import photo from '../assets/photo/ruslan.png';
+import photoSq from '../assets/photo/ruslan.png';
+import photoCut from '../assets/photo/ruslan-cut.png';
 import { hero, nowStatus, site } from '../data/site.ru';
 const tg = site.links.telegram || hero.primary.href;
 const variant = process.env.HERO_VARIANT || '1';
+const cut = process.env.HERO_PHOTO !== 'sq';
+const photo = cut ? photoCut : photoSq;
 ---
 <div class={`hero hero--${variant}`}>
   <div class="hero__text tile tile--hl">
@@ -12,7 +15,7 @@ const variant = process.env.HERO_VARIANT || '1';
     <p class="lead">{hero.lead}</p>
     <a class="btn" href={tg}>{hero.primary.label} →</a>
   </div>
-  <div class="photo-wrap">
+  <div class={`photo-wrap ${cut ? 'photo-wrap--cut' : ''}`}>
   <figure class="photo wave">
     <Image src={photo} alt={hero.photoAlt} widths={[480, 720, 1080, 1440]} sizes="(min-width: 900px) 40vw, 100vw" format="webp" quality={82} loading="eager" />
   </figure>
