@@ -1,14 +1,19 @@
 ---
+import { Image } from 'astro:assets';
+import photo from '../assets/photo/ruslan.png';
 import { hero, nowStatus, site } from '../data/site.ru';
 const tg = site.links.telegram || hero.primary.href;
 ---
-<div class="tile tile--hl s8" id="top">
+<div class="tile tile--hl s8">
   <p class="label label--or">{hero.label}</p>
   <h1>{hero.title}</h1>
   <p class="lead">{hero.lead}</p>
   <a class="btn" href={tg}>{hero.primary.label} →</a>
 </div>
-<div class="tile tile--col s4">
+<div class="tile photo s4">
+  <Image src={photo} alt={hero.photoAlt} widths={[360, 540, 720]} sizes="(min-width: 900px) 360px, 100vw" format="webp" quality={82} loading="eager" />
+</div>
+<div class="tile nowstrip">
   <span class="status">{nowStatus.label}</span>
   <h3>{nowStatus.text}</h3>
 </div>

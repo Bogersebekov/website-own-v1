@@ -182,3 +182,41 @@ img { max-width: 100%; display: block; }
 .tile--soft { background: var(--srf-2); border-style: solid; }
 .tile--stub { border-style: dashed; border-color: var(--ink-orn); background: transparent; }
 @media (max-width: 520px) { .tile { padding: 20px; } .mini--3 { gap: 6px; } .mini--3 div { padding: 10px 8px; } }
+
+/* ── Рельса: вертикальная линия, узлы-разделы, плитки появляются по ходу прокрутки ── */
+.track { position: relative; padding-block: clamp(24px, 5vw, 48px) clamp(40px, 7vw, 80px); display: grid; gap: clamp(36px, 6vw, 64px); }
+.track::before { content: ''; position: absolute; left: 19px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+.rs { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 0 16px; scroll-margin-top: 72px; position: relative; }
+.rs__node-col { position: relative; }
+.rs__node { position: sticky; top: 84px; display: grid; place-items: center; width: 40px; height: 40px; background: var(--srf-app);
+  border: 1px solid var(--or-mark); color: var(--or-txt); font-weight: 400; font-size: 12px; letter-spacing: .08em;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+.rs__name { display: none; position: sticky; top: 132px; margin-top: 10px; writing-mode: vertical-rl; transform: rotate(180deg); color: var(--ink-3); width: 40px; text-align: center; }
+@media (min-width: 1100px) { .rs__name { display: block; } }
+@media (max-width: 640px) {
+  .track::before { left: 15px; }
+  .rs { grid-template-columns: 32px minmax(0, 1fr); gap: 0 10px; }
+  .rs__node { width: 32px; height: 32px; font-size: 11px; top: 76px; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+}
+/* появление плиток: чистый CSS по прокрутке; где не поддерживается, плитки видны сразу */
+@keyframes tile-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@supports (animation-timeline: view()) {
+  .rs .tile { animation: tile-in linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+}
+@media (prefers-reduced-motion: reduce) { .rs .tile { animation: none; } }
+.bento-page { padding: 0; }
+
+/* первый экран с фото */
+.photo { position: relative; padding: 0; background: var(--srf-2); aspect-ratio: 1 / 1; overflow: hidden; --c: 26px;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; border: 1px solid var(--glass-edge); clip-path: inherit; }
+.nowstrip { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; }
+.nowstrip h3 { margin: 0; font-size: clamp(15px, 1.6vw, 19px); }
+/* ссылки-стрелки: зона нажатия 44 px */
+.tile .tlink { padding-block: 12px; margin-top: 4px; }
+
+/* факты: одна плитка на ячейку, число не ломается по символам */
+.facts4 .mini { display: block; margin-top: 0; }
+.facts4 .mini b { overflow-wrap: normal; white-space: nowrap; font-size: clamp(24px, 5vw, 34px); }
+.facts4 .mini span { display: block; margin-top: 4px; font-size: 11px; }

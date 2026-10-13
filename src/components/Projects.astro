@@ -6,7 +6,6 @@ const href = (h: string, title: string) => {
   return `${base}${h}`;
 };
 ---
-<span id="projects" class="anchor" aria-hidden="true"></span>
 {projects.items.map((p) => (
   <div class="tile s4">
     <div class="tile__row">
@@ -18,6 +17,3 @@ const href = (h: string, title: string) => {
     <a class="tlink" href={href(p.cta.href, p.title)}>{p.cta.label}</a>
   </div>
 ))}
-<style>
-  .anchor { grid-column: 1 / -1; height: 0; scroll-margin-top: 80px; }
-</style>

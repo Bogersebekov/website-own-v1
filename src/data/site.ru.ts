@@ -29,12 +29,16 @@ export const nav = [
 ];
 
 // Структура и тексты главной: слово Руслана 13.10 (вариант оформления B «Плитки»).
+// Рельса: названия узлов (номер = порядок на странице).
+export const railNames = { start: 'Старт', projects: 'Проекты', vision: 'Видение', log: 'Журнал', people: 'Люди', contact: 'Связь' };
+
 export const hero = {
   label: '// РУСЛАН РОМАНОВИЧ · BERLIN',
   title: 'Строю консалтинговую фирму публично',
   lead:
     'И помогаю специалистам из IT, менеджмента и коучинга вести личные проекты и зарабатывать на своей экспертизе в соцсетях',
   primary: { label: 'Написать в Telegram', href: '#contact' },
+  photoAlt: 'Руслан Романович',
 };
 
 export const nowStatus = {
@@ -43,7 +47,7 @@ export const nowStatus = {
 };
 
 export const projects = {
-  label: '// 02 · МОИ ПРОЕКТЫ',
+  label: '// МОИ ПРОЕКТЫ',
   items: [
     {
       code: '01',
@@ -73,7 +77,7 @@ export const projects = {
 };
 
 export const vision = {
-  label: '// 03 · ВИДЕНИЕ',
+  label: '// ВИДЕНИЕ',
   number: '80',
   unit: 'человек',
   lead: 'Собираю 80 человек, чтобы построить корпорацию из независимых команд.',
@@ -88,7 +92,7 @@ export const vision = {
 };
 
 export const buildLog = {
-  label: '// 04 · ЖУРНАЛ СТРОЙКИ',
+  label: '// ЖУРНАЛ СТРОЙКИ',
   date: '15.10.2026 · Неделя 0 · Старт',
   a: {
     title: 'Точка А',
@@ -113,7 +117,7 @@ export const buildLog = {
 };
 
 export const people = {
-  label: '// 05 · ИЩУ ЛЮДЕЙ',
+  label: '// ИЩУ ЛЮДЕЙ',
   items: [
     {
       title: 'В команду',
@@ -215,7 +219,7 @@ export const doors = {
 };
 
 export const contact = {
-  label: '// 06 · СВЯЗАТЬСЯ',
+  label: '// СВЯЗАТЬСЯ',
   title: 'Хочешь в команду, на интервью или в клиенты?',
   text: 'Пиши в Telegram. Отвечаю сам.',
   cta: 'Написать в Telegram',

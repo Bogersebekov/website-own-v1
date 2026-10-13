@@ -3,7 +3,7 @@ import { people, site } from '../data/site.ru';
 const tg = site.links.telegram;
 ---
 {people.items.map((p, i) => (
-  <div class={`tile s6 ${i === 0 ? 'tile--hl' : ''}`} id={i === 0 ? 'people' : undefined}>
+  <div class={`tile s6 ${i === 0 ? 'tile--hl' : ''}`}>
     <p class="label">{people.label.replace('// 05 · ', '')}</p>
     <h3>{p.title}</h3>
     <p>{p.text}</p>
@@ -11,4 +11,3 @@ const tg = site.links.telegram;
     <a class="tlink" href={tg || p.cta.href}>{p.cta.label}</a>
   </div>
 ))}
-<style>#people { scroll-margin-top: 80px; }</style>

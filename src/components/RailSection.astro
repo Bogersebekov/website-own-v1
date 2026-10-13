@@ -1,0 +1,12 @@
+---
+// Раздел на рельсе: узел слева (липнет при прокрутке) и плитки справа.
+interface Props { id: string; n: string; name: string }
+const { id, n, name } = Astro.props;
+---
+<section class="rs" id={id} aria-label={name}>
+  <div class="rs__node-col">
+    <span class="rs__node" aria-hidden="true">{n}</span>
+    <span class="rs__name code" aria-hidden="true">{name}</span>
+  </div>
+  <div class="bento"><slot /></div>
+</section>

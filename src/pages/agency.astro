@@ -1,12 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import Rail from '../components/Rail.astro';
+import RailSection from '../components/RailSection.astro';
 import Contact from '../components/Contact.astro';
 import { agency as a, facts, site } from '../data/site.ru';
 const tg = site.links.telegram || '#contact';
 ---
 <Base title={a.title} description={a.description}>
-  <div class="wrap bento-page">
-    <div class="bento">
+  <Rail>
+    <RailSection id="top" n="01" name="Старт">
       <div class="tile tile--hl">
         <div class="tile__row">
           <p class="label label--or" style="margin:0">{a.label}</p>
@@ -16,7 +18,9 @@ const tg = site.links.telegram || '#contact';
         <p class="lead">{a.lead}</p>
         <a class="btn" href={tg}>{a.cta} →</a>
       </div>
+    </RailSection>
 
+    <RailSection id="include" n="02" name="Состав">
       <div class="tile tile--soft">
         <p class="label label--or">{a.includeLabel}</p>
         <h2>{a.includeTitle}</h2>
@@ -30,30 +34,36 @@ const tg = site.links.telegram || '#contact';
           ))}
         </div>
       </div>
+    </RailSection>
 
+    <RailSection id="facts" n="03" name="Факты">
       <div class="tile">
         <p class="label label--or">{a.factsLabel}</p>
         <div class="facts4">
-          {facts.map((f) => <div class="mini" style="display:block;margin:0"><div><b>{f.value}</b><span>{f.label}</span></div></div>)}
+          {facts.map((f) => <div class="mini"><div><b>{f.value}</b><span>{f.label}</span></div></div>)}
         </div>
       </div>
+    </RailSection>
 
-      <div class="tile tile--stub s6">
+    <RailSection id="case" n="04" name="Пример">
+      <div class="tile tile--stub">
         <p class="label">{a.caseLabel}</p>
         <h3>{a.caseTitle}</h3>
         <p>{a.caseText}</p>
       </div>
+    </RailSection>
 
-      <div class="tile s6">
+    <RailSection id="interview" n="05" name="Интервью">
+      <div class="tile">
         <p class="label label--or">{a.interview.label}</p>
         <h3>{a.interview.title}</h3>
         <p>{a.interview.text}</p>
         <a class="tlink" href={tg}>{a.interview.cta}</a>
       </div>
+    </RailSection>
 
-      <Contact />
-    </div>
-  </div>
+    <RailSection id="contact" n="06" name="Связь"><Contact /></RailSection>
+  </Rail>
 </Base>
 <style>
   .inc { display: grid; gap: 12px; margin-top: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
