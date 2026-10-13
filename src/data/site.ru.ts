@@ -11,14 +11,14 @@ export const site = {
   city: 'Berlin',
   // Ссылки. Пустая строка = ссылки ещё нет, кнопка ведёт на блок «Связь».
   links: {
-    telegram: '',
+    telegram: 'https://t.me/ferheiser',
     github: 'https://github.com/Bogersebekov',
     youtube: '',
     // Шаблон Life OS в Notion: ссылки ещё нет, кнопка ведёт в «Связь».
     lifeOs: '',
   },
   // Показывается вместо ссылки на Telegram, пока ссылки нет.
-  telegramHandle: '@username',
+  telegramHandle: '@ferheiser',
 };
 
 export const nav = [
