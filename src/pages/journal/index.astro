@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { journal } from '../../data/site.ru';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entries = (await getCollection('journal', (e) => !e.data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+---
+<Base title="Журнал · Jetix" description="Строю публично: что сделано, по датам.">
+  <section class="section">
+    <div class="wrap">
+      <p class="label label--or">{journal.label}</p>
+      <h1>{journal.title}</h1>
+      <span class="hair"></span>
+      <ol class="list">
+        {entries.map((e) => (
+          <li><time class="code" datetime={e.data.date.toISOString()}>{fmt(e.data.date)}</time><a href={`${base}/journal/${e.id}/`}>{e.data.title}</a></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</Base>
+<style>
+  .list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
+  .list li { display: grid; grid-template-columns: 1fr; gap: 4px 24px; padding: 16px 0; border-bottom: 1px solid var(--border-faint); }
+  .list a { color: var(--ink-max); font-weight: 400; font-size: 18px; }
+  .list a:hover { color: var(--acc-txt); }
+  @media (min-width: 768px) { .list li { grid-template-columns: 120px 1fr; } }
+</style>

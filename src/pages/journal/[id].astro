@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() {
+  const entries = await getCollection('journal', (e) => !e.data.draft);
+  return entries.map((e) => ({ params: { id: e.id }, props: { e } }));
+}
+const { e } = Astro.props;
+const { Content } = await render(e);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const fmt = (d: Date) => d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+---
+<Base title={`${e.data.title} · Jetix`} description={e.data.title}>
+  <article class="section">
+    <div class="wrap prose">
+      <p class="label label--or"><a href={`${base}/journal/`}>← Журнал</a> · {fmt(e.data.date)}</p>
+      <h1>{e.data.title}</h1>
+      <span class="hair"></span>
+      <Content />
+    </div>
+  </article>
+</Base>
+<style is:global>
+  .prose { max-width: 72ch; }
+  .prose h2 { margin: 1.6em 0 .6em; }
+  .prose ul, .prose ol { padding-left: 1.2em; }
+  .prose li { margin-bottom: .4em; }
+</style>

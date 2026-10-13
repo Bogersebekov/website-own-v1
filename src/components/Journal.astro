@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import { journal } from '../data/site.ru';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entries = (await getCollection('journal', (e) => !e.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+const fmt = (d: Date) => d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+---
+<section class="section" id="journal">
+  <div class="wrap">
+    <p class="label reveal">{journal.label}</p>
+    <h2 class="reveal" style="--d:60ms">{journal.title}</h2>
+    <span class="hair reveal" style="--d:100ms"></span>
+    <p class="muted reveal" style="--d:120ms">{journal.note}</p>
+    <ol class="jr">
+      {entries.map((e, i) => (
+        <li class="jr__row reveal" style={`--d:${140 + i * 60}ms`}>
+          <time class="code" datetime={e.data.date.toISOString()}>{fmt(e.data.date)}</time>
+          <a class="jr__title" href={`${base}/journal/${e.id}/`}>{e.data.title}</a>
+          <span class="jr__tags">{e.data.tags.join(' · ')}</span>
+        </li>
+      ))}
+    </ol>
+    <a class="btn btn--ghost reveal" href={`${base}/journal/`}>{journal.all.replace(' →', '')}</a>
+  </div>
+</section>
+<style>
+  .jr { list-style: none; margin: 8px 0 18px; padding: 0; border-top: 1px solid var(--border); }
+  .jr__row { display: grid; grid-template-columns: 1fr; gap: 4px 24px; padding: 16px 0; border-bottom: 1px solid var(--border-faint); align-items: baseline; }
+  .jr__title { color: var(--ink-max); font-weight: 400; font-size: 18px; transition: color var(--t-fast) var(--ease); }
+  .jr__title:hover { color: var(--acc-txt); }
+  .jr__tags { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+  @media (min-width: 768px) { .jr__row { grid-template-columns: 120px 1fr auto; } }
+</style>

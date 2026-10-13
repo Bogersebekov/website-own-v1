@@ -1,0 +1,26 @@
+---
+import { site, nav } from '../data/site.ru';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__brand" href={`${base}/`} aria-label="Jetix, на главную">
+      <span class="hdr__mark" aria-hidden="true"></span>{site.brand}
+    </a>
+    <nav class="hdr__nav" aria-label="Разделы">
+      {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+    </nav>
+    <a class="btn hdr__cta" href="#doors">Работать со мной</a>
+  </div>
+</header>
+<style>
+  .hdr { position: sticky; top: 0; z-index: 10; background: rgba(19,17,28,.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-faint); }
+  .hdr__in { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+  .hdr__brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-head); font-size: 20px; letter-spacing: .12em; color: var(--ink-max); }
+  .hdr__mark { width: 10px; height: 10px; background: var(--or-mark); clip-path: polygon(30% 0, 100% 0, 100% 70%, 70% 100%, 0 100%, 0 30%); }
+  .hdr__nav { display: none; gap: 28px; font-weight: 400; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+  .hdr__nav a { color: var(--ink-2); transition: color var(--t-fast) var(--ease); }
+  .hdr__nav a:hover { color: var(--ink-max); }
+  .hdr__cta { min-height: 40px; padding: 10px 16px; font-size: 12px; }
+  @media (min-width: 900px) { .hdr__nav { display: flex; } }
+</style>

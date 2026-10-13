@@ -1,0 +1,135 @@
+/* global.css — слой сайта поверх токенов jx-v2.css и or-acc.css (скилл jetix-design).
+   Правила: срез углов вместо скруглений, стекло-плашки, оранжевый только как знак и засечка,
+   анимации ≤300 мс, фоновые петли дольше, prefers-reduced-motion всегда. */
+
+@font-face { font-family: 'HS Luna Obscura'; src: url('../assets/fonts/HS_LunaObscura.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Iosevka'; src: url('../assets/fonts/iosevka-extralight.woff2') format('woff2'); font-weight: 200; font-display: swap; }
+@font-face { font-family: 'Iosevka'; src: url('../assets/fonts/iosevka-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Iosevka'; src: url('../assets/fonts/iosevka-heavy.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+
+:root {
+  --font-head: 'HS Luna Obscura', 'Iosevka', monospace;
+  --font-body: 'Iosevka', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --chamfer-card: 22px;
+  --chamfer-btn: 10px;
+  --chamfer-sm: 14px;
+  --glass-bg: rgba(24, 22, 34, .55);
+  --glass-edge: rgba(247, 247, 248, .18);
+  --t-fast: 200ms;
+  --t-base: 280ms;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --max: 1160px;
+  --gutter: 16px;
+}
+@media (min-width: 768px) { :root { --gutter: 32px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--srf-app);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 200;
+  font-size: 17px;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+h1, h2, h3 { font-family: var(--font-head); font-weight: 400; text-transform: uppercase; color: var(--ink-max); margin: 0; line-height: 1.08; letter-spacing: .01em; }
+h1 { font-size: clamp(30px, 6.2vw, 60px); }
+h2 { font-size: clamp(24px, 4vw, 40px); }
+h3 { font-size: clamp(17px, 2.2vw, 21px); }
+p { margin: 0 0 1em; }
+a { color: var(--acc-txt); text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--acc-edge); outline-offset: 3px; }
+img { max-width: 100%; display: block; }
+::selection { background: var(--or-plate-a); color: var(--ink-max); }
+
+/* ── Фон: холст + тёплые зоны + оранжевая сетка + свечение ── */
+.bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.bg::before { content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 50% at 50% 30%, rgba(255,85,0,.18), transparent 70%),
+    linear-gradient(90deg, rgba(255,85,0,.08) 0%, transparent 45%, transparent 55%, rgba(255,85,0,.12) 100%);
+}
+.bg__grid { position: absolute; inset: -4%; width: 108%; height: 108%; opacity: .18;
+  background: url('../assets/bg/setka-or.svg') center / cover no-repeat;
+  animation: grid-drift 40s ease-in-out infinite alternate; }
+@keyframes grid-drift { from { transform: translate3d(-1%, 0, 0) } to { transform: translate3d(1%, -1%, 0) } }
+
+/* ── Сетка страницы ── */
+.wrap { width: min(100% - var(--gutter) * 2, var(--max)); margin-inline: auto; }
+.section { padding: clamp(56px, 9vw, 120px) 0; position: relative; }
+.section + .section { border-top: 1px solid var(--border-faint); }
+.label { font-family: var(--font-body); font-weight: 400; font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 14px; }
+.label--or { color: var(--or-txt); }
+.hair { display: block; width: 56px; height: 2px; background: var(--or-hair); margin: 18px 0 22px; }
+.lead { color: var(--ink-2); font-size: clamp(17px, 2vw, 20px); max-width: 60ch; }
+.muted { color: var(--ink-2); }
+.code { font-weight: 400; font-size: 12px; letter-spacing: .18em; color: var(--ink-orn); text-transform: uppercase; }
+
+/* ── Срез углов ── */
+.chamfer { clip-path: polygon(var(--c, 22px) 0, 100% 0, 100% calc(100% - var(--c, 22px)), calc(100% - var(--c, 22px)) 100%, 0 100%, 0 var(--c, 22px)); }
+
+/* ── Карточка К-4: стекло + кромка + оранжевая черта сверху ── */
+.card { --c: var(--chamfer-card); position: relative; padding: 28px 26px; background: var(--glass-bg);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+  transition: transform var(--t-fast) var(--ease), background var(--t-fast) var(--ease); }
+.card::before { content: ''; position: absolute; inset: 0; pointer-events: none; border: 1px solid var(--glass-edge);
+  clip-path: inherit; }
+/* две диагонали на срезах, чтобы кромка не рвалась */
+.card::after { content: ''; position: absolute; pointer-events: none; inset: 0;
+  background:
+    linear-gradient(135deg, transparent calc(var(--c) * .707 - 1px), var(--glass-edge) calc(var(--c) * .707 - 1px), var(--glass-edge) calc(var(--c) * .707), transparent calc(var(--c) * .707)) top left / var(--c) var(--c) no-repeat,
+    linear-gradient(135deg, transparent calc(var(--c) * .707 - 1px), var(--glass-edge) calc(var(--c) * .707 - 1px), var(--glass-edge) calc(var(--c) * .707), transparent calc(var(--c) * .707)) bottom right / var(--c) var(--c) no-repeat; }
+.card__top { position: absolute; top: 0; left: var(--c); right: 10px; height: 2px; background: var(--or-hair); }
+.card:hover { transform: translateY(-3px); background: rgba(28, 26, 40, .62); }
+.card h3 { margin: 10px 0 12px; }
+.card p { color: var(--rw-gray-700); font-size: 16px; margin: 0; }
+.card__meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.status { font-weight: 400; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ok-txt); }
+.status::before { content: '●'; margin-right: 8px; font-size: 9px; vertical-align: 1px; }
+.status--soon { color: var(--warn-txt); }
+.status--build { color: var(--acc-txt); }
+
+/* ── Кнопки ── */
+.btn { --c: var(--chamfer-btn); display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; min-height: 48px;
+  font-family: var(--font-body); font-weight: 800; font-size: 14px; letter-spacing: .16em; text-transform: uppercase;
+  background: var(--acc-fill); color: var(--on-acc); border: 0; cursor: pointer;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+  transition: background var(--t-fast) var(--ease), transform var(--t-fast) var(--ease); }
+.btn:hover { background: var(--acc-fill-hover); transform: translateY(-2px); }
+.btn:active { background: var(--acc-fill-active); transform: none; }
+.btn--ghost { background: transparent; color: var(--acc-txt); padding-inline: 8px; clip-path: none; }
+.btn--ghost:hover { background: transparent; color: var(--acc-txt-max); }
+.btn--ghost::after { content: '→'; transition: transform var(--t-fast) var(--ease); }
+.btn--ghost:hover::after { transform: translateX(4px); }
+
+/* ── Скобки-уголки для фото ── */
+.frame { position: relative; }
+.frame::before, .frame::after { content: ''; position: absolute; width: 18px; height: 18px; border: 2px solid var(--or-mark); pointer-events: none; }
+.frame::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+.frame::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+
+/* ── Появление при прокрутке ── */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity var(--t-base) var(--ease), transform var(--t-base) var(--ease); transition-delay: var(--d, 0ms); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ── Сетки ── */
+.grid { display: grid; gap: 18px; }
+.grid--4 { grid-template-columns: 1fr; }
+.grid--2 { grid-template-columns: 1fr; }
+@media (min-width: 640px) { .grid--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .grid--4 { grid-template-columns: repeat(4, 1fr); } .grid--2 { grid-template-columns: repeat(2, 1fr); } }
+
+/* ── Вертикальный микро-код по краю (десктоп) ── */
+.rail { display: none; }
+@media (min-width: 1200px) { .rail { display: block; position: absolute; left: 10px; top: 50%; transform: rotate(-90deg) translateX(-50%); transform-origin: left top; white-space: nowrap; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bg__grid { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .card, .btn { transition: none; }
+}

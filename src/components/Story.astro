@@ -1,0 +1,22 @@
+---
+import { story } from '../data/site.ru';
+---
+<section class="section" id="story">
+  <div class="wrap story">
+    <div>
+      <p class="label reveal">{story.label}</p>
+      <h2 class="reveal" style="--d:60ms">{story.title}</h2>
+      <span class="hair reveal" style="--d:100ms"></span>
+      {story.paragraphs.map((p, i) => <p class="lead reveal" style={`--d:${120 + i * 60}ms`}>{p}</p>)}
+    </div>
+    <ul class="story__values reveal" style="--d:200ms" aria-label="Ценности">
+      {story.values.map((v, i) => <li><span class="code">0{i + 1}</span>{v}</li>)}
+    </ul>
+  </div>
+</section>
+<style>
+  .story { display: grid; gap: 36px; align-items: start; }
+  .story__values { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--border); }
+  .story__values li { display: flex; gap: 18px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--border-faint); font-family: var(--font-head); font-size: 17px; text-transform: uppercase; color: var(--ink-max); }
+  @media (min-width: 900px) { .story { grid-template-columns: 1.3fr 1fr; gap: 64px; } }
+</style>

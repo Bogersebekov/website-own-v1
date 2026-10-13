@@ -1,0 +1,21 @@
+---
+import { contact, site } from '../data/site.ru';
+const tg = site.links.telegram;
+---
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="card contact reveal">
+      <span class="card__top"></span>
+      <p class="label">{contact.label}</p>
+      <h2>{contact.title}</h2>
+      <p class="lead">{contact.text}</p>
+      {tg
+        ? <a class="btn" href={tg} target="_blank" rel="noopener">{contact.cta}</a>
+        : <p class="muted"><span class="status status--soon">скоро</span> {contact.pending} <a href={site.links.github} target="_blank" rel="noopener">github.com/Bogersebekov</a></p>}
+    </div>
+  </div>
+</section>
+<style>
+  .contact { padding: clamp(32px, 6vw, 64px); }
+  .contact h2 { margin-bottom: 14px; }
+</style>

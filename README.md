@@ -1,32 +1,27 @@
-# Website Own v1
+# Website Own v1 — сайт Руслана Романовича и Jetix
 
-Заведён 13.10.2026 по его слову: «делай новый репо, называй website own v1».
+Заведён 13.10.2026. Личный хаб по образцу nateherk.com в стиле Jetix: кто я, чем занят, две двери
+(эксперту и специалисту), журнал «строю публично», связь.
 
-## Что здесь будет лежать
+- Живой сайт: https://bogersebekov.github.io/website-own-v1/ (домен подключается, см. `docs/stek.md`)
+- Правила для агентов: `CLAUDE.md`
+- ТЗ: `docs/tz.md` · стек: `docs/stek.md` · журнал: `docs/zhurnal.md` · Notion: `docs/notion.md`
+- Предложения на утверждение: `proposals/`
 
-⛔ **Пока не решено им.** Назначение он словом не задал, и придумывать его здесь не стали.
-До его слова это пустой каркас: есть имя и место под работу.
-
-Слот — одна строка от него: **что это за сайт и для кого.**
-
-## Как устроено
+## Запуск
 
 ```
-README.md   этот файл — вход
-src/        сам сайт
-docs/       решения и заметки по нему
+npm install
+npm run dev        # http://localhost:4321/website-own-v1/
+npm run build      # сборка в dist/
 ```
+
+Push в `main` → GitHub Actions → GitHub Pages.
 
 ## Соседи
 
 | Репозиторий | Что в нём |
 |---|---|
-| `Bogersebekov/jetix-os` | система управления делом и жизнью, единая правда дома |
-| `Bogersebekov/jetix-production-company` | продюсерская компания и консалтинговая линия |
-| `Bogersebekov/rumsatz-de` | Rumsatz.de — он и Ruli |
-| `Bogersebekov/skills-for-agents` | склад скиллов для агентов |
-| `Bogersebekov/website-own-v1` | этот |
-
-⚠️ В доме уже есть отдельная линия про сайты — восемь витрин группы на одном домене
-`jetixagency.com` (решение С-4). Этот репозиторий ей пока никак не связан: связь или
-её отсутствие — его слово.
+| `Bogersebekov/skills-for-agents` | скилл `jetix-design`: стиль, токены, шрифты (источник) |
+| `Bogersebekov/jetix-production-company` | продюсерская компания, документ правды, проект `sajt` |
+| `Bogersebekov/jetix-os` | система управления делом и жизнью |

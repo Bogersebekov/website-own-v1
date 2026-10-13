@@ -1,0 +1,18 @@
+---
+import { site, footer } from '../data/site.ru';
+---
+<footer class="ftr">
+  <div class="wrap ftr__in">
+    <span>{footer.line}</span>
+    <span class="code">{footer.codes.join(' · ')}</span>
+    <span class="ftr__links">
+      {site.links.github && <a href={site.links.github} rel="me noopener" target="_blank">GitHub</a>}
+      {site.links.telegram && <a href={site.links.telegram} rel="me noopener" target="_blank">Telegram</a>}
+    </span>
+  </div>
+</footer>
+<style>
+  .ftr { border-top: 1px solid var(--border-faint); padding: 28px 0 40px; font-size: 13px; color: var(--ink-3); }
+  .ftr__in { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; }
+  .ftr__links { display: flex; gap: 18px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; }
+</style>

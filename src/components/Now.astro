@@ -1,0 +1,21 @@
+---
+import { now } from '../data/site.ru';
+const cls = (s: string) => s === 'скоро' ? 'status status--soon' : s === 'собираю' ? 'status status--build' : 'status';
+---
+<section class="section" id="now">
+  <div class="wrap">
+    <p class="label reveal">{now.label}</p>
+    <h2 class="reveal" style="--d:60ms">{now.title}</h2>
+    <span class="hair reveal" style="--d:100ms"></span>
+    <div class="grid grid--4">
+      {now.items.map((it, i) => (
+        <article class="card reveal" style={`--d:${120 + i * 70}ms`}>
+          <span class="card__top"></span>
+          <div class="card__meta"><span class="code">{it.code}</span><span class={cls(it.status)}>{it.status}</span></div>
+          <h3>{it.title}</h3>
+          <p>{it.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
