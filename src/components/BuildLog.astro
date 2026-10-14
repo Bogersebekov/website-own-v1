@@ -1,0 +1,20 @@
+---
+import { buildLog as b } from '../data/site.ru';
+---
+<div class="tile s6">
+  <span class="code">{b.date}</span>
+  <h3>{b.a.title}</h3>
+  <p>{b.a.text}</p>
+  <div class="mini mini--3">
+    {b.a.stats.map((s) => <div><b>{s.value}</b><span>{s.label}</span></div>)}
+  </div>
+</div>
+<div class="tile s6">
+  <div class="path" aria-hidden="true"><em>А</em><i></i><em>Б</em></div>
+  <span class="code">{b.b.when}</span>
+  <h3>{b.b.title}</h3>
+  <div class="mini">
+    {b.b.stats.map((s) => <div><b>{s.value}</b><span>{s.label}</span></div>)}
+  </div>
+  <p class="tfoot">{b.foot}</p>
+</div>

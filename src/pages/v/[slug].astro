@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import VideoPage from '../../components/VideoPage.astro';
+export async function getStaticPaths() {
+  // Черновики видны только при локальной разработке, на сайт не попадают.
+  const all = await getCollection('videos', (e) => import.meta.env.DEV || !e.data.draft);
+  return all.map((e) => ({ params: { slug: e.id }, props: { v: e.data } }));
+}
+const { v } = Astro.props;
+---
+<VideoPage title={v.title} description={v.description} id={v.id} poster={v.poster} />

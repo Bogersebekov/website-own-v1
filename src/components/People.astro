@@ -1,0 +1,12 @@
+---
+import { people, site } from '../data/site.ru';
+const tg = site.links.telegram;
+---
+{people.items.map((p, i) => (
+  <div class="tile s6">
+    <h3>{p.title}</h3>
+    <p>{p.text}</p>
+    {p.get && <p class="tget">{p.get}</p>}
+    <a class="tlink" href={tg || p.cta.href}>{p.cta.label}</a>
+  </div>
+))}

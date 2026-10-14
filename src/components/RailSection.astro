@@ -1,0 +1,10 @@
+---
+// Раздел страницы: метка «// 02 · Проекты», необязательный заголовок и плашки.
+interface Props { id: string; n: string; name: string; title?: string }
+const { id, n, name, title } = Astro.props;
+---
+<section class="rs" id={id} aria-label={name}>
+  <p class="rs__kicker code" aria-hidden="true">// {n} · {name}</p>
+  {title && <h2 class="rs__title">{title}</h2>}
+  <div class="bento"><slot /></div>
+</section>
