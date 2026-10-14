@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Rail from '../components/Rail.astro';
 import RailSection from '../components/RailSection.astro';
 import Contact from '../components/Contact.astro';
-import { firm as f, vision, site } from '../data/site.ru';
+import { firm as f, site } from '../data/site.ru';
 const tg = site.links.telegram || '#contact';
 ---
 <Base title={f.title} description={f.description}>
@@ -28,11 +28,10 @@ const tg = site.links.telegram || '#contact';
         </div>
       </div>
       <div class="tile s5">
-        <p class="label">{vision.teamsLabel}</p>
+        <p class="label">{f.teamsLabel}</p>
         <div class="tlist">
-          {vision.teams.map((t) => <div><h3>{t.title}</h3>{t.note && <span class="code">{t.note}</span>}</div>)}
+          {f.teams.map((t) => <div><h3>{t.title}</h3>{t.note && <span class="code">{t.note}</span>}</div>)}
         </div>
-        <p class="acc">{vision.first}</p>
       </div>
     </RailSection>
 
