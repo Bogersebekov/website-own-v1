@@ -1,0 +1,17 @@
+---
+import StudioHome from "../../../components/StudioHome.astro";
+import { typographyRefinements } from "../../../data/site.ru";
+export function getStaticPaths() {
+  return typographyRefinements.map((item) => ({
+    params: { refinement: item.id },
+  }));
+}
+const { refinement } = Astro.params;
+---
+
+<StudioHome
+  variant="portrait"
+  look="haze"
+  edition="type"
+  refinement={refinement}
+/>

@@ -8,8 +8,9 @@ import { Content as LifeOS } from "../content/site-pages/life-os.md";
 interface Props {
   page: keyof typeof siteDocumentTitles;
   edition?: string;
+  refinement?: string;
 }
-const { page, edition = "glass" } = Astro.props;
+const { page, edition = "glass", refinement } = Astro.props;
 const Pages = {
   firm: Firm,
   agency: Agency,
@@ -24,13 +25,21 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   variant="portrait"
   look="haze"
   edition={edition}
+  refinement={refinement}
   article
   pageSlug={page}
   title={`${siteDocumentTitles[page]} · Jetix`}
 >
   <article class="studio-document">
-    <a class="document-back" href={`${base}/preview/${edition}/`}>
-      ← На главную
+    <a
+      class="document-back"
+      href={
+        refinement
+          ? `${base}/refine/${refinement}/`
+          : `${base}/preview/${edition}/`
+      }
+    >
+      На главную
     </a>
     <div class="document-copy">
       <Content />

@@ -1,0 +1,19 @@
+---
+import StudioDetail from "../../../components/StudioDetail.astro";
+import {
+  typographyRefinements,
+  siteDocumentTitles,
+} from "../../../data/site.ru";
+export function getStaticPaths() {
+  return typographyRefinements.flatMap((item) =>
+    Object.keys(siteDocumentTitles).map((page) => ({
+      params: { refinement: item.id, page },
+      props: { page },
+    })),
+  );
+}
+const { refinement } = Astro.params;
+const { page } = Astro.props;
+---
+
+<StudioDetail edition="type" refinement={refinement} page={page} />

@@ -8,11 +8,14 @@ import Arrow from "../components/StudioArrow.astro";
 import Wordmark from "../components/StudioWordmark.astro";
 import { siteEditions } from "../data/site.ru";
 import "../styles/site-editions.css";
+import "../styles/typography-refinements.css";
+import { typographyRefinements } from "../data/site.ru";
 interface Props {
   variant?: "portrait" | "studio" | "editorial";
   look?: string;
   board?: boolean;
   edition?: string;
+  refinement?: string;
   article?: boolean;
   pageSlug?: string;
   title?: string;
@@ -22,6 +25,7 @@ const {
   look,
   board = false,
   edition,
+  refinement,
   article = false,
   pageSlug = "",
   title,
@@ -38,9 +42,11 @@ const preset = activeEdition
   : lab.looks.find((item) => item.id === look);
 const labActive = Boolean(preset);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const homeHref = activeEdition
-  ? `${base}/preview/${activeEdition.id}/`
-  : `${base}/`;
+const homeHref = refinement
+  ? `${base}/refine/${refinement}/`
+  : activeEdition
+    ? `${base}/preview/${activeEdition.id}/`
+    : `${base}/`;
 ---
 
 <!doctype html>
@@ -53,7 +59,8 @@ const homeHref = activeEdition
     <meta name="theme-color" content="#141414" />
     {(Astro.url.pathname.includes("/variants/") ||
       Astro.url.pathname.includes("/looks/") ||
-      Astro.url.pathname.includes("/preview/")) && (
+      Astro.url.pathname.includes("/preview/") ||
+      Astro.url.pathname.includes("/refine/")) && (
       <meta name="robots" content="noindex, nofollow" />
     )}
     <meta property="og:title" content={site.title} />
@@ -70,6 +77,7 @@ const homeHref = activeEdition
         "detail-page": article,
       },
     ]}
+    data-refinement={refinement}
     data-edition={activeEdition?.id}
     data-look={activeEdition ? "haze" : look}
     data-buttons={preset?.buttons}
@@ -80,7 +88,25 @@ const homeHref = activeEdition
     <a class="studio-skip" href="#main">
       {d.ui.skip}
     </a>
-    {activeEdition ? (
+    {refinement ? (
+      <div
+        class="edition-switch"
+        role="navigation"
+        aria-label="Варианты доработки"
+      >
+        <span>JETIX / Типографика · дымка · контур</span>
+        <div>
+          {typographyRefinements.map((item) => (
+            <a
+              href={`${base}/refine/${item.id}/${pageSlug ? pageSlug + "/" : ""}`}
+              aria-current={refinement === item.id ? "page" : undefined}
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    ) : activeEdition ? (
       <div
         class="edition-switch"
         role="navigation"
