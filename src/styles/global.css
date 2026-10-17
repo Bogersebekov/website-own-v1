@@ -487,3 +487,23 @@ img { max-width: 100%; display: block; }
 .legal ul { padding-left: 20px; }
 
 @media (prefers-reduced-motion: reduce) { .faq summary::after { transition: none; } }
+/* ритм: заголовки разделов и отступы чуть спокойнее, чтобы страница читалась быстрее */
+.rs { padding-block: clamp(48px, 7vw, 96px); }
+.rs__title { font-size: clamp(24px, 3.6vw, 44px); }
+.hud__num b { font-size: clamp(36px, 5vw, 64px); white-space: nowrap; }
+.pf__slot.is-empty .pf__ph { aspect-ratio: 16 / 8; }
+/* длинные слова в крупных заголовках на телефоне: переносим по слогам, а не рвём посреди */
+h1, h2, .rs__title { hyphens: auto; -webkit-hyphens: auto; }
+@media (max-width: 520px) {
+  .page-hero h1 { font-size: clamp(21px, 6.2vw, 30px); }
+  .rs__title, .cta-block h2 { font-size: clamp(21px, 6.4vw, 30px); }
+}
+@media (max-width: 520px) { .page-hero h1 { font-size: clamp(19px, 5.3vw, 28px); } }
+.split { grid-template-columns: minmax(0, 1fr); }
+.split > * { min-width: 0; }
+@media (min-width: 900px) { .split { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
+.btn { max-width: 100%; flex-wrap: wrap; }
+.shot { width: 100%; }
+.legal h1 { font-size: clamp(20px, 5vw, 48px); overflow-wrap: break-word; }
+.legal a { overflow-wrap: anywhere; }
+@media (max-width: 520px) { .legal h1 { font-size: 18px; } }
