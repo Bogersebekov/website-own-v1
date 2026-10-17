@@ -121,21 +121,21 @@ img { max-width: 100%; display: block; }
 .zm--screen { aspect-ratio: 16 / 10; }
 .zm--wide { aspect-ratio: 16 / 9; }
 
-/* ——— 1 · первый экран ——— */
-.zhero { min-height: min(88vh, 860px); display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; padding-bottom: 0; overflow: visible; }
-.zhero__heat { position: absolute; right: -14%; top: -28%; width: 78%; height: 124%; pointer-events: none;
-  background: radial-gradient(closest-side, rgba(255, 170, 60, .5), rgba(255, 85, 0, .42) 42%, rgba(120, 20, 0, .2) 70%, transparent); filter: blur(30px); }
-.zhero > :not(.zhero__heat):not(.zhero__fade) { position: relative; }
-.zhero h1 { font-size: clamp(44px, 6.4vw, 92px); }
-.zhero__txt { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding-bottom: clamp(32px, 4vw, 60px); min-width: 0; }
+/* ——— 1 · первый экран: «Горн» (выбор Руслана 17.10) — жар за головой, сетка уходит по полу ——— */
+.zhero { min-height: min(calc(100vh - 57px), 860px); display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-bottom: 0; overflow: visible; isolation: isolate; }
+.zhero__bg { position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); overflow: hidden; pointer-events: none; z-index: -1; }
+.zhero__heat { position: absolute; right: max(-8%, calc(50% - 760px)); top: -30%; width: min(72%, 1040px); height: 130%;
+  background: radial-gradient(closest-side, rgba(255, 190, 90, .65), rgba(255, 85, 0, .5) 38%, rgba(130, 20, 0, .22) 68%, transparent); filter: blur(30px); }
+.zhero__floor { position: absolute; left: -20%; right: -20%; bottom: -2%; height: 42%; transform: perspective(500px) rotateX(62deg); transform-origin: bottom;
+  background: linear-gradient(rgba(255, 120, 40, .55) 1px, transparent 1px) 0 0 / 100% 48px, linear-gradient(90deg, rgba(255, 120, 40, .45) 1px, transparent 1px) 0 0 / 64px 100%;
+  -webkit-mask-image: linear-gradient(0deg, #000 10%, transparent 90%); mask-image: linear-gradient(0deg, #000 10%, transparent 90%); }
+.zhero h1 { font-size: clamp(44px, 6.1vw, 90px); }
+.zhero__txt { display: flex; flex-direction: column; justify-content: center; gap: 32px; padding-bottom: clamp(32px, 4vw, 60px); min-width: 0; }
 .zhero__top { display: grid; gap: 24px; justify-items: start; }
 .zhero__name { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--z-soft); display: inline-flex; gap: 10px; align-items: center; margin: 0; }
-.zhero__sig { display: grid; gap: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
-.zhero__sig small { color: var(--z-mute); font-size: 11px; }
-.zhero__pic { display: grid; align-items: end; min-width: 0; }
-.zhero__photo { width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(255, 255, 255, .3));
-  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 99%); mask-image: linear-gradient(180deg, #000 72%, transparent 99%); }
-.zhero__fade { position: absolute; left: 0; right: 0; bottom: 0; height: 18%; background: linear-gradient(0deg, var(--z-ink), transparent); pointer-events: none; }
+.zhero__pic { display: flex; align-items: flex-end; justify-content: center; min-width: 0; }
+.zhero__photo { width: auto; height: min(calc(100vh - 100px), 800px); max-width: none; filter: drop-shadow(0 0 1px rgba(255, 255, 255, .35));
+  -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent 99%); mask-image: linear-gradient(180deg, #000 80%, transparent 99%); }
 
 /* ——— 2 · фирма ——— */
 .zsplit { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4.4vw, 72px); align-items: end; }
@@ -206,10 +206,11 @@ img { max-width: 100%; display: block; }
 @media (max-width: 900px) {
   .zhero, .zsplit, .zcase, .zplans { grid-template-columns: 1fr; }
   .zhero { min-height: 0; }
-  .zhero__heat { right: -40%; top: 30%; width: 140%; height: 70%; }
+  .zhero__heat { right: -30%; top: 34%; width: 160%; height: 70%; }
+  .zhero__floor { height: 24%; }
   .zhero__pic { max-width: 520px; margin: 0 auto; width: 100%; }
+  .zhero__photo { width: 100%; height: auto; }
   .zhero__txt { padding-bottom: 0; }
-  .zhero__sig { display: none; }
   .zcase__left { border-right: 0; padding-right: 0; }
   .zcase__media { padding-left: 0; }
   .zhelp__wide .zfr__in { grid-template-columns: 1fr; }

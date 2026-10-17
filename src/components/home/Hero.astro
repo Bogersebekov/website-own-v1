@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import photo from '../../assets/photo/ruslan-cut.png';
+import photo from '../../assets/photo/ruslan-hero.png';
 import ZBtn from './ZBtn.astro';
 import { home, site } from '../../data/site.ru';
 const h = home.hero;
 ---
 <section class="zsec zhero" id="top">
-  <div class="zhero__heat" aria-hidden="true"></div>
+  <div class="zhero__bg" aria-hidden="true"><div class="zhero__heat"></div><div class="zhero__floor"></div></div>
   <div class="zhero__txt">
     <div class="zhero__top">
       <p class="zhero__name"><span class="znotch" aria-hidden="true"></span>{h.name}</p>
@@ -14,10 +14,9 @@ const h = home.hero;
       <p class="zmono">{h.lead.start} <strong>{h.lead.strong}</strong></p>
       <ZBtn href={site.links.telegram}>{h.cta}</ZBtn>
     </div>
-    <div class="zhero__sig">{h.name}<small>{h.city} · Telegram {site.telegramHandle}</small></div>
   </div>
   <div class="zhero__pic">
-    <Image class="zhero__photo" src={photo} alt={h.photoAlt} widths={[420, 640, 900, 1254]} sizes="(min-width: 900px) 42vw, 92vw" format="webp" quality={82} loading="eager" fetchpriority="high" />
+    <Image class="zhero__photo" src={photo} alt={h.photoAlt} widths={[420, 640, 855]} sizes="(min-width: 900px) 48vw, 92vw" format="webp" quality={82} loading="eager" fetchpriority="high" />
   </div>
   <div class="zhero__fade" aria-hidden="true"></div>
 </section>
