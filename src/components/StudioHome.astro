@@ -1,0 +1,287 @@
+---
+import { Image, getImage } from "astro:assets";
+import Studio from "../layouts/Studio.astro";
+import Arrow from "./StudioArrow.astro";
+import { homePoster as h, site, studioDesign as d } from "../data/site.ru";
+import portrait from "../assets/materials/ruslan-cutout.png";
+import originalPortrait from "../assets/materials/ruslan-portrait.png";
+import environment from "../assets/materials/hero-environment.png";
+import social from "../assets/materials/course-social.png";
+import landing from "../assets/materials/course-landing.png";
+import product from "../assets/materials/course-product.png";
+interface Props {
+  variant?: "portrait" | "studio" | "editorial";
+}
+const { variant = "portrait" } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const media = [social, landing, product];
+const full = await Promise.all(
+  media.map((src) =>
+    getImage({ src, width: src.width, format: "webp", quality: 90 }),
+  ),
+);
+---
+
+<Studio variant={variant}>
+  <section class="studio-hero" aria-labelledby="home-title">
+    {variant !== "editorial" && (
+      <div class="hero-environment" aria-hidden="true">
+        <Image
+          src={environment}
+          alt=""
+          widths={[800, 1400, 1900]}
+          sizes="100vw"
+          width={1900}
+          loading="eager"
+          quality={85}
+        />
+      </div>
+    )}
+    <div class="hero-orbit" aria-hidden="true"></div>
+    <div class="hero-identity">
+      <span class="tiny-cross" aria-hidden="true">
+        +
+      </span>
+      {h.name}
+    </div>
+    <div class="hero-copy">
+      <h1 id="home-title">
+        <span class="hero-line-one">{h.title[0]}</span>
+        <span class="hero-line-two">{h.title[1]}</span>
+        <span class="hero-line-three">{h.title[2]}</span>
+      </h1>
+      <p class="hero-description">{h.intro}</p>
+      <a class="studio-button" href={site.links.telegram}>
+        {h.cooperate}
+        <span>
+          <Arrow />
+        </span>
+      </a>
+    </div>
+    <figure class="hero-portrait">
+      <Image
+        src={variant === "editorial" ? originalPortrait : portrait}
+        alt="Руслан Романович"
+        widths={[480, 800, 1100]}
+        sizes="(max-width: 700px) 90vw, 55vw"
+        width={1100}
+        loading="eager"
+        fetchpriority="high"
+        quality={90}
+      />
+      <figcaption>{h.name}</figcaption>
+    </figure>
+    <div class="hero-bottomline">
+      <span>JETIX</span>
+      <a href="#firm" aria-label="Перейти к блоку фирмы">
+        ↓
+      </a>
+      <span>01 — 07</span>
+    </div>
+    <div class="hero-watermark" aria-hidden="true">
+      JETIX
+    </div>
+  </section>
+  <section id="firm" class="s-section s-firm" aria-labelledby="firm-title">
+    <div class="s-kicker">
+      <span>01 /</span>
+      {d.ui.about}
+    </div>
+    <div class="s-firm-grid">
+      <h2 id="firm-title">{h.firm.title}</h2>
+      <div class="s-firm-copy">
+        {h.firm.paragraphs.map((p) => (
+          <p>{p}</p>
+        ))}
+        <a class="studio-link" href={`${base}/firm`}>
+          {h.firm.cta}
+          <Arrow />
+        </a>
+      </div>
+    </div>
+    <div class="firm-symbol" aria-hidden="true">
+      <Arrow />
+    </div>
+  </section>
+  <section
+    id="projects"
+    class="s-section s-projects"
+    aria-labelledby="projects-title"
+  >
+    <div class="s-kicker">
+      <span>02 /</span>
+      {d.ui.projects}
+    </div>
+    <h2 id="projects-title">{h.projectsTitle}</h2>
+    <div class="s-project-grid">
+      {h.projects.map((project, i) => (
+        <article class={`s-project project-${i}`}>
+          <div class="project-art" aria-hidden="true">
+            {i === 0 ? (
+              <div class="network-symbol">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+            ) : i === 1 ? (
+              <div class="agency-symbol">
+                <Arrow />
+              </div>
+            ) : (
+              <div class="life-symbol">
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+            )}
+          </div>
+          <div class="s-project-content">
+            <span class="s-project-number">0{i + 1}</span>
+            <h3>{project.title}</h3>
+            {project.status && <span class="s-status">{project.status}</span>}
+            <p>{project.text}</p>
+            <a class="studio-link" href={`${base}${project.href}`}>
+              {project.cta}
+              <Arrow />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+  <section id="help" class="s-section s-help" aria-labelledby="help-title">
+    <div class="s-kicker">
+      <span>03 /</span>
+      {h.ui.help}
+    </div>
+    <div class="s-help-heading">
+      <h2 id="help-title">{h.help.title}</h2>
+      <a class="studio-button" href={site.links.telegram}>
+        {h.help.cta}
+        <span>
+          <Arrow />
+        </span>
+      </a>
+    </div>
+    <div class="s-services">
+      {h.help.items.map((item, i) => (
+        <article class="s-service">
+          <span class="s-service-number">0{i + 1}</span>
+          <div>
+            <h3>{item.title}</h3>
+            {item.text && <p>{item.text}</p>}
+          </div>
+          <span class="s-service-mark" aria-hidden="true">
+            <Arrow />
+          </span>
+        </article>
+      ))}
+    </div>
+  </section>
+  <section id="case" class="s-section s-case" aria-labelledby="case-title">
+    <div class="s-kicker">
+      <span>04 /</span>
+      {h.case.note}
+    </div>
+    <div class="s-case-top">
+      <div>
+        <h2 id="case-title">{h.case.title}</h2>
+        <p class="s-case-period">{h.case.period}</p>
+        <p class="s-case-description">{h.case.text}</p>
+      </div>
+      <div class="s-case-result">
+        <strong>
+          {h.case.amount}
+          <span>$</span>
+        </strong>
+        <span>{h.case.result}</span>
+      </div>
+    </div>
+    <div class="case-gallery">
+      {media.map((src, i) => (
+        <button
+          class="case-shot"
+          type="button"
+          data-image-full={full[i].src}
+          data-image-alt={d.caseMedia[i].alt}
+          data-image-title={d.caseMedia[i].title}
+          aria-label={`${d.ui.view}: ${d.caseMedia[i].title}`}
+        >
+          <div class="case-shot-image">
+            <Image
+              src={src}
+              alt={d.caseMedia[i].alt}
+              width={720}
+              sizes="(max-width: 700px) 85vw, 33vw"
+              widths={[360, 720, 1100]}
+              loading="lazy"
+              quality={85}
+            />
+          </div>
+          <div class="case-shot-caption">
+            <span>
+              0{i + 1} / {d.caseMedia[i].title}
+            </span>
+            <Arrow />
+          </div>
+        </button>
+      ))}
+    </div>
+  </section>
+  <section
+    id="interviews"
+    class="s-section s-interviews"
+    aria-labelledby="interviews-title"
+  >
+    <div class="s-kicker">
+      <span>05 /</span>
+      {d.ui.interviews}
+    </div>
+    <div class="s-interview-grid">
+      <div>
+        <h2 id="interviews-title">{h.interviews.title}</h2>
+        <a class="studio-button" href={`${base}/interviews`}>
+          {h.interviews.cta}
+          <span>
+            <Arrow />
+          </span>
+        </a>
+      </div>
+      <div class="s-interview-copy">
+        <p>{h.interviews.text}</p>
+        <p>{h.interviews.result}</p>
+        <div class="interview-wave" aria-hidden="true">
+          {Array.from({ length: 28 }, (_, i) => (
+            <i style={`--height:${[20, 40, 75, 35, 95, 50, 65][i % 7]}%`}></i>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  <section
+    id="contact"
+    class="s-section s-contact"
+    aria-labelledby="contact-title"
+  >
+    <div class="s-kicker">
+      <span>06 /</span>
+      {d.ui.contact}
+    </div>
+    <h2 id="contact-title">{h.contact.title}</h2>
+    <div class="s-contact-bottom">
+      <p>{h.contact.text}</p>
+      <a class="studio-button" href={site.links.telegram}>
+        {h.contact.cta}
+        <span>
+          <Arrow />
+        </span>
+      </a>
+    </div>
+    <span class="contact-plus" aria-hidden="true">
+      +
+    </span>
+  </section>
+</Studio>

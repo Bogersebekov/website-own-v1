@@ -1,0 +1,12 @@
+---
+import StudioHome from "../../components/StudioHome.astro";
+export function getStaticPaths() {
+  return ["portrait", "studio", "editorial"].map((variant) => ({
+    params: { variant },
+    props: { variant },
+  }));
+}
+const { variant } = Astro.props;
+---
+
+<StudioHome variant={variant} />

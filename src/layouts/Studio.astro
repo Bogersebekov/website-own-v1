@@ -1,0 +1,182 @@
+---
+import "../styles/studio.css";
+import { site, homePoster as h, studioDesign as d } from "../data/site.ru";
+import Arrow from "../components/StudioArrow.astro";
+interface Props {
+  variant?: "portrait" | "studio" | "editorial";
+}
+const { variant = "portrait" } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{site.title} — {d.variants.find(v=>v.id===variant)?.name}</title>
+    <meta name="description" content={h.intro} />
+    <meta name="theme-color" content="#141414" />
+    {Astro.url.pathname.includes("/variants/") && (
+      <meta name="robots" content="noindex, nofollow" />
+    )}
+    <meta property="og:title" content={site.title} />
+    <meta property="og:description" content={h.intro} />
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+    <link rel="canonical" href={new URL(`${base}/`, Astro.site)} />
+  </head>
+  <body class={`design-${variant}`}>
+    <a class="studio-skip" href="#main">
+      {d.ui.skip}
+    </a>
+    <div class="design-switch" role="navigation" aria-label={d.ui.variants}>
+      <span class="switch-label">JETIX / {d.ui.variants}</span>
+      <div>
+        {d.variants.map((v) => (
+          <a
+            href={`${base}/variants/${v.id}/`}
+            aria-current={variant === v.id ? "page" : undefined}
+          >
+            <span>{v.number}</span>
+            {v.name}
+          </a>
+        ))}
+      </div>
+    </div>
+    <div class="studio-shell">
+      <header class="studio-header">
+        <a
+          class="studio-logo"
+          href={`${base}/`}
+          aria-label="Jetix — на главную"
+        >
+          jetix
+          <svg class="studio-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <path
+              d="M20 2v36M2 20h36M7 7l26 26M7 33 33 7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            />
+          </svg>
+        </a>
+        <nav aria-label="Основная навигация">
+          {d.navigation.map((n) => (
+            <a href={`#${n.id}`}>{n.label}</a>
+          ))}
+        </nav>
+        <a class="header-cta" href={site.links.telegram}>
+          {h.ui.contact}
+          <Arrow />
+        </a>
+      </header>
+      <main id="main">
+        <slot />
+      </main>
+      <footer class="studio-footer">
+        <a class="studio-logo" href={`${base}/`}>
+          jetix
+          <svg class="studio-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <path
+              d="M20 2v36M2 20h36M7 7l26 26M7 33 33 7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            />
+          </svg>
+        </a>
+        <span>{h.name}</span>
+        <nav aria-label={d.ui.social}>
+          <span>YouTube</span>
+          <span>Instagram</span>
+          <a href={site.links.telegram}>
+            Telegram
+            <Arrow />
+          </a>
+        </nav>
+      </footer>
+    </div>
+    <dialog class="image-viewer" aria-label="Скриншоты проекта">
+      <div class="viewer-top">
+        <span class="viewer-caption"></span>
+        <button type="button" data-viewer-close aria-label={d.ui.close}>
+          ×
+        </button>
+      </div>
+      <button
+        class="viewer-prev"
+        type="button"
+        data-viewer-prev
+        aria-label={d.ui.previous}
+      >
+        ←
+      </button>
+      <div class="viewer-stage">
+        <img class="viewer-image" alt="" />
+      </div>
+      <button
+        class="viewer-next"
+        type="button"
+        data-viewer-next
+        aria-label={d.ui.next}
+      >
+        →
+      </button>
+    </dialog>
+    <script>
+      const viewer = document.querySelector<HTMLDialogElement>(".image-viewer");
+      const controls = Array.from(
+        document.querySelectorAll<HTMLButtonElement>("[data-image-full]"),
+      );
+      let selected = 0;
+      let opener: HTMLElement | null = null;
+      const show = (index: number) => {
+        if (!viewer || !controls.length) return;
+        selected = (index + controls.length) % controls.length;
+        const source = controls[selected];
+        const img = viewer.querySelector<HTMLImageElement>(".viewer-image");
+        const caption = viewer.querySelector(".viewer-caption");
+        if (img) {
+          img.src = source.dataset.imageFull || "";
+          img.alt = source.dataset.imageAlt || "";
+        }
+        if (caption)
+          caption.textContent = `${selected + 1} / ${controls.length} — ${source.dataset.imageTitle}`;
+      };
+      controls.forEach((button, index) =>
+        button.addEventListener("click", () => {
+          opener = button;
+          show(index);
+          viewer?.showModal();
+          document.body.classList.add("viewer-open");
+        }),
+      );
+      viewer
+        ?.querySelector("[data-viewer-close]")
+        ?.addEventListener("click", () => viewer.close());
+      viewer
+        ?.querySelector("[data-viewer-prev]")
+        ?.addEventListener("click", () => show(selected - 1));
+      viewer
+        ?.querySelector("[data-viewer-next]")
+        ?.addEventListener("click", () => show(selected + 1));
+      viewer?.addEventListener("click", (e) => {
+        if (e.target === viewer) viewer.close();
+      });
+      viewer?.addEventListener("close", () => {
+        document.body.classList.remove("viewer-open");
+        opener?.focus();
+      });
+      viewer?.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          show(selected + 1);
+          e.preventDefault();
+        }
+        if (e.key === "ArrowLeft") {
+          show(selected - 1);
+          e.preventDefault();
+        }
+      });
+    </script>
+  </body>
+</html>

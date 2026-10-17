@@ -1,0 +1,22 @@
+---
+import '../styles/poster.css';
+import {site, homePoster as h} from '../data/site.ru';
+interface Props {title?: string; description?: string; article?: boolean; frontmatter?: {title?: string; description?: string; article?: boolean}}
+const {title=site.title, description=h.intro, article=false}=Astro.props.frontmatter ?? Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title><meta name="description" content={description} /><meta name="theme-color" content="#0b0b0a" />
+<meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:type" content="website" /><meta property="og:locale" content="ru_RU" />
+<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} /><link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+</head><body>
+<a class="skip" href="#main">{h.ui.skip}</a><div class="page-grain" aria-hidden="true"></div>
+<div class="page-frame"><header class="masthead">
+<a class="wordmark" href={`${base}/`} aria-label="Jetix — на главную">JETIX<span aria-hidden="true"><svg class="star-icon" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M17.5 82.5l65-65" stroke="currentColor" stroke-width="9" /></svg></span></a>
+<nav aria-label="Основная навигация"><a href={`${base}/firm`}>{h.ui.firm}</a><a href={`${base}/agency`}>{h.ui.help}</a><a href={`${base}/#projects`}>{h.ui.projects}</a></nav>
+<a class="header-contact" href={site.links.telegram}>{h.ui.contact}<span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" /></svg></span></a>
+</header><main id="main" class:list={{'article-content':article}}><slot /></main>
+<footer class="poster-footer"><a class="wordmark" href={`${base}/`}>JETIX<span aria-hidden="true"><svg class="star-icon" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M17.5 82.5l65-65" stroke="currentColor" stroke-width="9" /></svg></span></a><span>{h.name}</span><a href={site.links.telegram}>Telegram <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" /></svg></span></a></footer></div>
+</body></html>
