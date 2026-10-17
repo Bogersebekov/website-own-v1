@@ -74,7 +74,7 @@ img { max-width: 100%; display: block; }
 .zsheet .zrail::before { color: var(--z-on-paper); }
 .zsheet .zrail__chip { background: var(--z-on-paper); color: var(--z-paper); }
 
-.zh { font-family: var(--z-display); font-weight: 800; text-transform: uppercase; line-height: .92; letter-spacing: -.01em; word-spacing: -.28em; margin: 0; text-wrap: balance; overflow-wrap: break-word; hyphens: manual; }
+.zh { font-family: var(--z-display); font-weight: 800; text-transform: uppercase; line-height: 1.02; letter-spacing: -.01em; word-spacing: -.28em; margin: 0; text-wrap: balance; overflow-wrap: break-word; hyphens: manual; }
 .zh--xxl { font-size: clamp(38px, 7vw, 104px); }
 .zh--xl { font-size: clamp(34px, 5.8vw, 84px); }
 .zh--l { font-size: clamp(30px, 4.4vw, 62px); }
