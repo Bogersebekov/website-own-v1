@@ -1,0 +1,230 @@
+/* zhar.css — оформление «Жар» (выбор Руслана 17.10, вариант В из «Вариантов дизайна по референсам»).
+   Тёмный зал с зерном и тёплым светом, огромные заголовки, моно-подписи, карточки со срезом угла,
+   белые листы для контраста. Цвета: тёмный, белый, оранжевый (свет, акцент, засечка), синий (кнопки).
+   Шрифты Jetix: Iosevka Heavy — огромные узкие заголовки, HS Luna Obscura — марка, кнопки, названия
+   карточек, Iosevka — текст (Luna слишком широкая для слов вроде «консалтинговую» в крупном кегле). Токены — jx-v2.css и or-acc.css.
+   Анимации ≤300 мс, prefers-reduced-motion выключает всё. */
+
+@font-face { font-family: 'HS Luna Obscura'; src: url('../assets/fonts/HS_LunaObscura.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Iosevka'; src: url('../assets/fonts/iosevka-extralight.woff2') format('woff2'); font-weight: 200; font-display: swap; }
+@font-face { font-family: 'Iosevka'; src: url('../assets/fonts/iosevka-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Iosevka'; src: url('../assets/fonts/iosevka-heavy.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+
+:root {
+  --z-ink: #0E0C14;
+  --z-panel: #17151F;
+  --z-panel-2: #1E1C28;
+  --z-line: rgba(255, 255, 255, .13);
+  --z-line-2: rgba(255, 255, 255, .24);
+  --z-fg: var(--rw-foreground, #FFFFFF);
+  --z-mute: var(--rw-gray-500, #878593);
+  --z-soft: var(--rw-gray-700, #C4C4CA);
+  --z-paper: #F2F1EE;
+  --z-on-paper: #0E0C14;
+  --z-paper-mute: #5F5D69;
+  --z-or: var(--or-mark, #FF5500);
+  --z-blue: var(--rw-blue-500, #306EE8);
+  --z-blue-h: var(--rw-blue-400, #2057C5);
+  --z-blue-on-paper: var(--rw-blue-400, #2057C5);
+  --z-display: 'Iosevka', ui-monospace, monospace;
+  --z-brand: 'HS Luna Obscura', 'Iosevka', sans-serif;
+  --z-mono: 'Iosevka', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --z-c: 14px;
+  --z-max: 1360px;
+  --z-pad: clamp(16px, 4vw, 56px);
+  --z-t: 240ms;
+  --z-ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--z-ink); -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+main, .zfoot { overflow-x: clip; }
+body {
+  margin: 0; background: var(--z-ink); color: var(--z-fg);
+  font-family: var(--z-mono); font-weight: 400; font-size: 15px; line-height: 1.55;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--z-or); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* зерно поверх всего */
+.grain { position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .08; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* ——— шапка ——— */
+.zbar { position: sticky; top: 0; z-index: 40; background: rgba(14, 12, 20, .82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--z-line); }
+.zbar__in { max-width: var(--z-max); margin: 0 auto; padding: 12px var(--z-pad); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.zbar__brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--z-brand); font-size: 20px; letter-spacing: .12em; text-decoration: none; }
+.zbar__mark { width: 10px; height: 10px; background: var(--z-or); clip-path: polygon(30% 0, 100% 0, 100% 70%, 70% 100%, 0 100%, 0 30%); }
+.zbar__tg { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; text-decoration: none; color: var(--z-soft); border-bottom: 1px solid var(--z-or); padding-bottom: 2px; transition: color var(--z-t) var(--z-ease); }
+.zbar__tg:hover { color: var(--z-fg); }
+
+/* ——— общие кирпичи ——— */
+.zsec { position: relative; max-width: var(--z-max); margin: 0 auto; padding: clamp(48px, 7vw, 104px) var(--z-pad); }
+.zsheet { background: var(--z-paper); color: var(--z-on-paper); }
+
+.zrail { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--z-mute);
+  border-top: 1px solid var(--z-line); padding-top: 9px; margin-bottom: clamp(28px, 4.4vw, 60px); position: relative; }
+.zrail::before { content: '+'; position: absolute; left: 50%; top: -10px; transform: translateX(-50%); color: var(--z-fg); font-size: 13px; line-height: 1; }
+.zrail__r { text-align: right; }
+.zrail__chip { justify-self: center; background: var(--z-fg); color: var(--z-ink); padding: 3px 8px; line-height: 1.2; }
+.zsheet .zrail { color: var(--z-paper-mute); border-color: rgba(0, 0, 0, .14); }
+.zsheet .zrail::before { color: var(--z-on-paper); }
+.zsheet .zrail__chip { background: var(--z-on-paper); color: var(--z-paper); }
+
+.zh { font-family: var(--z-display); font-weight: 800; text-transform: uppercase; line-height: .92; letter-spacing: -.01em; word-spacing: -.28em; margin: 0; text-wrap: balance; overflow-wrap: break-word; hyphens: manual; }
+.zh--xxl { font-size: clamp(38px, 7vw, 104px); }
+.zh--xl { font-size: clamp(34px, 5.8vw, 84px); }
+.zh--l { font-size: clamp(30px, 4.4vw, 62px); }
+.zh--m { font-family: var(--z-brand); font-weight: 400; letter-spacing: .01em; word-spacing: normal; font-size: clamp(17px, 1.55vw, 23px); line-height: 1.15; }
+.zh--s { font-family: var(--z-brand); font-weight: 400; letter-spacing: .01em; word-spacing: normal; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.15; }
+.or { color: var(--z-or); }
+.zsheet .bl { color: var(--z-blue-on-paper); }
+
+.zmono { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; line-height: 1.65; color: var(--z-mute); max-width: 52ch; margin: 0; }
+.zmono strong { color: var(--z-fg); font-weight: 400; }
+.zsheet .zmono { color: var(--z-paper-mute); }
+.zsheet .zmono strong { color: var(--z-on-paper); }
+.zlead { font-size: clamp(15px, 1.25vw, 17px); line-height: 1.65; max-width: 56ch; color: var(--z-soft); margin: 0; }
+.zsheet .zlead { color: #34323C; }
+
+.zbtn { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; min-width: min(100%, 300px); min-height: 56px;
+  background: var(--z-blue); color: #fff; text-decoration: none; font-family: var(--z-brand); font-size: 16px; letter-spacing: .04em; text-transform: uppercase;
+  padding: 16px 18px; clip-path: polygon(0 0, calc(100% - var(--z-c)) 0, 100% var(--z-c), 100% 100%, 0 100%);
+  transition: background var(--z-t) var(--z-ease), transform var(--z-t) var(--z-ease); }
+.zbtn::after { content: '↳'; font-family: var(--z-mono); font-size: 20px; }
+.zbtn:hover { background: var(--z-blue-h); }
+.zbtn:active { transform: translateY(1px); }
+.zbtn--ghost { background: transparent; box-shadow: inset 0 0 0 1px var(--z-line-2); color: var(--z-fg); }
+.zbtn--ghost:hover { background: rgba(255, 255, 255, .06); }
+.zbtn--light { background: var(--z-fg); color: var(--z-ink); }
+.zbtn--light:hover { background: #fff; color: var(--z-ink); box-shadow: inset 0 0 0 2px var(--z-or); }
+
+.zcut { clip-path: polygon(0 0, calc(100% - var(--z-c)) 0, 100% var(--z-c), 100% 100%, 0 100%); }
+.znotch { display: inline-block; width: 9px; height: 9px; background: var(--z-or); transform: rotate(45deg); flex: none; }
+.znum { font-size: 11px; color: var(--z-mute); letter-spacing: .06em; }
+
+/* рамка со срезом: внешний слой — линия, внутренний — панель */
+.zfr { background: var(--z-line-2); padding: 1px; min-width: 0; clip-path: polygon(0 0, calc(100% - var(--z-c)) 0, 100% var(--z-c), 100% 100%, 0 100%); }
+.zfr > .zfr__in { background: var(--z-panel); height: 100%; clip-path: polygon(0 0, calc(100% - var(--z-c) + .5px) 0, 100% calc(var(--z-c) - .5px), 100% 100%, 0 100%); }
+
+/* место под материал (видно только в превью) */
+.zslot { position: relative; display: grid; place-items: center; text-align: center; padding: 10px; color: var(--z-or);
+  background: repeating-linear-gradient(-45deg, rgba(255, 85, 0, .07) 0 10px, transparent 10px 20px), rgba(255, 85, 0, .03);
+  outline: 1px dashed rgba(255, 85, 0, .6); outline-offset: -1px; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; line-height: 1.45; min-width: 0; }
+.zslot b { display: block; font-family: var(--z-brand); font-weight: 400; font-size: 15px; letter-spacing: .03em; }
+.zsheet .zslot { color: #A33600; background: repeating-linear-gradient(-45deg, rgba(0, 0, 0, .05) 0 10px, transparent 10px 20px); outline-color: rgba(163, 54, 0, .55); }
+.zmedia { display: block; width: 100%; height: 100%; object-fit: cover; }
+.zm--vertical { aspect-ratio: 9 / 16; }
+.zm--screen { aspect-ratio: 16 / 10; }
+.zm--wide { aspect-ratio: 16 / 9; }
+
+/* ——— 1 · первый экран ——— */
+.zhero { min-height: min(88vh, 860px); display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; padding-bottom: 0; overflow: visible; }
+.zhero__heat { position: absolute; right: -14%; top: -28%; width: 78%; height: 124%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 170, 60, .5), rgba(255, 85, 0, .42) 42%, rgba(120, 20, 0, .2) 70%, transparent); filter: blur(30px); }
+.zhero > :not(.zhero__heat):not(.zhero__fade) { position: relative; }
+.zhero h1 { font-size: clamp(44px, 6.4vw, 92px); }
+.zhero__txt { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding-bottom: clamp(32px, 4vw, 60px); min-width: 0; }
+.zhero__top { display: grid; gap: 24px; justify-items: start; }
+.zhero__name { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--z-soft); display: inline-flex; gap: 10px; align-items: center; margin: 0; }
+.zhero__sig { display: grid; gap: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.zhero__sig small { color: var(--z-mute); font-size: 11px; }
+.zhero__pic { display: grid; align-items: end; min-width: 0; }
+.zhero__photo { width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(255, 255, 255, .3));
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 99%); mask-image: linear-gradient(180deg, #000 72%, transparent 99%); }
+.zhero__fade { position: absolute; left: 0; right: 0; bottom: 0; height: 18%; background: linear-gradient(0deg, var(--z-ink), transparent); pointer-events: none; }
+
+/* ——— 2 · фирма ——— */
+.zsplit { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4.4vw, 72px); align-items: end; }
+.zstack { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; min-width: 0; }
+
+/* ——— 3 · проекты ——— */
+.zplans { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.8vw, 24px); align-items: stretch; }
+.zplan { display: flex; flex-direction: column; gap: 18px; padding: clamp(22px, 2.4vw, 32px); min-width: 0; position: relative; }
+.zplan--light { background: var(--z-paper); color: var(--z-on-paper); }
+.zplan--dark { background: var(--z-panel); box-shadow: inset 0 0 0 1px var(--z-line); }
+.zplan__top { display: flex; justify-content: space-between; align-items: center; }
+.zplan__badge { align-self: flex-start; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 4px 8px; background: var(--z-or); color: #fff; }
+.zplan p { margin: 0; flex: 1; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; line-height: 1.6; color: var(--z-soft); }
+.zplan--light p { color: var(--z-paper-mute); }
+.zplan--light .znum { color: var(--z-paper-mute); }
+.zplan .zbtn { min-width: 0; width: 100%; }
+.zplan--dark .zbtn { background: var(--z-fg); color: var(--z-ink); }
+.zplan--dark .zbtn:hover { background: #fff; box-shadow: inset 0 0 0 2px var(--z-or); }
+
+/* ——— 4 · с чем могу помочь ——— */
+.zhelp { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 1.6vw, 20px); }
+.zhcard { padding: clamp(20px, 2.2vw, 28px); display: grid; gap: 16px; align-content: start; min-height: 168px; }
+.zhcard__top { display: flex; justify-content: space-between; align-items: center; }
+.zhcard p { margin: 0; font-size: 13px; color: var(--z-mute); text-transform: uppercase; letter-spacing: .04em; }
+.zhelp__wide { grid-column: 1 / -1; }
+.zhelp__wide .zfr__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(16px, 3vw, 40px); align-items: start; }
+.zhelp__media { display: grid; gap: 12px; }
+.zhelp__media--vertical { grid-template-columns: repeat(3, minmax(0, 190px)); justify-content: end; }
+.zhelp__media--screen { grid-template-columns: repeat(2, 1fr); }
+.zhelp__cta { margin-top: clamp(24px, 3vw, 36px); }
+
+/* ——— 5 · кейс (белый лист) ——— */
+.zcase { display: grid; grid-template-columns: 5fr 6fr; border-top: 1px solid rgba(0, 0, 0, .12); }
+.zcase__left { padding: clamp(24px, 3vw, 44px) clamp(16px, 3vw, 40px) clamp(24px, 3vw, 44px) 0; display: flex; flex-direction: column; gap: 22px; border-right: 1px solid rgba(0, 0, 0, .12); }
+.zcase__right { display: grid; align-content: start; }
+.zstat { display: grid; grid-template-columns: auto 1fr; gap: clamp(14px, 2.4vw, 36px); align-items: center; padding: clamp(18px, 2.4vw, 32px); background: var(--z-on-paper); color: var(--z-paper); }
+.zstat__v { font-family: var(--z-display); font-weight: 800; font-size: clamp(54px, 8vw, 120px); line-height: .86; font-variant-numeric: tabular-nums; white-space: nowrap; word-spacing: -.3em; }
+.zstat__v sup { font-size: .4em; vertical-align: .9em; margin-left: 4px; color: var(--z-or); }
+.zstat__l { display: grid; gap: 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; justify-items: start; }
+.zstat__sq { display: inline-grid; place-items: center; width: 28px; height: 28px; background: var(--z-or); color: #fff; font-size: 13px; }
+.zcase__media { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: clamp(16px, 2.4vw, 32px) 0 0 clamp(0px, 2.4vw, 32px); }
+
+/* ——— 6 · интервью ——— */
+.zcenter { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 22px; position: relative; }
+.zcenter .zlead { margin-inline: auto; }
+.zint__glow { position: absolute; left: 15%; right: 15%; top: 28%; height: 62%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 85, 0, .28), rgba(48, 110, 232, .12) 60%, transparent); filter: blur(30px); }
+
+/* ——— 7 · связь ——— */
+.zcontact { min-height: clamp(420px, 44vw, 640px); display: flex; flex-direction: column; justify-content: center; gap: 26px; }
+.zcontact__glow { position: absolute; inset: auto -10% -45% -10%; height: 85%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 85, 0, .4), rgba(255, 170, 60, .12) 55%, transparent); filter: blur(30px); }
+.zcontact > :not(.zcontact__glow) { position: relative; }
+
+/* ——— подвал ——— */
+.zfoot { border-top: 1px solid var(--z-line); }
+.zfoot__in { max-width: var(--z-max); margin: 0 auto; padding: 16px var(--z-pad) 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px;
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--z-mute); }
+.zfoot__soc { display: flex; gap: 20px; }
+.zfoot__soc a { color: var(--z-fg); text-decoration: none; border-bottom: 1px solid var(--z-or); padding-bottom: 2px; }
+
+/* ——— появление при прокрутке ——— */
+.zrev { opacity: 0; transform: translateY(14px); transition: opacity 300ms var(--z-ease), transform 300ms var(--z-ease); }
+.zrev.is-in { opacity: 1; transform: none; }
+.no-js .zrev { opacity: 1; transform: none; }
+
+/* ——— узкие экраны ——— */
+@media (max-width: 900px) {
+  .zhero, .zsplit, .zcase, .zplans { grid-template-columns: 1fr; }
+  .zhero { min-height: 0; }
+  .zhero__heat { right: -40%; top: 30%; width: 140%; height: 70%; }
+  .zhero__pic { max-width: 520px; margin: 0 auto; width: 100%; }
+  .zhero__txt { padding-bottom: 0; }
+  .zhero__sig { display: none; }
+  .zcase__left { border-right: 0; padding-right: 0; }
+  .zcase__media { padding-left: 0; }
+  .zhelp__wide .zfr__in { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .zhelp { grid-template-columns: 1fr; }
+  .zhelp__media--vertical { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; justify-content: stretch; }
+  .zhelp__media--screen, .zcase__media { grid-template-columns: 1fr; }
+  .zrail { grid-template-columns: auto 1fr auto; }
+  .zstat { grid-template-columns: 1fr; }
+  .zbtn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  .zrev { opacity: 1; transform: none; }
+}

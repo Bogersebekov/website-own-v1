@@ -1,0 +1,13 @@
+---
+import ZRail from './ZRail.astro';
+import ZBtn from './ZBtn.astro';
+import { home, site } from '../../data/site.ru';
+const c = home.contact;
+---
+<section class="zsec zcontact zrev" id="contact" aria-labelledby="contact-h">
+  <div class="zcontact__glow" aria-hidden="true"></div>
+  <ZRail n="07" chip={c.rail} path="/последний шаг" />
+  <h2 class="zh zh--xxl" id="contact-h">{c.title.start} <span class="or">{c.title.accent}</span><br />{c.title.end}</h2>
+  <p class="zlead">{c.text}</p>
+  <div><ZBtn href={site.links.telegram}>{c.cta}</ZBtn></div>
+</section>

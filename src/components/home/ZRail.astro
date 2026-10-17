@@ -1,0 +1,6 @@
+---
+// Подпись раздела: номер слева, плашка по центру, путь справа.
+interface Props { n: string; chip: string; path?: string }
+const { n, chip, path = '' } = Astro.props;
+---
+<div class="zrail" aria-hidden="true"><span>//{n}</span><span class="zrail__chip">{chip}</span><span class="zrail__r">{path}</span></div>

@@ -1,0 +1,28 @@
+---
+import ZRail from './ZRail.astro';
+import ZMedia from './ZMedia.astro';
+import { home } from '../../data/site.ru';
+import { media, showSlots } from '../../data/media';
+const c = home.case;
+const hasMedia = showSlots || c.media.some((id) => media[id]?.file);
+---
+<div class="zsheet">
+  <section class="zsec zrev" id="case" aria-labelledby="case-h">
+    <ZRail n="05" chip={c.rail} path="/K-001" />
+    <div class="zcase">
+      <div class="zcase__left">
+        <h2 class="zh zh--l" id="case-h">{c.title.start} <span class="bl">{c.title.accent}</span></h2>
+        <p class="zmono"><strong>{c.meta}</strong></p>
+        <p class="zmono">{c.text}</p>
+        <p class="zmono">{c.note}</p>
+      </div>
+      <div class="zcase__right">
+        <div class="zstat">
+          <div class="zstat__v">{c.stat.value}<sup>{c.stat.unit}</sup></div>
+          <div class="zstat__l"><span class="zstat__sq" aria-hidden="true">$</span>{c.stat.label}</div>
+        </div>
+        {hasMedia && <div class="zcase__media">{c.media.map((id) => <ZMedia id={id} />)}</div>}
+      </div>
+    </div>
+  </section>
+</div>
