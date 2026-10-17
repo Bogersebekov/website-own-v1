@@ -1,0 +1,13 @@
+---
+import StudioHome from "../../../components/StudioHome.astro";
+import { siteEditions } from "../../../data/site.ru";
+export function getStaticPaths() {
+  return siteEditions.map((item) => ({
+    params: { edition: item.id },
+    props: { edition: item.id },
+  }));
+}
+const { edition } = Astro.props;
+---
+
+<StudioHome variant="portrait" look="haze" edition={edition} />

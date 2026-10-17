@@ -1,0 +1,15 @@
+---
+import StudioDetail from "../../../components/StudioDetail.astro";
+import { siteEditions, siteDocumentTitles } from "../../../data/site.ru";
+export function getStaticPaths() {
+  return siteEditions.flatMap((item) =>
+    Object.keys(siteDocumentTitles).map((page) => ({
+      params: { edition: item.id, page },
+      props: { edition: item.id, page },
+    })),
+  );
+}
+const { edition, page } = Astro.props;
+---
+
+<StudioDetail edition={edition} page={page} />

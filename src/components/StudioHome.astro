@@ -18,8 +18,9 @@ import product from "../assets/materials/course-product.png";
 interface Props {
   variant?: "portrait" | "studio" | "editorial";
   look?: string;
+  edition?: string;
 }
-const { variant = "portrait", look } = Astro.props;
+const { variant = "portrait", look, edition } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const environments = {
   ember: bgember,
@@ -40,7 +41,7 @@ const full = await Promise.all(
 );
 ---
 
-<Studio variant={variant} look={look}>
+<Studio variant={variant} look={look} edition={edition}>
   <section class="studio-hero" aria-labelledby="home-title">
     {variant !== "editorial" && (
       <div class="hero-environment" aria-hidden="true">
@@ -111,7 +112,10 @@ const full = await Promise.all(
         {h.firm.paragraphs.map((p) => (
           <p>{p}</p>
         ))}
-        <a class="studio-link" href={`${base}/firm`}>
+        <a
+          class="studio-link"
+          href={edition ? `${base}/preview/${edition}/firm/` : `${base}/firm`}
+        >
           {h.firm.cta}
           <Arrow />
         </a>
@@ -131,7 +135,10 @@ const full = await Promise.all(
       {d.ui.projects}
     </div>
     <h2 id="projects-title">{h.projectsTitle}</h2>
-    <ProjectPanels look={look} />
+    <ProjectPanels
+      look={look}
+      routePrefix={edition ? `${base}/preview/${edition}` : base}
+    />
   </section>
   <section id="help" class="s-section s-help" aria-labelledby="help-title">
     <div class="s-kicker">
@@ -202,12 +209,14 @@ const full = await Promise.all(
               quality={85}
             />
           </div>
-          <div class="case-shot-caption">
-            <span>
-              0{i + 1} / {d.caseMedia[i].title}
-            </span>
-            <Arrow />
-          </div>
+          {!edition && (
+            <div class="case-shot-caption">
+              <span>
+                0{i + 1} / {d.caseMedia[i].title}
+              </span>
+              <Arrow />
+            </div>
+          )}
         </button>
       ))}
     </div>
@@ -224,7 +233,14 @@ const full = await Promise.all(
     <div class="s-interview-grid">
       <div>
         <h2 id="interviews-title">{h.interviews.title}</h2>
-        <a class="studio-button" href={`${base}/interviews`}>
+        <a
+          class="studio-button"
+          href={
+            edition
+              ? `${base}/preview/${edition}/interviews/`
+              : `${base}/interviews`
+          }
+        >
           {h.interviews.cta}
           <span>
             <Arrow />

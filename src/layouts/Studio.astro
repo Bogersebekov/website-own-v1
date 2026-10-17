@@ -5,15 +5,42 @@ import PortraitControls from "../components/PortraitControls.astro";
 import { portraitLab as lab } from "../data/site.ru";
 import { site, homePoster as h, studioDesign as d } from "../data/site.ru";
 import Arrow from "../components/StudioArrow.astro";
+import Wordmark from "../components/StudioWordmark.astro";
+import { siteEditions } from "../data/site.ru";
+import "../styles/site-editions.css";
 interface Props {
   variant?: "portrait" | "studio" | "editorial";
   look?: string;
   board?: boolean;
+  edition?: string;
+  article?: boolean;
+  pageSlug?: string;
+  title?: string;
 }
-const { variant = "portrait", look, board = false } = Astro.props;
-const preset = lab.looks.find((item) => item.id === look);
+const {
+  variant = "portrait",
+  look,
+  board = false,
+  edition,
+  article = false,
+  pageSlug = "",
+  title,
+} = Astro.props;
+const activeEdition = siteEditions.find((item) => item.id === edition);
+const preset = activeEdition
+  ? {
+      ...lab.looks.find((item) => item.id === "haze")!,
+      buttons: "outline",
+      cards: activeEdition.id,
+      portrait: "natural",
+      grid: false,
+    }
+  : lab.looks.find((item) => item.id === look);
 const labActive = Boolean(preset);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const homeHref = activeEdition
+  ? `${base}/preview/${activeEdition.id}/`
+  : `${base}/`;
 ---
 
 <!doctype html>
@@ -21,11 +48,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{site.title} — {d.variants.find(v=>v.id===variant)?.name}</title>
+    <title>{title ?? `${site.title} — ${activeEdition?.name ?? d.variants.find(v=>v.id===variant)?.name}`}</title>
     <meta name="description" content={h.intro} />
     <meta name="theme-color" content="#141414" />
     {(Astro.url.pathname.includes("/variants/") ||
-      Astro.url.pathname.includes("/looks/")) && (
+      Astro.url.pathname.includes("/looks/") ||
+      Astro.url.pathname.includes("/preview/")) && (
       <meta name="robots" content="noindex, nofollow" />
     )}
     <meta property="og:title" content={site.title} />
@@ -34,8 +62,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <link rel="canonical" href={new URL(`${base}/`, Astro.site)} />
   </head>
   <body
-    class:list={[`design-${variant}`, { "look-active": labActive }]}
-    data-look={look}
+    class:list={[
+      `design-${variant}`,
+      {
+        "look-active": labActive,
+        "site-edition": Boolean(activeEdition),
+        "detail-page": article,
+      },
+    ]}
+    data-edition={activeEdition?.id}
+    data-look={activeEdition ? "haze" : look}
     data-buttons={preset?.buttons}
     data-portrait={preset?.portrait}
     data-cards={preset?.cards}
@@ -44,7 +80,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <a class="studio-skip" href="#main">
       {d.ui.skip}
     </a>
-    {board ? (
+    {activeEdition ? (
+      <div
+        class="edition-switch"
+        role="navigation"
+        aria-label="Оформление сайта"
+      >
+        <span>JETIX / Оранжевая дымка + контур</span>
+        <div>
+          {siteEditions.map((item) => (
+            <a
+              href={`${base}/preview/${item.id}/${pageSlug ? pageSlug + "/" : ""}`}
+              aria-current={activeEdition.id === item.id ? "page" : undefined}
+            >
+              <b>{item.number}</b>
+              {item.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    ) : board ? (
       <div class="board-toplink">
         <a href={`${base}/looks/ember/`}>← К фонам и портрету</a>
       </div>
@@ -74,24 +129,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     )}
     <div class="studio-shell">
       <header class="studio-header">
-        <a
-          class="studio-logo"
-          href={`${base}/`}
-          aria-label="Jetix — на главную"
-        >
-          jetix
-          <svg class="studio-mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path
-              d="M20 2v36M2 20h36M7 7l26 26M7 33 33 7"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="3"
-            />
-          </svg>
+        <a class="studio-logo" href={homeHref} aria-label="Jetix — на главную">
+          <Wordmark />
         </a>
         <nav aria-label="Основная навигация">
           {d.navigation.map((n) => (
-            <a href={board ? `${base}/#${n.id}` : `#${n.id}`}>{n.label}</a>
+            <a href={article || board ? `${homeHref}#${n.id}` : `#${n.id}`}>
+              {n.label}
+            </a>
           ))}
         </nav>
         <a class="header-cta" href={site.links.telegram}>
@@ -103,16 +148,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         <slot />
       </main>
       <footer class="studio-footer">
-        <a class="studio-logo" href={`${base}/`}>
-          jetix
-          <svg class="studio-mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path
-              d="M20 2v36M2 20h36M7 7l26 26M7 33 33 7"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="3"
-            />
-          </svg>
+        <a class="studio-logo" href={homeHref}>
+          <Wordmark />
         </a>
         <span>{h.name}</span>
         <nav aria-label={d.ui.social}>

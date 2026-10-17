@@ -427,3 +427,11 @@ export const portraitLab = {
  cards:[{id:'glass',name:'Стеклянные плашки'},{id:'type',name:'Типографика'},{id:'diagram',name:'Схемы'}],
  labels:{background:'Фон',buttons:'Кнопки',portrait:'Портрет',cards:'Карточки',grid:'Лёгкая сетка',close:'Свернуть настройки',open:'Настройки',components:'Кнопки и карточки'},
 };
+
+// Выбор владельца: оранжевая дымка и контурные кнопки общие для всех трёх оформлений.
+export const siteEditions = [
+ {id:'glass', number:'01', name:'Стеклянные плашки'},
+ {id:'type', number:'02', name:'Типографика'},
+ {id:'diagram', number:'03', name:'Схемы'},
+] as const;
+export const siteDocumentTitles = {firm:'Фирма',agency:'Агентство',interviews:'Интервью','life-os':'Life.OS'};

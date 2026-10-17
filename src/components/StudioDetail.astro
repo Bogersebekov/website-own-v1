@@ -1,0 +1,39 @@
+---
+import Studio from "../layouts/Studio.astro";
+import { siteDocumentTitles } from "../data/site.ru";
+import { Content as Firm } from "../content/site-pages/firm.md";
+import { Content as Agency } from "../content/site-pages/agency.md";
+import { Content as Interviews } from "../content/site-pages/interviews.md";
+import { Content as LifeOS } from "../content/site-pages/life-os.md";
+interface Props {
+  page: keyof typeof siteDocumentTitles;
+  edition?: string;
+}
+const { page, edition = "glass" } = Astro.props;
+const Pages = {
+  firm: Firm,
+  agency: Agency,
+  interviews: Interviews,
+  "life-os": LifeOS,
+};
+const Content = Pages[page];
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<Studio
+  variant="portrait"
+  look="haze"
+  edition={edition}
+  article
+  pageSlug={page}
+  title={`${siteDocumentTitles[page]} · Jetix`}
+>
+  <article class="studio-document">
+    <a class="document-back" href={`${base}/preview/${edition}/`}>
+      ← На главную
+    </a>
+    <div class="document-copy">
+      <Content />
+    </div>
+  </article>
+</Studio>
