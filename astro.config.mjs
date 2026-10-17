@@ -12,6 +12,6 @@ export default defineConfig({
   site: SITE,
   base: BASE,
   trailingSlash: 'ignore',
-  integrations: [sitemap({ filter: (page) => !page.includes('/v/') })],
+  integrations: [sitemap({ filter: (page) => !/\/(v|variants|looks|preview|refine)\//.test(new URL(page).pathname) })],
   build: { format: 'directory' },
 });
