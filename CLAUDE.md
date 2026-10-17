@@ -30,15 +30,22 @@ src/data/site.ru.ts        тексты главной (один файл на �
 src/content/journal/       записи журнала «строю публично», YYYY-MM-DD-slug.md
 src/components/            блоки главной: Hero, Facts, Now, Doors, Story, Journal, Contact
 src/layouts/Base.astro     каркас страницы: шапка, фон, подвал, анимация появления
+src/layouts/Zhar.astro     каркас в оформлении «Жар» (с 17.10): главная уже на нём, остальные страницы переезжают по одной
+src/components/home/       блоки новой главной (H-PAGE-001 v2.0)
+src/data/media.ts          места под фото/видео; реестр для людей — docs/media.md
 src/pages/                 маршруты: index, journal/
 src/styles/                токены Jetix + global.css (слой сайта)
 src/assets/                шрифты, фон-сетка
 public/                    favicon, CNAME (когда домен подключён)
-docs/                      ТЗ, стек, журнал, решения
+docs/                      ТЗ, стек, журнал, решения; docs/site-content-2026-10-16/ — принятые тексты страниц
 proposals/                 предложения агентов, ждут слова Руслана
 ```
 
 ## Как добавлять
+
+- **Фото или видео от Руслана:** оригинал в `/mnt/project-files/sajt/media/originaly/`, строка в `docs/media.md`
+  (журнал поступлений + статус места), копия для сайта в `src/assets/media/` (видео — `public/media/`), имя файла в `src/data/media.ts`.
+- **Превью с пустыми местами под медиа:** `PUBLIC_SHOW_SLOTS=1 npm run build`. Боевая сборка пустые места не показывает.
 
 - **Новая страница:** `src/pages/<slug>.astro`, обёртка `<Base title=... description=...>`, блоки из `src/components/`.
   Ссылки внутри сайта — через `import.meta.env.BASE_URL` (см. компоненты), пока сайт живёт с `base`.

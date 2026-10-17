@@ -1,0 +1,17 @@
+---
+// Место под фото или видео из реестра (src/data/media.ts, docs/media.md).
+// Есть файл — показываем его. Нет файла — рамка с ID, но только в превью.
+import { Image } from 'astro:assets';
+import { media, showSlots } from '../../data/media';
+
+interface Props { id: string }
+const slot = media[Astro.props.id];
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/media/*.{png,jpg,jpeg,webp}', { eager: true });
+const img = slot?.file ? files[`../../assets/media/${slot.file}`]?.default : undefined;
+const video = slot?.file && /\.(mp4|webm)$/.test(slot.file) ? slot.file : undefined;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const cls = `zcut zm--${slot?.kind ?? 'screen'}`;
+---
+{img && <Image class={`zmedia ${cls}`} src={img} alt={slot.alt ?? ''} widths={[360, 720, 1080]} sizes="(min-width: 900px) 30vw, 90vw" format="webp" quality={80} />}
+{video && <video class={`zmedia ${cls}`} src={`${base}/media/${video}`} controls preload="metadata" playsinline></video>}
+{!img && !video && showSlots && slot && <div class={`zslot ${cls}`}><div><b>{slot.id}</b>{slot.hint}<br />ждём материал</div></div>}

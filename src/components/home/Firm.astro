@@ -1,0 +1,16 @@
+---
+import ZRail from './ZRail.astro';
+import ZBtn from './ZBtn.astro';
+import { home } from '../../data/site.ru';
+const f = home.firm;
+---
+<section class="zsec zrev" id="firm" aria-labelledby="firm-h">
+  <ZRail n="02" chip={f.rail} path="/firm" />
+  <div class="zsplit">
+    <h2 class="zh zh--xl" id="firm-h">{f.title.start} <span class="or">{f.title.accent}</span></h2>
+    <div class="zstack">
+      {f.paragraphs.map((p) => <p class="zlead">{p}</p>)}
+      <ZBtn href={f.cta.href}>{f.cta.label}</ZBtn>
+    </div>
+  </div>
+</section>

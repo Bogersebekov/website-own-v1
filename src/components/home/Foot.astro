@@ -1,0 +1,14 @@
+---
+// Подвал: соцсети ссылками. Ссылки без адреса не показываем.
+import { home, site } from '../../data/site.ru';
+const links = home.social.filter((s) => s.href);
+---
+<footer class="zfoot">
+  <div class="zfoot__in">
+    <span>{site.person} · {site.city}</span>
+    <nav class="zfoot__soc" aria-label="Соцсети">
+      {links.map((s) => <a href={s.href} target="_blank" rel="me noopener">{s.label}</a>)}
+    </nav>
+    <span>jetixagency.com</span>
+  </div>
+</footer>

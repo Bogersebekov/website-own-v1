@@ -1,0 +1,33 @@
+---
+import ZRail from './ZRail.astro';
+import ZBtn from './ZBtn.astro';
+import ZMedia from './ZMedia.astro';
+import { home, site } from '../../data/site.ru';
+import { media, showSlots } from '../../data/media';
+const h = home.help;
+// Медиа-ряд показываем, если есть хоть один файл или это превью.
+const hasMedia = (ids: string[]) => ids.length > 0 && (showSlots || ids.some((id) => media[id]?.file));
+---
+<section class="zsec zrev" id="help" aria-labelledby="help-h">
+  <ZRail n="04" chip={h.rail} path="/помощь" />
+  <h2 class="zh zh--xl" id="help-h" style="margin-bottom:clamp(28px,4vw,52px)">{h.title.start} <span class="or">{h.title.accent}</span></h2>
+  <div class="zhelp">
+    {h.items.map((it, i) => {
+      const wide = hasMedia(it.media);
+      const kind = media[it.media[0]]?.kind ?? 'screen';
+      return (
+        <div class={`zfr ${wide ? 'zhelp__wide' : ''}`}>
+          <div class="zfr__in zhcard">
+            <div class="zhelp__body" style="display:grid;gap:16px;align-content:start">
+              <div class="zhcard__top"><span class="znotch" aria-hidden="true"></span><span class="znum">/0{i + 1}</span></div>
+              <h3 class="zh zh--s">{it.title}</h3>
+              {it.text && <p>{it.text}</p>}
+            </div>
+            {wide && <div class={`zhelp__media zhelp__media--${kind}`}>{it.media.map((id) => <ZMedia id={id} />)}</div>}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+  <div class="zhelp__cta"><ZBtn href={site.links.telegram}>{h.cta}</ZBtn></div>
+</section>

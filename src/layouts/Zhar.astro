@@ -1,0 +1,52 @@
+---
+// Каркас страниц в оформлении «Жар». Главная уже на нём; остальные страницы переезжают по одной.
+import '../styles/jx-v2.css';
+import '../styles/or-acc.css';
+import '../styles/zhar.css';
+import { site } from '../data/site.ru';
+
+interface Props { title?: string; description?: string; noindex?: boolean; image?: string }
+const { title = site.title, description = site.description, noindex = false, image } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang={site.lang} class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {image && <meta property="og:image" content={new URL(image, Astro.site)} />}
+    {image && <meta name="twitter:card" content="summary_large_image" />}
+    <meta property="og:locale" content="ru_RU" />
+    <meta name="theme-color" content="#0E0C14" />
+    <script is:inline>document.documentElement.classList.remove('no-js')</script>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="zbar">
+      <div class="zbar__in">
+        <a class="zbar__brand" href={`${base}/`} aria-label="Jetix, на главную"><span class="zbar__mark" aria-hidden="true"></span>{site.brand}</a>
+        <a class="zbar__tg" href={site.links.telegram} target="_blank" rel="noopener">Telegram {site.telegramHandle}</a>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <slot name="footer" />
+    <script>
+      // Появление блоков при прокрутке: 300 мс, один раз.
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+      document.querySelectorAll('.zrev').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+import ZRail from './ZRail.astro';
+import ZBtn from './ZBtn.astro';
+import { home } from '../../data/site.ru';
+const p = home.projects;
+---
+<section class="zsec zrev" id="projects" aria-labelledby="projects-h">
+  <ZRail n="03" chip={p.rail} path="/проекты" />
+  <h2 class="zh zh--xl" id="projects-h" style="margin-bottom:clamp(28px,4vw,52px)"><span class="or">{p.title.accent}</span><br />{p.title.rest}</h2>
+  <div class="zplans">
+    {p.items.map((it, i) => (
+      <article class={`zplan zcut ${i === 0 ? 'zplan--light' : 'zplan--dark'}`}>
+        <div class="zplan__top"><span class="znotch" aria-hidden="true"></span><span class="znum">/0{i + 1}</span></div>
+        <h3 class="zh zh--m">{it.title}</h3>
+        {it.badge && <span class="zplan__badge">{it.badge}</span>}
+        <p>{it.text}</p>
+        <ZBtn href={it.cta.href}>{it.cta.label}</ZBtn>
+      </article>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,15 @@
+---
+import ZRail from './ZRail.astro';
+import ZBtn from './ZBtn.astro';
+import { home } from '../../data/site.ru';
+const t = home.interview;
+---
+<section class="zsec zrev" id="interview" aria-labelledby="int-h">
+  <ZRail n="06" chip={t.rail} path="/interviews" />
+  <div class="zint__glow" aria-hidden="true"></div>
+  <div class="zcenter">
+    <h2 class="zh zh--xl" id="int-h">{t.title.start} <span class="or">{t.title.accent}</span> {t.title.end}</h2>
+    {t.paragraphs.map((p) => <p class="zlead">{p}</p>)}
+    <ZBtn href={t.cta.href}>{t.cta.label}</ZBtn>
+  </div>
+</section>

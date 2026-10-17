@@ -1,0 +1,10 @@
+---
+// Кнопка со срезом угла. Внешние ссылки открываются в новой вкладке, внутренние идут через BASE_URL.
+interface Props { href: string; variant?: 'blue' | 'light' | 'ghost' }
+const { href, variant = 'blue' } = Astro.props;
+const ext = /^https?:/.test(href);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const url = ext ? href : `${base}${href}`;
+const cls = variant === 'blue' ? 'zbtn' : `zbtn zbtn--${variant}`;
+---
+<a class={cls} href={url} {...(ext ? { target: '_blank', rel: 'noopener' } : {})}><slot /></a>
