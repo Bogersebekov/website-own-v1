@@ -1,0 +1,13 @@
+---
+// Первый экран внутренних страниц: метка, крупный заголовок, вводный текст, кнопки (slot).
+interface Props { label: string; title: string; lead?: string; paragraphs?: string[] }
+const { label, title, lead, paragraphs = [] } = Astro.props;
+---
+<div class="tile tile--hl page-hero">
+  <p class="label label--or">{label}</p>
+  <h1>{title}</h1>
+  <span class="hair"></span>
+  {lead && <p class="lead">{lead}</p>}
+  {paragraphs.map((p) => <p class="lead">{p}</p>)}
+  <div class="actions"><slot /></div>
+</div>

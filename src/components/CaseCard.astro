@@ -1,0 +1,16 @@
+---
+// K-001 — прошлый опыт основателя. HUD-рамка, цифра крупно. Имя эксперта не раскрываем.
+import { caseK001 as k } from '../data/site.ru';
+---
+<div class="tile hud">
+  <div class="hud__text">
+    <span class="code">{k.meta}</span>
+    <h3>{k.title}</h3>
+    <p>{k.text}</p>
+    <p class="hud__foot">{k.foot}</p>
+  </div>
+  <div class="hud__num">
+    <b>{k.value}</b>
+    <span>{k.valueNote}</span>
+  </div>
+</div>

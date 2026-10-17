@@ -1,0 +1,14 @@
+---
+// Кнопка или ссылка из данных. Нет адреса — показываем неактивную метку «скоро», а не мёртвую кнопку.
+import { resolveHref, isExternal } from '../lib/link';
+interface Props { label: string; href: string; variant?: 'btn' | 'link' | 'ghost' }
+const { label, href, variant = 'btn' } = Astro.props;
+const url = resolveHref(href);
+const ext = url && isExternal(url);
+const cls = variant === 'btn' ? 'btn' : variant === 'ghost' ? 'btn btn--ghost' : 'tlink';
+---
+{url ? (
+  <a class={cls} href={url} {...(ext ? { target: '_blank', rel: 'noopener' } : {})}>{label}{variant === 'btn' ? ' →' : ''}</a>
+) : (
+  <span class={`${cls} is-soon`} aria-disabled="true">{label}<small>скоро</small></span>
+)}

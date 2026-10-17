@@ -2,26 +2,23 @@
 import { Image } from 'astro:assets';
 import photoSq from '../assets/photo/ruslan.png';
 import photoCut from '../assets/photo/ruslan-cut.png';
-import { hero, nowStatus, site } from '../data/site.ru';
-const tg = site.links.telegram || hero.primary.href;
+import Cta from './Cta.astro';
+import { home } from '../data/site.ru';
+const h = home.hero;
 const variant = process.env.HERO_VARIANT || '1';
 const cut = process.env.HERO_PHOTO === 'cut';
 const photo = cut ? photoCut : photoSq;
 ---
 <div class={`hero hero--${variant}`}>
   <div class="hero__text tile tile--hl">
-    <p class="label label--or sign"><span>{hero.label}</span></p>
-    <h1 class="glitch" data-text={hero.title} tabindex="0">{hero.title}</h1>
-    <p class="lead">{hero.lead}</p>
-    <a class="btn" href={tg}>{hero.primary.label} →</a>
+    <p class="label label--or sign"><span>{h.label}</span></p>
+    <h1 class="glitch" data-text={h.title} tabindex="0">{h.title}</h1>
+    <p class="lead">{h.lead}</p>
+    <Cta label={h.cta.label} href={h.cta.href} />
   </div>
   <div class={`photo-wrap ${cut ? 'photo-wrap--cut' : ''}`}>
   <figure class="photo wave">
-    <Image src={photo} alt={hero.photoAlt} widths={[480, 720, 1080, 1440]} sizes="(min-width: 900px) 40vw, 100vw" format="webp" quality={82} loading="eager" />
+    <Image src={photo} alt={h.photoAlt} widths={[480, 720, 1080, 1440]} sizes="(min-width: 900px) 40vw, 100vw" format="webp" quality={82} loading="eager" />
   </figure>
-  </div>
-  <div class="tile nowstrip">
-    <span class="status">{nowStatus.label}</span>
-    <h3>{nowStatus.text}</h3>
   </div>
 </div>

@@ -1,0 +1,42 @@
+---
+// Интервью — I-PAGE-001 v1.0: 5 блоков из docs/site-content-2026-10-16/interviews-copy.md.
+import Base from '../layouts/Base.astro';
+import Rail from '../components/Rail.astro';
+import RailSection from '../components/RailSection.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import { interviewsPage as v } from '../data/site.ru';
+---
+<Base title={v.title} description={v.description}>
+  <Rail>
+    <RailSection id="top" n="01" name="Старт">
+      <PageHero label={v.hero.label} title={v.hero.title} paragraphs={v.hero.paragraphs}>
+        <Cta label={v.hero.cta.label} href={v.hero.cta.href} />
+      </PageHero>
+    </RailSection>
+
+    <RailSection id="who" n="02" name={v.who.kicker} title={v.who.title}>
+      {v.who.items.map((i) => (
+        <div class="tile s6"><h3>{i.title}</h3><p>— {i.text}</p></div>
+      ))}
+    </RailSection>
+
+    <RailSection id="why" n="03" name={v.why.kicker} title={v.why.title}>
+      {v.why.items.map((i, n) => (
+        <div class="tile s4 plate"><span class="code">{String(n + 1).padStart(2, '0')}</span><h3>{i.title}</h3><p>{i.text}</p></div>
+      ))}
+    </RailSection>
+
+    <RailSection id="get" n="04" name={v.get.kicker} title={v.get.title}>
+      <div class="tile tile--hl"><p class="lead">{v.get.text}</p><p class="label">{v.get.afterLabel}</p></div>
+      {v.get.cards.map((c, n) => (
+        <div class="tile s6 poster"><span class="code">{String(n + 1).padStart(2, '0')}</span><h3>{c.title}</h3><p>{c.text}</p></div>
+      ))}
+    </RailSection>
+
+    <RailSection id="contact" n="05" name={v.contact.kicker}>
+      <CtaBlock title={v.contact.title} text={v.contact.text} cta={v.contact.cta} />
+    </RailSection>
+  </Rail>
+</Base>

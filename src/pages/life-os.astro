@@ -1,0 +1,80 @@
+---
+// Life OS — L-PAGE-001 v1.1: 7 блоков из docs/site-content-2026-10-16/life-os-page.md (без FAQ и принципов).
+// Скриншоты шаблона ещё не переданы — на их местах явно помеченные пустые рамки.
+import Base from '../layouts/Base.astro';
+import Rail from '../components/Rail.astro';
+import RailSection from '../components/RailSection.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import { lifeOsPage as l } from '../data/site.ru';
+---
+<Base title={l.title} description={l.description}>
+  <Rail>
+    <RailSection id="top" n="01" name="Старт">
+      <div class="split">
+        <PageHero label={l.hero.label} title={l.hero.title} lead={l.hero.lead}>
+          <Cta label={l.ctaMain.label} href={l.ctaMain.href} />
+          <Cta label={l.ctaExamples.label} href={l.ctaExamples.href} variant="ghost" />
+        </PageHero>
+        <div class="shot" aria-hidden="true"><span>{l.shotNote}</span></div>
+      </div>
+    </RailSection>
+
+    <RailSection id="why" n="02" name={l.why.kicker} title={l.why.title}>
+      <div class="tile tile--hl s8">{l.why.paragraphs.map((p) => <p class="lead">{p}</p>)}</div>
+    </RailSection>
+
+    <RailSection id="mirror" n="03" name={l.mirror.kicker} title={l.mirror.title}>
+      <div class="tile tile--hl">
+        <p class="lead">{l.mirror.lead}</p>
+        <p class="accent">{l.mirror.accent}</p>
+      </div>
+      {l.mirror.items.map((m) => (
+        <div class="tile s6">
+          <h3>{m.title}</h3>
+          <p>{m.text}</p>
+          <div class="shot shot--sm" aria-hidden="true"><span>{l.shotNote}</span></div>
+        </div>
+      ))}
+      <p class="span-all accent">{l.mirror.foot}</p>
+    </RailSection>
+
+    <RailSection id="rhythm" n="04" name={l.rhythm.kicker} title={l.rhythm.title}>
+      {l.rhythm.cols.map((c) => (
+        <div class="tile s4 plate">
+          <h3>{c.title}</h3>
+          <p>{c.text}</p>
+          <p class="code time">{c.time}</p>
+        </div>
+      ))}
+      <p class="span-all muted">{l.rhythm.foot}</p>
+    </RailSection>
+
+    <RailSection id="inside" n="05" name={l.inside.kicker} title={l.inside.title}>
+      <div class="span-all inside">
+        {l.inside.items.map((i) => (
+          <div class="inside__item"><span class="inside__ic" aria-hidden="true">{i.icon}</span><div><h3>{i.title}</h3><p>{i.text}</p></div></div>
+        ))}
+      </div>
+    </RailSection>
+
+    <RailSection id="start" n="06" name={l.start.kicker} title={l.start.title}>
+      <p class="span-all lead">{l.start.lead}</p>
+      {l.start.steps.map((s, n) => (
+        <div class="tile s4 plate"><span class="code">{n + 1}</span><h3>{s.title}</h3><p>{s.text}</p></div>
+      ))}
+      <div class="span-all actions">
+        <Cta label={l.ctaMain.label} href={l.ctaMain.href} />
+        <Cta label={l.ctaExamples.label} href={l.ctaExamples.href} variant="ghost" />
+      </div>
+    </RailSection>
+
+    <RailSection id="author" n="07" name={l.author.kicker} title={l.author.title}>
+      <div class="tile s8">
+        {l.author.paragraphs.map((p) => <p>{p}</p>)}
+        <p class="muted" style="margin-top:18px">{l.author.moreLabel}</p>
+        <div class="links-row">{l.author.links.map((a) => <Cta label={a.label} href={a.href} variant="link" />)}</div>
+      </div>
+    </RailSection>
+  </Rail>
+</Base>

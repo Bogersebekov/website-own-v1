@@ -1,0 +1,13 @@
+---
+// Финальный блок страницы: заголовок, текст, кнопка в Telegram.
+import Cta from './Cta.astro';
+import { site } from '../data/site.ru';
+interface Props { title: string; text: string; cta: { label: string; href: string } }
+const { title, text, cta } = Astro.props;
+---
+<div class="tile tile--hl cta-block">
+  <h2>{title}</h2>
+  <p class="lead">{text}</p>
+  {cta.href === 'tg' && site.telegramHandle && <span class="handle">{site.telegramHandle}</span>}
+  <Cta label={cta.label} href={cta.href} />
+</div>

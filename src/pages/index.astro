@@ -1,22 +1,74 @@
 ---
+// Главная — H-PAGE-001 v1.0: 8 блоков из docs/site-content-2026-10-16/home-copy.md + слоты портфолио.
 import Base from '../layouts/Base.astro';
 import Rail from '../components/Rail.astro';
 import RailSection from '../components/RailSection.astro';
 import Hero from '../components/Hero.astro';
-import Projects from '../components/Projects.astro';
-import Vision from '../components/Vision.astro';
-import BuildLog from '../components/BuildLog.astro';
-import People from '../components/People.astro';
-import Contact from '../components/Contact.astro';
-import { railNames as r } from '../data/site.ru';
+import Cta from '../components/Cta.astro';
+import CaseCard from '../components/CaseCard.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import Portfolio from '../components/Portfolio.astro';
+import { home as h, site } from '../data/site.ru';
+const social = [
+  { label: 'YouTube', href: site.links.youtube },
+  { label: 'Instagram', href: site.links.instagram },
+];
 ---
 <Base>
   <Rail>
-    <RailSection id="top" n="01" name={r.start}><Hero /></RailSection>
-    <RailSection id="projects" n="02" name={r.projects} title="Мои проекты"><Projects /></RailSection>
-    <RailSection id="vision" n="03" name={r.vision}><Vision /></RailSection>
-    <RailSection id="log" n="04" name={r.log} title="Журнал стройки"><BuildLog /></RailSection>
-    <RailSection id="people" n="05" name={r.people} title="Ищу людей"><People /></RailSection>
-    <RailSection id="contact" n="06" name={r.contact}><Contact /></RailSection>
+    <RailSection id="top" n="01" name="Старт"><Hero /></RailSection>
+
+    <RailSection id="build" n="02" name={h.firm.kicker} title={h.firm.title}>
+      <div class="tile s8">
+        {h.firm.paragraphs.map((p) => <p>{p}</p>)}
+        <Cta label={h.firm.cta.label} href={h.firm.cta.href} variant="link" />
+      </div>
+    </RailSection>
+
+    <RailSection id="case" n="03" name={h.caseKicker}><CaseCard /></RailSection>
+
+    <RailSection id="help" n="04" name={h.help.kicker} title={h.help.title}>
+      {h.help.items.map((i, n) => (
+        <div class="tile s6 plate">
+          <span class="code">{String(n + 1).padStart(2, '0')}</span>
+          <h3>{i.title}</h3>
+          {i.text && <p>{i.text}</p>}
+        </div>
+      ))}
+      <div class="span-all"><Cta label={h.help.cta.label} href={h.help.cta.href} /></div>
+    </RailSection>
+
+    <RailSection id="work" n="05" name="Примеры" title="Примеры работ"><Portfolio /></RailSection>
+
+    <RailSection id="interview" n="06" name={h.interview.kicker} title={h.interview.title}>
+      <div class="tile s8">
+        {h.interview.paragraphs.map((p) => <p>{p}</p>)}
+        <Cta label={h.interview.cta.label} href={h.interview.cta.href} variant="link" />
+      </div>
+    </RailSection>
+
+    <RailSection id="projects" n="07" name={h.projects.kicker} title={h.projects.title}>
+      {h.projects.items.map((p) => (
+        <div class="tile s4 tile--col">
+          <div>
+            {p.status && <span class="status status--build">{p.status}</span>}
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </div>
+          <Cta label={p.cta.label} href={p.cta.href} variant="link" />
+        </div>
+      ))}
+    </RailSection>
+
+    <RailSection id="blog" n="08" name={h.blog.kicker} title={h.blog.title}>
+      <div class="tile s8">
+        <p>{h.blog.text}</p>
+        <div class="links-row">{social.map((s) => <Cta label={s.label} href={s.href} variant="link" />)}</div>
+      </div>
+    </RailSection>
+
+    <RailSection id="contact" n="09" name={h.contact.kicker}>
+      <CtaBlock title={h.contact.title} text={h.contact.text} cta={h.contact.cta} />
+    </RailSection>
   </Rail>
 </Base>

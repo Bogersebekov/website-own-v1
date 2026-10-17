@@ -1,72 +1,59 @@
 ---
+// Агентство — A-PAGE-001 v1.0: 6 блоков из docs/site-content-2026-10-16/agency-copy.md + слоты портфолио.
 import Base from '../layouts/Base.astro';
 import Rail from '../components/Rail.astro';
 import RailSection from '../components/RailSection.astro';
-import Contact from '../components/Contact.astro';
-import { agency as a, facts, site } from '../data/site.ru';
-const tg = site.links.telegram || '#contact';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import CaseCard from '../components/CaseCard.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import Portfolio from '../components/Portfolio.astro';
+import { agencyPage as a } from '../data/site.ru';
 ---
 <Base title={a.title} description={a.description}>
   <Rail>
     <RailSection id="top" n="01" name="Старт">
-      <div class="tile tile--hl">
-        <div class="tile__row">
-          <p class="label label--or" style="margin:0">{a.label}</p>
-          <span class="status">{a.status}</span>
+      <PageHero label={a.hero.label} title={a.hero.title} lead={a.hero.lead}>
+        <Cta label={a.hero.cta.label} href={a.hero.cta.href} />
+      </PageHero>
+    </RailSection>
+
+    <RailSection id="case" n="02" name={a.caseKicker}><CaseCard /></RailSection>
+
+    <RailSection id="tasks" n="03" name={a.tasks.kicker} title={a.tasks.title}>
+      {a.tasks.items.map((t) => (
+        <div class="tile s6"><h3>{t.title}</h3><p>{t.text}</p></div>
+      ))}
+    </RailSection>
+
+    <RailSection id="services" n="04" name={a.services.kicker} title={a.services.title}>
+      {a.services.items.map((s, i) => (
+        <div class="tile s6 svc">
+          <span class="code">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{s.title}</h3>
+          {s.paragraphs.map((p) => <p>{p}</p>)}
+          <p class="svc__label">{a.services.includesLabel}</p>
+          <ul class="ticks">{s.includes.map((t) => <li>{t}</li>)}</ul>
         </div>
-        <h1 style="margin-top:18px">{a.h1}</h1>
-        <p class="lead">{a.lead}</p>
-        <a class="btn" href={tg}>{a.cta} →</a>
+      ))}
+      <p class="span-all muted">{a.services.foot}</p>
+    </RailSection>
+
+    <RailSection id="work" n="05" name="Примеры" title="Примеры работ"><Portfolio /></RailSection>
+
+    <RailSection id="faq" n="06" name={a.faq.kicker} title={a.faq.title}>
+      <div class="tile faq">
+        {a.faq.items.map((q) => (
+          <details>
+            <summary>{q.q}</summary>
+            <p>{q.a}</p>
+          </details>
+        ))}
       </div>
     </RailSection>
 
-    <RailSection id="include" n="02" name="Состав">
-      <div class="tile tile--soft">
-        <p class="label label--or">{a.includeLabel}</p>
-        <h2>{a.includeTitle}</h2>
-        <div class="inc">
-          {a.include.map((i) => (
-            <div class="inc__item">
-              <span class="code">{i.code}</span>
-              <h3>{i.title}</h3>
-              <p>{i.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+    <RailSection id="contact" n="07" name={a.contact.kicker}>
+      <CtaBlock title={a.contact.title} text={a.contact.text} cta={a.contact.cta} />
     </RailSection>
-
-    <RailSection id="facts" n="03" name="Факты">
-      <div class="tile">
-        <p class="label label--or">{a.factsLabel}</p>
-        <div class="facts4">
-          {facts.map((f) => <div class="mini"><div><b>{f.value}</b><span>{f.label}</span></div></div>)}
-        </div>
-      </div>
-    </RailSection>
-
-    <RailSection id="case" n="04" name="Пример">
-      <div class="tile tile--stub">
-        <p class="label">{a.caseLabel}</p>
-        <h3>{a.caseTitle}</h3>
-        <p>{a.caseText}</p>
-      </div>
-    </RailSection>
-
-    <RailSection id="interview" n="05" name="Интервью">
-      <div class="tile">
-        <p class="label label--or">{a.interview.label}</p>
-        <h3>{a.interview.title}</h3>
-        <p>{a.interview.text}</p>
-        <a class="tlink" href={tg}>{a.interview.cta}</a>
-      </div>
-    </RailSection>
-
-    <RailSection id="contact" n="06" name="Связь"><Contact /></RailSection>
   </Rail>
 </Base>
-<style>
-  .inc { display: grid; gap: 12px; margin-top: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
-  .inc__item { padding: 18px; background: var(--srf-1); border: 1px solid var(--border); min-width: 0; }
-  .inc__item p { font-size: 15px; }
-</style>

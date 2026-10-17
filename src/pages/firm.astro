@@ -1,58 +1,78 @@
 ---
+// Фирма — v1.0: 9 блоков из docs/site-content-2026-10-16/firm-copy.md.
 import Base from '../layouts/Base.astro';
 import Rail from '../components/Rail.astro';
 import RailSection from '../components/RailSection.astro';
-import Contact from '../components/Contact.astro';
-import { firm as f, site } from '../data/site.ru';
-const tg = site.links.telegram || '#contact';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import { firmPage as f } from '../data/site.ru';
 ---
 <Base title={f.title} description={f.description}>
   <Rail>
     <RailSection id="top" n="01" name="Старт">
-      <div class="tile tile--hl">
-        <div class="tile__row">
-          <p class="label label--or" style="margin:0">{f.label}</p>
-          <span class="status status--build">{f.status}</span>
-        </div>
-        <h1 style="margin-top:18px">{f.h1}</h1>
-        <p class="lead">{f.lead}</p>
-        <a class="btn" href={tg}>{f.cta} →</a>
-      </div>
+      <PageHero label={f.hero.label} title={f.hero.title} lead={f.hero.lead}>
+        <Cta label={f.hero.cta.label} href={f.hero.cta.href} />
+      </PageHero>
     </RailSection>
 
-    <RailSection id="idea" n="02" name="Идея">
-      <div class="tile s7">
-        <p class="label label--or">{f.ideaLabel}</p>
-        <div class="idea">
-          {f.idea.map((t, i) => <div class="idea__row"><span class="code">0{i + 1}</span><h3>{t}</h3></div>)}
-        </div>
-      </div>
-      <div class="tile s5">
-        <p class="label">{f.teamsLabel}</p>
-        <div class="tlist">
-          {f.teams.map((t) => <div><h3>{t.title}</h3>{t.note && <span class="code">{t.note}</span>}</div>)}
-        </div>
-      </div>
-    </RailSection>
-
-    <RailSection id="tools" n="03" name="Инструменты">
+    <RailSection id="who" n="02" name={f.who.kicker} title={f.who.title}>
       <div class="tile s6">
-        <p class="label label--or">{f.toolsLabel}</p>
-        <h3>{f.toolsTitle}</h3>
-        <p>{f.toolsText}</p>
+        <ul class="ticks">{f.who.items.map((t) => <li>{t}</li>)}</ul>
       </div>
       <div class="tile s6">
-        <p class="label label--or">{f.whoLabel}</p>
-        <div class="chips">{f.who.map((w) => <span class="chip">{w}</span>)}</div>
+        <h3>{f.who.whyTitle}</h3>
+        <ul class="ticks">{f.who.why.map((t) => <li>{t}</li>)}</ul>
       </div>
-      <div class="tile tile--stub"><p class="muted">{f.stub}</p></div>
+      <div class="tile tile--soft">
+        <p><b class="em">{f.who.directionTitle}</b> {f.who.direction[0]}</p>
+        {f.who.direction.slice(1).map((p) => <p>{p}</p>)}
+      </div>
     </RailSection>
 
-    <RailSection id="contact" n="04" name="Связь"><Contact /></RailSection>
+    <RailSection id="unite" n="03" name={f.unite.kicker} title={f.unite.title}>
+      {f.unite.items.map((t, i) => (
+        <div class="tile s4 plate"><span class="code">{String(i + 1).padStart(2, '0')}</span><h3>{t}</h3></div>
+      ))}
+    </RailSection>
+
+    <RailSection id="now" n="04" name={f.now.kicker}>
+      <div class="tile s8">
+        <h3>{f.now.title}</h3>
+        <p>{f.now.text}</p>
+      </div>
+    </RailSection>
+
+    <RailSection id="mastery" n="05" name={f.mastery.kicker} title={f.mastery.title}>
+      <div class="tile s8">
+        <ul class="ticks">{f.mastery.items.map((t) => <li>{t}</li>)}</ul>
+      </div>
+      <div class="tile s4 tile--soft">
+        <h3>{f.mastery.notTitle}</h3>
+        <ul class="ticks ticks--no">{f.mastery.not.map((t) => <li>{t}</li>)}</ul>
+      </div>
+    </RailSection>
+
+    <RailSection id="first" n="06" name={f.first.kicker} title={f.first.title}>
+      {f.first.items.map((t, i) => (
+        <div class="tile s4 plate"><span class="code">{String(i + 1).padStart(2, '0')}</span><h3>{t}</h3></div>
+      ))}
+    </RailSection>
+
+    <RailSection id="goal" n="07" name={f.goal.kicker} title={f.goal.title}>
+      <div class="tile">
+        <ul class="ticks">{f.goal.items.map((t) => <li>{t}</li>)}</ul>
+      </div>
+    </RailSection>
+
+    <RailSection id="start" n="08" name={f.start.kicker} title={f.start.title}>
+      <div class="tile">
+        <ol class="steps">{f.start.items.map((t) => <li>{t}</li>)}</ol>
+      </div>
+    </RailSection>
+
+    <RailSection id="contact" n="09" name={f.contact.kicker}>
+      <CtaBlock title={f.contact.title} text={f.contact.text} cta={f.contact.cta} />
+    </RailSection>
   </Rail>
 </Base>
-<style>
-  .idea { margin-top: 8px; }
-  .idea__row { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--border-soft); }
-  .idea__row h3 { margin: 0; font-size: clamp(16px, 2vw, 20px); }
-</style>
