@@ -28,6 +28,7 @@ jobs:
         env:
           SITE_URL: ${{ vars.SITE_URL }}
           SITE_BASE: ${{ vars.SITE_BASE }}
+          PUBLIC_CF_WEB_ANALYTICS_TOKEN: ${{ vars.PUBLIC_CF_WEB_ANALYTICS_TOKEN }}
       - uses: actions/configure-pages@v5
         with:
           enablement: true
