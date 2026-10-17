@@ -1,0 +1,37 @@
+---
+// Импрессум (Impressum) — § 5 DDG, § 18 Abs. 2 MStV. Квадратные скобки заполняет владелец.
+// ⚠️ Черновик-шаблон, не юридическая консультация. Перед публикацией проверить и заполнить.
+import Base from '../layouts/Base.astro';
+import { legal as L } from '../data/site.ru';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base title="Импрессум (Impressum) · Jetix" description="Сведения о владельце сайта по § 5 DDG.">
+  <section class="section">
+    <div class="wrap legal">
+      <p class="label label--or">Правовая информация</p>
+      <h1>Импрессум <small>(Impressum)</small></h1>
+      <span class="hair"></span>
+
+      <h2>Сведения согласно § 5 DDG <small>(Angaben gemäß § 5 DDG)</small></h2>
+      <p>{L.name}<br />{L.address}<br />{L.city}</p>
+
+      <h2>Контакты <small>(Kontakt)</small></h2>
+      <p>E-Mail: {L.email}<br />Телефон: {L.phone}</p>
+
+      <h2>Номер плательщика НДС <small>(Umsatzsteuer-ID)</small></h2>
+      <p>Идентификационный номер плательщика НДС согласно § 27a UStG: {L.vatId}</p>
+
+      <h2>Ответственный за содержание <small>(Verantwortlich nach § 18 Abs. 2 MStV)</small></h2>
+      <p>{L.name}, {L.address}, {L.city}</p>
+
+      <h2>Разрешение споров <small>(Verbraucherstreitbeilegung)</small></h2>
+      <p>Мы не обязаны и не готовы участвовать в процедуре урегулирования споров в арбитражной комиссии по защите прав потребителей (Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen).</p>
+
+      <h2>Ответственность за ссылки <small>(Haftung für Links)</small></h2>
+      <p>Сайт содержит ссылки на внешние сайты (например, Telegram, YouTube, Instagram), на содержание которых мы не влияем. За содержание внешних страниц отвечает их владелец.</p>
+
+      <p class="muted">Обработка персональных данных описана на странице <a href={`${base}/datenschutz/`}>Конфиденциальность (Datenschutz)</a>.</p>
+      <p class="code">Обновлено: {L.updated}</p>
+    </div>
+  </section>
+</Base>
