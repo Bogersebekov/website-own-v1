@@ -411,3 +411,19 @@ export const studioDesign = {
   {id:'product', title:'Материалы курса', alt:'Блок лендинга с составом продукта и примерами учебных материалов.'},
  ],
 };
+
+// Направление «Кинопортрет» выбрано владельцем; лаборатория фона и формы.
+export const portraitLab = {
+ title: 'Кинопортрет / фон и форма',
+ looks: [
+  {id:'ember',number:'01',name:'Тлеющий дым',buttons:'blue',portrait:'shadow',cards:'glass',grid:false},
+  {id:'mist',number:'02',name:'Графитовый туман',buttons:'outline',portrait:'natural',cards:'type',grid:false},
+  {id:'grid',number:'03',name:'Дым + сетка',buttons:'graphite',portrait:'offset',cards:'glass',grid:true},
+  {id:'haze',number:'04',name:'Оранжевая дымка',buttons:'blue',portrait:'natural',cards:'diagram',grid:false},
+  {id:'blueprint',number:'05',name:'Глубина сетки',buttons:'outline',portrait:'shadow',cards:'type',grid:true},
+ ],
+ buttons:[{id:'blue',name:'Синяя плашка'},{id:'outline',name:'Контур'},{id:'graphite',name:'Графит'}],
+ portraits:[{id:'natural',name:'Исходный свет'},{id:'shadow',name:'В тени'},{id:'offset',name:'Крупнее и правее'}],
+ cards:[{id:'glass',name:'Стеклянные плашки'},{id:'type',name:'Типографика'},{id:'diagram',name:'Схемы'}],
+ labels:{background:'Фон',buttons:'Кнопки',portrait:'Портрет',cards:'Карточки',grid:'Лёгкая сетка',close:'Свернуть настройки',open:'Настройки',components:'Кнопки и карточки'},
+};

@@ -1,0 +1,50 @@
+---
+import Studio from "../../layouts/Studio.astro";
+import Arrow from "../../components/StudioArrow.astro";
+import ProjectPanels from "../../components/ProjectPanels.astro";
+import { homePoster as h, site, portraitLab as lab } from "../../data/site.ru";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<Studio variant="portrait" look="ember" board>
+  <article class="component-board">
+    <h1>Кнопки и карточки</h1>
+    <p class="board-intro">
+      Три формы кнопок и три оформления проектов на одной странице. Содержание
+      одинаковое — выбираем только оформление.
+    </p>
+    <section class="board-row" aria-labelledby="button-board">
+      <h2 id="button-board">01 / Кнопки со срезанными углами</h2>
+      <div class="board-buttons">
+        {lab.buttons.map((item, i) => (
+          <div class="board-sample look-active" data-buttons={item.id}>
+            <p>
+              0{i + 1} / {item.name}
+            </p>
+            <a class="studio-button" href={site.links.telegram}>
+              {h.cooperate}
+              <span>
+                <Arrow />
+              </span>
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+    {lab.cards.map((item, i) => (
+      <section
+        class="board-row look-active"
+        data-cards={item.id}
+        aria-labelledby={`cards-${item.id}`}
+      >
+        <h2 id={`cards-${item.id}`}>
+          0{i + 2} / {item.name}
+        </h2>
+        <ProjectPanels look="ember" />
+      </section>
+    ))}
+    <a class="board-return" href={`${base}/looks/ember/`}>
+      ← Вернуться к фонам и портрету
+    </a>
+  </article>
+</Studio>

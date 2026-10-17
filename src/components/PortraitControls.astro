@@ -1,0 +1,106 @@
+---
+import { portraitLab as lab } from "../data/site.ru";
+const { look, buttonStyle, portraitStyle, cardStyle, grid } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<aside class="portrait-controls" aria-label={lab.title}>
+  <div class="look-switch">
+    <span>{lab.labels.background}</span>
+    <nav aria-label="Варианты фона">
+      {lab.looks.map((item) => (
+        <a
+          href={`${base}/looks/${item.id}/`}
+          aria-current={look === item.id ? "page" : undefined}
+        >
+          <b>{item.number}</b>
+          {item.name}
+        </a>
+      ))}
+    </nav>
+  </div>
+  <details class="form-controls" open>
+    <summary>
+      {lab.labels.open}
+      <span aria-hidden="true">+</span>
+    </summary>
+    <div class="form-controls-inner">
+      <label>
+        {lab.labels.buttons}
+        <select data-look-setting="buttons">
+          {lab.buttons.map((item) => (
+            <option value={item.id} selected={buttonStyle === item.id}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
+        {lab.labels.portrait}
+        <select data-look-setting="portrait">
+          {lab.portraits.map((item) => (
+            <option value={item.id} selected={portraitStyle === item.id}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
+        {lab.labels.cards}
+        <select data-look-setting="cards">
+          {lab.cards.map((item) => (
+            <option value={item.id} selected={cardStyle === item.id}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label class="grid-setting">
+        <input type="checkbox" data-look-setting="grid" checked={grid} />
+        {lab.labels.grid}
+      </label>
+      <a href={`${base}/looks/components/`}>{lab.labels.components} ↗</a>
+    </div>
+  </details>
+</aside>
+<script>
+  const scope = document.querySelector<HTMLElement>(".portrait-controls");
+  if (scope) {
+    if (matchMedia("(max-width: 700px)").matches)
+      scope.querySelector("details")?.removeAttribute("open");
+    const fields = Array.from(
+      scope.querySelectorAll<HTMLSelectElement | HTMLInputElement>(
+        "[data-look-setting]",
+      ),
+    );
+    const params = new URLSearchParams(location.search);
+    const apply = (
+      field: HTMLSelectElement | HTMLInputElement,
+      fromUrl = false,
+    ) => {
+      const key = field.dataset.lookSetting!;
+      if (fromUrl && params.has(key)) {
+        const value = params.get(key)!;
+        if (field instanceof HTMLInputElement) {
+          if (["true", "false"].includes(value))
+            field.checked = value === "true";
+        } else if (
+          Array.from(field.options).some((option) => option.value === value)
+        )
+          field.value = value;
+      }
+      const value =
+        field instanceof HTMLInputElement ? String(field.checked) : field.value;
+      document.body.dataset[key] = value;
+      if (!fromUrl) {
+        const current = new URL(location.href);
+        current.searchParams.set(key, value);
+        history.replaceState(null, "", current);
+      }
+    };
+    fields.forEach((field) => {
+      apply(field, true);
+      field.addEventListener("change", () => apply(field));
+    });
+  }
+</script>

@@ -1,11 +1,18 @@
 ---
 import "../styles/studio.css";
+import "../styles/portrait-lab.css";
+import PortraitControls from "../components/PortraitControls.astro";
+import { portraitLab as lab } from "../data/site.ru";
 import { site, homePoster as h, studioDesign as d } from "../data/site.ru";
 import Arrow from "../components/StudioArrow.astro";
 interface Props {
   variant?: "portrait" | "studio" | "editorial";
+  look?: string;
+  board?: boolean;
 }
-const { variant = "portrait" } = Astro.props;
+const { variant = "portrait", look, board = false } = Astro.props;
+const preset = lab.looks.find((item) => item.id === look);
+const labActive = Boolean(preset);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
@@ -17,7 +24,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <title>{site.title} — {d.variants.find(v=>v.id===variant)?.name}</title>
     <meta name="description" content={h.intro} />
     <meta name="theme-color" content="#141414" />
-    {Astro.url.pathname.includes("/variants/") && (
+    {(Astro.url.pathname.includes("/variants/") ||
+      Astro.url.pathname.includes("/looks/")) && (
       <meta name="robots" content="noindex, nofollow" />
     )}
     <meta property="og:title" content={site.title} />
@@ -25,24 +33,45 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
     <link rel="canonical" href={new URL(`${base}/`, Astro.site)} />
   </head>
-  <body class={`design-${variant}`}>
+  <body
+    class:list={[`design-${variant}`, { "look-active": labActive }]}
+    data-look={look}
+    data-buttons={preset?.buttons}
+    data-portrait={preset?.portrait}
+    data-cards={preset?.cards}
+    data-grid={String(preset?.grid ?? false)}
+  >
     <a class="studio-skip" href="#main">
       {d.ui.skip}
     </a>
-    <div class="design-switch" role="navigation" aria-label={d.ui.variants}>
-      <span class="switch-label">JETIX / {d.ui.variants}</span>
-      <div>
-        {d.variants.map((v) => (
-          <a
-            href={`${base}/variants/${v.id}/`}
-            aria-current={variant === v.id ? "page" : undefined}
-          >
-            <span>{v.number}</span>
-            {v.name}
-          </a>
-        ))}
+    {board ? (
+      <div class="board-toplink">
+        <a href={`${base}/looks/ember/`}>← К фонам и портрету</a>
       </div>
-    </div>
+    ) : preset ? (
+      <PortraitControls
+        look={look}
+        buttonStyle={preset.buttons}
+        portraitStyle={preset.portrait}
+        cardStyle={preset.cards}
+        grid={preset.grid}
+      />
+    ) : (
+      <div class="design-switch" role="navigation" aria-label={d.ui.variants}>
+        <span class="switch-label">JETIX / {d.ui.variants}</span>
+        <div>
+          {d.variants.map((v) => (
+            <a
+              href={`${base}/variants/${v.id}/`}
+              aria-current={variant === v.id ? "page" : undefined}
+            >
+              <span>{v.number}</span>
+              {v.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
     <div class="studio-shell">
       <header class="studio-header">
         <a
@@ -62,7 +91,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         </a>
         <nav aria-label="Основная навигация">
           {d.navigation.map((n) => (
-            <a href={`#${n.id}`}>{n.label}</a>
+            <a href={board ? `${base}/#${n.id}` : `#${n.id}`}>{n.label}</a>
           ))}
         </nav>
         <a class="header-cta" href={site.links.telegram}>

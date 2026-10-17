@@ -1,0 +1,13 @@
+---
+import StudioHome from "../../components/StudioHome.astro";
+import { portraitLab as lab } from "../../data/site.ru";
+export function getStaticPaths() {
+  return lab.looks.map((item) => ({
+    params: { look: item.id },
+    props: { look: item.id },
+  }));
+}
+const { look } = Astro.props;
+---
+
+<StudioHome variant="portrait" look={look} />
