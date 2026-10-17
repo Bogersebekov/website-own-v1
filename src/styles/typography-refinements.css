@@ -437,3 +437,37 @@
     gap: 8px 18px;
   }
 }
+
+/* Currency belongs to the amount; keep its baseline and spacing deliberate. */
+.site-edition .s-case-result strong {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.site-edition .s-case-result strong > .s-case-currency {
+  font-size: 0.45em;
+  margin: 0;
+  line-height: 1;
+  vertical-align: baseline;
+}
+.site-edition .composed-document {
+  max-width: 1400px;
+}
+.site-edition .composed-document .document-back {
+  margin-bottom: 0;
+}
+.site-edition .composed-document .document-navigation {
+  margin-top: 22px;
+  margin-bottom: 36px;
+}
+.site-edition .composed-document .document-copy {
+  counter-reset: none;
+}
+@media (max-width: 700px) {
+  .site-edition .composed-document {
+    padding-top: 24px;
+  }
+  .site-edition .composed-document .document-navigation {
+    margin-bottom: 24px;
+  }
+}

@@ -1,0 +1,606 @@
+---
+import { site } from "../../data/site.ru";
+
+const guests = [
+  {
+    title: "Коучей и консультантов",
+    text: "Помогаете людям решать конкретные задачи и хотите рассказать о своём подходе.",
+  },
+  {
+    title: "Предпринимателей и авторов проектов",
+    text: "Создаёте продукт, ищете партнёров или инвесторов.",
+  },
+  {
+    title: "Практиков с опытом построения команд",
+    text: "Хотите поделиться опытом и помочь потенциальным клиентам познакомиться с вами, но пока у вас мало публичных материалов.",
+  },
+  {
+    title: "Блогеров",
+    text: "Регулярно ведёте свою страницу больше года и готовы поделиться наработками с теми, кто только начинает.",
+  },
+];
+const benefits = [
+  {
+    title: "Начать проявляться публично",
+    text: "Рассказать о себе, своей работе и взглядах.",
+  },
+  {
+    title: "Получить материалы для продвижения",
+    text: "Использовать интервью и короткие ролики в соцсетях, на сайте или при знакомстве с потенциальными клиентами.",
+  },
+  {
+    title: "Поделиться опытом, который может помочь другим",
+    text: "Рассказать о своих решениях, ошибках и выводах.",
+  },
+];
+const bars = [
+  12, 24, 18, 37, 62, 43, 79, 100, 67, 42, 83, 57, 29, 70, 94, 54, 37, 72, 43,
+  20, 36, 16, 25,
+];
+---
+
+<div class="interviews-page">
+  <section class="interview-hero" aria-labelledby="interview-heading">
+    <div class="interview-intro">
+      <p class="eyebrow">Интервью</p>
+      <h1 id="interview-heading">
+        Хочешь, чтобы о твоём <span>проекте узнали?</span>
+      </h1>
+      <p class="lead">
+        Приглашаю коучей, консультантов, предпринимателей и блогеров на
+        интервью. Поговорим о вашем пути, подходе к работе и мыслях о том, как
+        ИИ может повлиять на вашу сферу.
+      </p>
+      <a class="studio-button" href={site.links.telegram}>
+        Стать гостем
+      </a>
+    </div>
+    <div class="interview-visual">
+      <div class="recording-label">
+        <i aria-hidden="true"></i> Ваш опыт — в центре разговора
+      </div>
+      <div class="soundwave" aria-hidden="true">
+        {bars.map((height) => (
+          <i style={`--bar:${height}%`}></i>
+        ))}
+      </div>
+      <div class="interview-deliverables">
+        <strong>Полное видео</strong>
+        <span>+</span>
+        <strong>3–5 роликов</strong>
+      </div>
+      <p>
+        После разговора вы получите полное видео и 3–5 коротких роликов для
+        своих соцсетей.
+      </p>
+    </div>
+  </section>
+
+  <section class="interview-section" aria-labelledby="guests-heading">
+    <div class="section-heading">
+      <p class="eyebrow">Гости</p>
+      <h2 id="guests-heading">Кого я приглашаю</h2>
+    </div>
+    <div class="guest-grid">
+      {guests.map((guest) => (
+        <article class="guest-card">
+          <div class="card-accent" aria-hidden="true"></div>
+          <h3>{guest.title}</h3>
+          <p>{guest.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="interview-section" aria-labelledby="benefits-heading">
+    <div class="section-heading">
+      <p class="eyebrow">Для вас</p>
+      <h2 id="benefits-heading">Зачем участвовать</h2>
+    </div>
+    <div class="benefit-grid">
+      {benefits.map((benefit) => (
+        <article class="benefit-card">
+          <h3>{benefit.title}</h3>
+          <p>{benefit.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="interview-section" aria-labelledby="conversation-heading">
+    <div class="conversation-panel">
+      <div>
+        <p class="eyebrow">Разговор</p>
+        <h2 id="conversation-heading">О чём поговорим</h2>
+      </div>
+      <div>
+        <p>
+          Поговорим о вашем пути, опыте и подходе к работе, а также о том, как
+          ИИ может повлиять на вашу сферу.
+        </p>
+        <p>
+          Вопросы зависят от вашего опыта и выбранной темы — основные
+          направления обсуждаем заранее.
+        </p>
+      </div>
+    </div>
+    <div class="section-heading delivery-heading">
+      <h2>Что вы получите</h2>
+      <p>После интервью вы получите:</p>
+    </div>
+    <div class="delivery-grid">
+      <article class="delivery-card">
+        <div class="video-art" aria-hidden="true">
+          <div class="video-frame">
+            <span></span>
+            <div class="mini-wave">
+              {bars.slice(0, 15).map((height) => (
+                <i style={`--bar:${height}%`}></i>
+              ))}
+            </div>
+            <b></b>
+          </div>
+        </div>
+        <div class="delivery-copy">
+          <p class="eyebrow">Полный разговор</p>
+          <h3>Полное видео интервью</h3>
+          <p>
+            Смонтированный разговор, который выйдет на YouTube. Вы также
+            получите готовое видео для собственного использования.
+          </p>
+        </div>
+      </article>
+      <article class="delivery-card">
+        <div class="shorts-art" aria-hidden="true">
+          {[0, 1, 2].map((offset) => (
+            <div class="short-frame" style={`--offset:${offset}`}>
+              <i></i>
+              <span></span>
+              <b></b>
+            </div>
+          ))}
+        </div>
+        <div class="delivery-copy">
+          <p class="eyebrow">Для соцсетей</p>
+          <h3>3–5 коротких роликов</h3>
+          <p>
+            Отдельные фрагменты разговора для ваших соцсетей. Вы сами выбираете,
+            где и когда их публиковать.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="interview-invitation" aria-labelledby="invitation-heading">
+    <div>
+      <p class="eyebrow">Станьте гостем</p>
+      <h2 id="invitation-heading">Хотите стать гостем?</h2>
+      <p>Расскажите, чем занимаетесь и о чём хотели бы поговорить.</p>
+    </div>
+    <a class="studio-button" href={site.links.telegram}>
+      Написать в Telegram
+    </a>
+  </section>
+</div>
+
+<style>
+  .interviews-page {
+    --accent: #ff6b2c;
+    color: #f2eff0;
+  }
+  .interviews-page h1,
+  .interviews-page h2,
+  .interviews-page h3 {
+    margin: 0;
+    font-family: Unbounded, sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    overflow-wrap: anywhere;
+  }
+  .interviews-page h1 {
+    font-size: clamp(32px, 4.2vw, 60px);
+    line-height: 1.18;
+  }
+  .interviews-page h1 span {
+    color: var(--accent);
+  }
+  .interviews-page h2 {
+    font-size: clamp(25px, 2.7vw, 38px);
+    line-height: 1.3;
+  }
+  .interviews-page h3 {
+    font-size: clamp(17px, 1.65vw, 23px);
+    line-height: 1.45;
+  }
+  .interviews-page p {
+    margin: 0;
+    color: #bcb6b3;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  .interviews-page .eyebrow {
+    font-family: Iosevka, monospace;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin-bottom: 18px;
+  }
+  .interview-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(26px, 5vw, 80px);
+    align-items: center;
+    padding: 34px 0 65px;
+  }
+  .interview-intro .lead {
+    margin: 27px 0 30px;
+    max-width: 64ch;
+  }
+  .interview-visual {
+    padding: 30px;
+    position: relative;
+    border: 1px solid #67402f;
+    background:
+      radial-gradient(ellipse at 50% 35%, #6e2d172d, transparent 75%), #161316;
+    clip-path: polygon(
+      18px 0,
+      100% 0,
+      100% calc(100% - 18px),
+      calc(100% - 18px) 100%,
+      0 100%,
+      0 18px
+    );
+  }
+  .recording-label {
+    color: #b6aaa3;
+    font:
+      11px/1.6 Iosevka,
+      monospace;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .recording-label > i {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    box-shadow: 0 0 14px #ff6b2c88;
+    flex-shrink: 0;
+  }
+  .soundwave {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 176px;
+    margin: 23px 0;
+  }
+  .soundwave > i {
+    height: var(--bar);
+    width: 5px;
+    background: linear-gradient(#ffbd8d, #ff642b 60%, #9b351b);
+    box-shadow: 0 0 16px #ff6b2c20;
+  }
+  .interview-deliverables {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    border-top: 1px solid #4a3027;
+    color: #f4ded1;
+    font-size: clamp(13px, 1.3vw, 18px);
+  }
+  .interview-deliverables span {
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .interview-visual > p {
+    font-size: 13px;
+  }
+  .interview-section {
+    padding: 52px 0;
+    border-top: 1px solid #342725;
+  }
+  .section-heading {
+    margin-bottom: 30px;
+  }
+  .guest-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .guest-card {
+    position: relative;
+    padding: 31px;
+    border: 1px solid #3c302d;
+    background: linear-gradient(125deg, #21181780, #131216);
+    clip-path: polygon(
+      14px 0,
+      100% 0,
+      100% calc(100% - 14px),
+      calc(100% - 14px) 100%,
+      0 100%,
+      0 14px
+    );
+  }
+  .guest-card .card-accent {
+    position: absolute;
+    height: 1px;
+    width: 48px;
+    top: 0;
+    left: 30px;
+    background: var(--accent);
+    box-shadow: 0 0 14px #ff6b2c66;
+  }
+  .guest-card h3 {
+    max-width: 30ch;
+    margin-bottom: 16px;
+  }
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+  }
+  .benefit-card {
+    padding: 8px 0 8px 21px;
+    border-left: 2px solid #aa4d28;
+  }
+  .benefit-card h3 {
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+  .conversation-panel {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 40px;
+    padding: 35px;
+    background: linear-gradient(115deg, #4d251a33, #171417);
+    border: 1px solid #503329;
+  }
+  .conversation-panel p + p {
+    margin-top: 16px;
+  }
+  .delivery-heading {
+    margin-top: 56px;
+  }
+  .delivery-heading > p {
+    margin-top: 14px;
+  }
+  .delivery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+  .delivery-card {
+    border: 1px solid #41312b;
+    background: #161317;
+    clip-path: polygon(
+      16px 0,
+      100% 0,
+      100% calc(100% - 16px),
+      calc(100% - 16px) 100%,
+      0 100%,
+      0 16px
+    );
+    overflow: hidden;
+  }
+  .delivery-copy {
+    padding: 28px;
+    border-top: 1px solid #41312b;
+  }
+  .delivery-copy h3 {
+    margin-bottom: 16px;
+  }
+  .video-art,
+  .shorts-art {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(
+      ellipse at 50% 100%,
+      #803e1e35,
+      transparent 70%
+    );
+  }
+  .video-frame {
+    width: 72%;
+    aspect-ratio: 16/9;
+    position: relative;
+    border: 1px solid #b75b32;
+    background: linear-gradient(120deg, #3b271c44, #141317);
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-frame > span {
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+  }
+  .video-frame > b {
+    position: absolute;
+    bottom: 12px;
+    left: 14px;
+    right: 14px;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent) 38%, #443229 38%);
+  }
+  .mini-wave {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 52%;
+    width: 70%;
+    justify-content: center;
+  }
+  .mini-wave i {
+    width: 3px;
+    height: var(--bar);
+    background: #ed7a47;
+  }
+  .shorts-art {
+    gap: 12px;
+  }
+  .short-frame {
+    width: 68px;
+    height: 135px;
+    border: 1px solid #9d522f;
+    transform: translateY(calc((var(--offset) - 1) * 8px));
+    background: linear-gradient(155deg, #522c2040, #161417);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .short-frame > i {
+    width: 22px;
+    height: 45px;
+    background: linear-gradient(#ff9b5d, #8a3a21);
+    clip-path: polygon(
+      0 30%,
+      25% 30%,
+      25% 0,
+      45% 0,
+      45% 60%,
+      65% 60%,
+      65% 20%,
+      85% 20%,
+      85% 45%,
+      100% 45%,
+      100% 75%,
+      65% 75%,
+      65% 100%,
+      45% 100%,
+      45% 85%,
+      25% 85%,
+      25% 60%,
+      0 60%
+    );
+  }
+  .short-frame > span,
+  .short-frame > b {
+    position: absolute;
+    bottom: 15px;
+    height: 2px;
+    left: 9px;
+    right: 14px;
+    background: #7e5d4d;
+  }
+  .short-frame > b {
+    bottom: 21px;
+    right: 23px;
+  }
+  .interview-invitation {
+    margin-top: 35px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    border-top: 1px solid #bc572b;
+    background: linear-gradient(110deg, #66341e36, #1b1618);
+  }
+  .interview-invitation h2 {
+    margin-bottom: 17px;
+  }
+  .interview-invitation .studio-button {
+    flex-shrink: 0;
+  }
+  @media (max-width: 1000px) {
+    .interview-hero {
+      grid-template-columns: 1fr 0.85fr;
+      gap: 28px;
+    }
+    .interview-visual {
+      padding: 22px;
+    }
+    .benefit-grid {
+      gap: 20px;
+    }
+    .interview-invitation {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 760px) {
+    .interview-hero {
+      grid-template-columns: 1fr;
+      padding: 20px 0 42px;
+    }
+    .interview-visual {
+      max-width: 540px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .soundwave {
+      height: 125px;
+    }
+    .interview-section {
+      padding: 35px 0;
+    }
+    .benefit-grid {
+      grid-template-columns: 1fr;
+      gap: 25px;
+    }
+    .conversation-panel {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      padding: 25px;
+    }
+    .guest-card {
+      padding: 24px;
+    }
+    .guest-card h3 {
+      font-size: 17px;
+    }
+    .interview-invitation {
+      padding: 28px;
+    }
+  }
+  @media (max-width: 540px) {
+    .guest-grid,
+    .delivery-grid {
+      grid-template-columns: 1fr;
+    }
+    .interviews-page h1 {
+      font-size: clamp(28px, 7.5vw, 39px);
+    }
+    .interviews-page h2 {
+      font-size: 25px;
+    }
+    .interviews-page p {
+      font-size: 14px;
+    }
+    .interview-visual {
+      padding: 22px;
+    }
+    .interview-deliverables {
+      font-size: 14px;
+    }
+    .interview-invitation {
+      padding: 25px 20px;
+    }
+    .interview-invitation .studio-button {
+      max-width: 100%;
+      box-sizing: border-box;
+      padding-left: 19px;
+      padding-right: 19px;
+      font-size: 11px;
+    }
+    .delivery-copy {
+      padding: 25px;
+    }
+    .delivery-heading {
+      margin-top: 35px;
+    }
+  }
+</style>

@@ -1,5 +1,9 @@
 ---
 import Studio from "../layouts/Studio.astro";
+import FirmPage from "./pages/FirmPage.astro";
+import AgencyPage from "./pages/AgencyPage.astro";
+import InterviewsPage from "./pages/InterviewsPage.astro";
+import LifeOSPage from "./pages/LifeOSPage.astro";
 import { siteDocumentTitles } from "../data/site.ru";
 import { Content as Firm } from "../content/site-pages/firm.md";
 import { Content as Agency } from "../content/site-pages/agency.md";
@@ -17,7 +21,13 @@ const Pages = {
   interviews: Interviews,
   "life-os": LifeOS,
 };
-const Content = Pages[page];
+const DesignedPages = {
+  firm: FirmPage,
+  agency: AgencyPage,
+  interviews: InterviewsPage,
+  "life-os": LifeOSPage,
+};
+const Content = refinement ? DesignedPages[page] : Pages[page];
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const isComparison = /\/(refine|preview)\//.test(Astro.url.pathname);
 const prefix =
@@ -37,7 +47,12 @@ const prefix =
   pageSlug={page}
   title={`${siteDocumentTitles[page]} · Jetix`}
 >
-  <article class="studio-document">
+  <article
+    class:list={[
+      "studio-document",
+      { "composed-document": Boolean(refinement) },
+    ]}
+  >
     <a class="document-back" href={`${prefix}/`}>
       На главную
     </a>

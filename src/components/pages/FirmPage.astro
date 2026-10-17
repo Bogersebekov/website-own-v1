@@ -1,0 +1,779 @@
+---
+const qualities = [
+  "Независимые эксперты из разных стран, ниш и профессий.",
+  "Берут ответственность за свою жизнь.",
+  "Развивают своё мастерство, интеллект и собственные проекты.",
+  "Хотят сотрудничать с людьми, которым тоже важно совместное развитие.",
+];
+const reasons = [
+  "Самим выбирать окружение — выходить за пределы места жительства и привычного информационного поля.",
+  "Находить людей с другим опытом и знаниями.",
+  "Развивать мастерство через сотрудничество и совместные проекты.",
+  "Получать общий доступ к ресурсам. Для начала — вычислительным мощностям. Дальше разбираться, какие ещё ресурсы нужны и как организовать доступ.",
+];
+const resources = [
+  ["Люди", "Интеллект, опыт, любопытство и авантюризм людей."],
+  ["Экспертиза", "Экспертизу из разных профессий, стран и ниш."],
+  ["Инструменты", "Инструменты, собственные компьютеры и серверы участников."],
+];
+const craft = [
+  "Образовательные продукты: как работают компьютеры, базы данных и ИИ, как ими пользоваться.",
+  "Практические навыки — например, ведение переговоров.",
+  "Развитие сообщества людей, которые пробуют новое, учатся и приспосабливаются к переменам.",
+  "Сохранение и распространение авантюрного подхода к жизни.",
+];
+const projects = [
+  [
+    "Образование",
+    "Разработка персональных приложений для учителей, школ и университетов",
+  ],
+  [
+    "Локальный ИИ",
+    "Разработка и настройка локальных ИИ-помощников для среднего бизнеса, что не может позволить себе услуги BIG4",
+  ],
+  [
+    "Мероприятия",
+    "Организация образовательных мероприятий на темы ответственного использования ИИ в работе и личной жизни",
+  ],
+];
+const start = [
+  ["Знакомство", "После знакомства — общий чат."],
+  ["Встречи", "Планируем встречаться раз в неделю или две."],
+  [
+    "Обмен",
+    "Делимся тем, что узнали, чем занимаемся, идеями и видением будущего. Рассказываем и показываем, что происходит в наших разных информационных полях.",
+  ],
+  [
+    "Своя задача",
+    "Каждый приносит свою задачу. От неё и отталкиваемся в совместной работе.",
+  ],
+];
+---
+
+<div class="firm-page">
+  <section class="firm-hero">
+    <p class="eyebrow">JETIX · КОНСАЛТИНГОВАЯ ФИРМА</p>
+    <h1>
+      Собираю сеть <em>независимых экспертов</em>
+    </h1>
+    <div class="hero-bottom">
+      <p>
+        Строю Jetix — консалтинговую фирму, в которой самостоятельные
+        специалисты смогут объединять знания, инструменты и опыт для совместных
+        проектов. Сейчас собираю первую группу людей, которым интересно
+        участвовать в её создании.
+      </p>
+      <a class="studio-button" href="https://t.me/ferheiser">
+        Обсудить участие
+      </a>
+    </div>
+    <div class="network-art" aria-hidden="true">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <span>JETIX</span>
+    </div>
+  </section>
+
+  <section class="firm-block community">
+    <div class="section-heading">
+      <p class="eyebrow">ЛЮДИ</p>
+      <h2>Собираю команду авантюрных людей</h2>
+    </div>
+    <div class="qualities">
+      {qualities.map((text) => (
+        <p class="quality">{text}</p>
+      ))}
+    </div>
+    <div class="reasons">
+      <h3>Зачем объединяться</h3>
+      <ul>
+        {reasons.map((text) => (
+          <li>{text}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="direction firm-block">
+    <p class="eyebrow">ОБЩЕЕ НАПРАВЛЕНИЕ</p>
+    <h2>
+      Развивать свою жизнь среди людей, которые готовы работать вместе вне
+      зависимости от политических и религиозных взглядов.
+    </h2>
+    <div class="direction-notes">
+      <p>
+        Для тех, которые понимают, что это мифы, которые человечество создавало
+        для объединения людей, но теперь от них больше вреда чем пользы.
+      </p>
+      <p>
+        И это для тех, кто может увидеть мир как единую систему, и хочет сделать
+        её немного лучше, потому что сам является частью этой системы.
+      </p>
+    </div>
+  </section>
+
+  <section class="firm-block">
+    <div class="section-heading">
+      <p class="eyebrow">ОБЩИЙ РЕСУРС</p>
+      <h2>Что объединяем</h2>
+    </div>
+    <div class="resource-grid">
+      {resources.map(([title, text]) => (
+        <article class="cut-card">
+          <span class="resource-symbol" aria-hidden="true">
+            +
+          </span>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+    <div class="expertise-callout">
+      <h3>Найти нужного человека или разобраться в новой теме</h3>
+      <p>
+        Помогу поискать специалиста под ваш проект или исследовать направление,
+        на которое не хватало времени или собственной экспертизы.
+      </p>
+    </div>
+  </section>
+
+  <section class="firm-block craft-grid">
+    <div>
+      <p class="eyebrow">МАСТЕРСТВО</p>
+      <h2>На что направляем мастерство</h2>
+      <ul class="craft-list">
+        {craft.map((text) => (
+          <li>{text}</li>
+        ))}
+      </ul>
+    </div>
+    <aside class="boundary cut-card">
+      <p class="eyebrow">ГРАНИЦА</p>
+      <h3>С чем не работаем</h3>
+      <p>Казино и продукты, зарабатывающие на зависимостях людей.</p>
+    </aside>
+  </section>
+
+  <section class="firm-block">
+    <div class="section-heading">
+      <p class="eyebrow">НА ПРАКТИКЕ</p>
+      <h2>Первые проекты</h2>
+    </div>
+    <div class="project-list">
+      {projects.map(([title, text]) => (
+        <article>
+          <h3>{title}</h3>
+          <p>{text}</p>
+          <span aria-hidden="true" class="project-corner"></span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="firm-block big-goal">
+    <div class="section-heading">
+      <p class="eyebrow">ГОРИЗОНТ</p>
+      <h2>Большая цель</h2>
+    </div>
+    <div class="goal-layout">
+      <div class="network-goal cut-card">
+        <strong>
+          70 000<span>+</span>
+        </strong>
+        <p>Сеть из более 70 000 активных экспертов по всему миру</p>
+        <div class="goal-lines" aria-hidden="true"></div>
+      </div>
+      <div class="goal-notes">
+        <p>Исследование нового способа обмена ресурсами.</p>
+        <p>Создание фонда по борьбе с зависимостями.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="firm-block">
+    <div class="section-heading">
+      <p class="eyebrow">ПЕРВЫЙ ШАГ</p>
+      <h2>Как начинаем</h2>
+    </div>
+    <div class="start-grid">
+      {start.map(([title, text]) => (
+        <article>
+          <span class="start-dot" aria-hidden="true"></span>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="firm-invite cut-card">
+    <p class="eyebrow">ПРИСОЕДИНИТЬСЯ</p>
+    <h2>Хочешь быть у начала?</h2>
+    <p>
+      Если тебе близка идея сети независимых экспертов — напиши. Познакомимся и
+      обсудим, что можем сделать вместе.
+    </p>
+    <a class="studio-button" href="https://t.me/ferheiser">
+      Обсудить участие
+    </a>
+  </section>
+</div>
+
+<style>
+  .firm-page {
+    --warm: #ff6a2b;
+    --edge: rgba(255, 143, 90, 0.24);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 0 96px;
+    color: #f4f0ec;
+    overflow: hidden;
+  }
+  .firm-page p,
+  .firm-page li {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #aaa7ad;
+  }
+  .firm-page h1,
+  .firm-page h2,
+  .firm-page h3 {
+    font-family: var(--head, Unbounded, sans-serif);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.045em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .firm-page h2 {
+    font-size: clamp(24px, 3.1vw, 40px);
+  }
+  .firm-page h3 {
+    font-size: 19px;
+  }
+  .firm-page .eyebrow {
+    font-family: var(--mono, Iosevka, monospace);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--warm);
+    margin: 0 0 25px;
+  }
+  .firm-block {
+    padding: 76px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+  }
+  .section-heading {
+    margin-bottom: 36px;
+  }
+  .section-heading h2 {
+    max-width: 800px;
+  }
+  .firm-hero {
+    position: relative;
+    isolation: isolate;
+    padding: 58px 0 90px;
+  }
+  .firm-hero h1 {
+    font-size: clamp(34px, 5.1vw, 65px);
+    max-width: 850px;
+    position: relative;
+    z-index: 1;
+  }
+  .firm-hero h1 em {
+    display: block;
+    color: var(--warm);
+    font-style: normal;
+  }
+  .hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    gap: 64px;
+    margin-top: 34px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-bottom p {
+    max-width: 620px;
+    margin: 0;
+  }
+  .hero-bottom .studio-button {
+    flex-shrink: 0;
+  }
+  .network-art {
+    position: absolute;
+    width: 310px;
+    height: 310px;
+    right: -110px;
+    top: 0;
+    opacity: 0.3;
+    z-index: -1;
+    transform: rotate(-20deg);
+    border: 1px solid var(--edge);
+    border-radius: 50%;
+    box-shadow: 0 0 100px #ff652418 inset;
+  }
+  .network-art:before,
+  .network-art:after {
+    content: "";
+    position: absolute;
+    inset: 35px;
+    border: 1px solid var(--edge);
+    transform: rotate(45deg);
+  }
+  .network-art:after {
+    inset: 80px;
+    transform: rotate(-15deg);
+  }
+  .network-art i {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--warm);
+    box-shadow: 0 0 20px var(--warm);
+    top: 50%;
+    left: 0;
+  }
+  .network-art i:nth-child(2) {
+    top: 0;
+    left: 50%;
+  }
+  .network-art i:nth-child(3) {
+    top: 50%;
+    left: 100%;
+  }
+  .network-art i:nth-child(4) {
+    top: 100%;
+    left: 50%;
+  }
+  .network-art i:nth-child(5) {
+    top: 25%;
+    left: 30%;
+  }
+  .network-art i:nth-child(6) {
+    top: 65%;
+    left: 70%;
+  }
+  .network-art span {
+    position: absolute;
+    inset: 45%;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+  .qualities {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--edge);
+    border: 1px solid var(--edge);
+  }
+  .firm-page .quality {
+    position: relative;
+    background: #151419;
+    padding: 26px 28px 26px 49px;
+    margin: 0;
+    color: #e0dce0;
+  }
+  .quality:before {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    left: 26px;
+    top: 38px;
+    background: var(--warm);
+  }
+  .reasons {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 45px;
+    margin-top: 40px;
+  }
+  .reasons h3 {
+    padding-top: 12px;
+  }
+  .reasons ul,
+  .craft-list {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+  }
+  .reasons li,
+  .craft-list li {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .direction {
+    background: radial-gradient(ellipse at 0 0, #ff6b2510, transparent 70%);
+    padding-left: 30px;
+    padding-right: 30px;
+    border-left: 2px solid var(--warm);
+  }
+  .direction h2 {
+    font-size: clamp(22px, 2.6vw, 32px);
+    line-height: 1.55;
+  }
+  .direction-notes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 30px;
+  }
+  .direction-notes p {
+    margin: 0;
+  }
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .cut-card {
+    position: relative;
+    clip-path: polygon(
+      18px 0,
+      100% 0,
+      100% calc(100% - 18px),
+      calc(100% - 18px) 100%,
+      0 100%,
+      0 18px
+    );
+    background: linear-gradient(140deg, #292023, #141318 65%);
+    border-top: 1px solid var(--edge);
+  }
+  .resource-grid article {
+    padding: 28px;
+  }
+  .resource-symbol {
+    font-size: 38px;
+    color: var(--warm);
+    line-height: 1;
+    display: block;
+    margin-bottom: 28px;
+    font-weight: 200;
+  }
+  .resource-grid p {
+    margin-bottom: 0;
+  }
+  .expertise-callout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    border-left: 2px solid var(--warm);
+    padding: 24px 30px;
+    margin-top: 30px;
+    background: #ff732408;
+  }
+  .expertise-callout p {
+    margin: 0;
+  }
+  .craft-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 55px;
+    align-items: start;
+  }
+  .craft-list {
+    margin-top: 25px;
+  }
+  .boundary {
+    padding: 30px;
+  }
+  .boundary p:last-child {
+    margin-bottom: 0;
+  }
+  .project-list {
+    border-top: 1px solid var(--edge);
+  }
+  .project-list article {
+    position: relative;
+    padding: 30px 35px 30px 0;
+    display: grid;
+    grid-template-columns: 1fr 1.7fr;
+    gap: 50px;
+    border-bottom: 1px solid var(--edge);
+    background: linear-gradient(90deg, transparent, #ff682307);
+  }
+  .project-list h3 {
+    color: #f3efed;
+  }
+  .project-list p {
+    margin: 0;
+  }
+  .project-corner {
+    position: absolute;
+    right: 0;
+    top: 32px;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid var(--warm);
+    border-right: 1px solid var(--warm);
+  }
+  .goal-layout {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 35px;
+  }
+  .network-goal {
+    padding: 36px;
+    overflow: hidden;
+  }
+  .network-goal strong {
+    font-size: clamp(42px, 6vw, 76px);
+    line-height: 1.2;
+    color: var(--warm);
+    font-family: var(--head, Unbounded, sans-serif);
+    letter-spacing: -0.06em;
+    position: relative;
+    z-index: 1;
+  }
+  .network-goal strong span {
+    font-size: 0.55em;
+    vertical-align: top;
+    margin-left: 5px;
+  }
+  .network-goal p {
+    max-width: 300px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+  }
+  .goal-lines {
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    border: 1px solid var(--edge);
+    border-radius: 50%;
+    right: -90px;
+    bottom: -90px;
+    box-shadow:
+      0 0 0 22px #ff662209,
+      0 0 0 44px #ff662208,
+      0 0 0 66px #ff662207;
+  }
+  .goal-notes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .goal-notes p {
+    padding: 22px 0;
+    margin: 0;
+    border-bottom: 1px solid var(--edge);
+    font-size: 18px;
+    color: #d8d2d1;
+  }
+  .start-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+  }
+  .start-grid article {
+    position: relative;
+    border-top: 1px solid var(--edge);
+    padding-top: 28px;
+  }
+  .start-dot {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    background: var(--warm);
+    box-shadow: 0 0 15px #ff682355;
+  }
+  .start-grid h3 {
+    font-size: 16px;
+  }
+  .start-grid p {
+    font-size: 13px;
+  }
+  .firm-invite {
+    padding: 48px;
+    max-width: 950px;
+    margin: 0 auto;
+    background:
+      radial-gradient(ellipse at 100% 0, #ff682321, transparent 75%), #17151a;
+    text-align: center;
+  }
+  .firm-invite h2 {
+    font-size: clamp(26px, 3.4vw, 42px);
+  }
+  .firm-invite > p:not(.eyebrow) {
+    max-width: 620px;
+    margin: 22px auto 28px;
+  }
+  .firm-invite .studio-button {
+    margin: 0 auto;
+  }
+  @media (max-width: 900px) {
+    .firm-page {
+      padding: 0 0 64px;
+    }
+    .hero-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 28px;
+    }
+    .firm-block {
+      padding-top: 55px;
+      padding-bottom: 55px;
+    }
+    .resource-grid {
+      gap: 10px;
+    }
+    .resource-grid article {
+      padding: 24px 18px;
+    }
+    .craft-grid {
+      gap: 28px;
+    }
+    .start-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .reasons {
+      grid-template-columns: 1fr 1.8fr;
+      gap: 25px;
+    }
+    .project-list article {
+      gap: 25px;
+    }
+    .goal-layout {
+      grid-template-columns: 1fr 1fr;
+    }
+    .network-goal {
+      padding: 28px;
+    }
+  }
+  @media (max-width: 600px) {
+    .firm-page {
+      padding: 0 0 48px;
+    }
+    .firm-hero {
+      padding-top: 35px;
+      padding-bottom: 48px;
+    }
+    .firm-hero h1 {
+      font-size: clamp(28px, 7.6vw, 44px);
+      overflow-wrap: normal;
+    }
+    .firm-page h2 {
+      font-size: 24px;
+    }
+    .firm-page h3 {
+      font-size: 17px;
+    }
+    .firm-page p,
+    .firm-page li {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .firm-page .eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      margin-bottom: 18px;
+    }
+    .network-art {
+      width: 230px;
+      height: 230px;
+      right: -140px;
+      top: 10px;
+    }
+    .qualities,
+    .resource-grid,
+    .direction-notes,
+    .craft-grid,
+    .goal-layout {
+      grid-template-columns: 1fr;
+    }
+    .firm-page .quality {
+      padding: 20px 20px 20px 38px;
+    }
+    .quality:before {
+      left: 18px;
+      top: 31px;
+    }
+    .reasons,
+    .expertise-callout,
+    .project-list article {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .reasons {
+      margin-top: 28px;
+    }
+    .section-heading {
+      margin-bottom: 25px;
+    }
+    .direction {
+      padding-left: 20px;
+      padding-right: 12px;
+    }
+    .direction h2 {
+      font-size: 21px;
+    }
+    .direction-notes {
+      gap: 18px;
+    }
+    .resource-grid {
+      gap: 12px;
+    }
+    .resource-grid article {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 8px 16px;
+    }
+    .resource-symbol {
+      grid-row: span 2;
+      margin: 0;
+      font-size: 30px;
+    }
+    .resource-grid p {
+      margin: 0;
+    }
+    .expertise-callout {
+      padding: 20px;
+      margin-top: 24px;
+    }
+    .craft-grid {
+      gap: 30px;
+    }
+    .boundary {
+      padding: 26px;
+    }
+    .project-list article {
+      padding: 25px 25px 25px 0;
+      gap: 12px;
+    }
+    .project-corner {
+      top: 30px;
+    }
+    .goal-notes p {
+      font-size: 16px;
+    }
+    .network-goal strong {
+      font-size: 49px;
+    }
+    .start-grid {
+      gap: 20px 18px;
+    }
+    .start-grid h3 {
+      font-size: 14px;
+    }
+    .start-grid p {
+      font-size: 12px;
+    }
+    .firm-invite {
+      padding: 32px 20px;
+    }
+    .firm-invite h2 {
+      font-size: 25px;
+    }
+    .firm-invite .studio-button {
+      max-width: 100%;
+    }
+  }
+</style>

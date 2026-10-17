@@ -1,0 +1,675 @@
+---
+const insights = [
+  {
+    title: "Как движутся твои цели",
+    text: "Что продвигается, что остановилось и какой следующий шаг. Повседневные задачи связаны с проектами и целями — видно, ради чего ты их делаешь.",
+    tag: "Направление",
+  },
+  {
+    title: "На что уходит твоё время",
+    text: "Что ты собирался сделать и что получилось. День за днём становится видно, совпадают ли твои действия с тем, что ты называешь важным.",
+    tag: "Действия",
+  },
+  {
+    title: "В каком ты состоянии",
+    text: "Сон, энергия и привычки помогают замечать изменения за несколько недель. Проще увидеть, как ты себя чувствуешь и что этому сопутствует.",
+    tag: "Состояние",
+  },
+  {
+    title: "Что остаётся от прочитанного и просмотренного",
+    text: "Книги, видео, статьи — вместе с выводами и идеями, которые хочешь применить. Видно, что ты просто сохранил, а с чем действительно разобрался.",
+    tag: "Знания",
+  },
+];
+const rhythms = [
+  {
+    title: "День",
+    time: "3 минуты утром, 6 вечером",
+    text: "Выбрать главное и записать, что получилось.",
+  },
+  {
+    title: "Неделя",
+    time: "Около 50 минут",
+    text: "Сопоставить планы с результатом и выбрать следующий фокус.",
+    note: "На итоги и план.",
+  },
+  {
+    title: "Месяц",
+    time: "Около полутора часов",
+    text: "Посмотреть, куда движешься и что хочешь изменить.",
+    note: "На разбор и следующий месяц.",
+  },
+];
+const modules = [
+  ["Сегодня", "Главное на день, задачи и вечерний итог."],
+  ["Неделя", "Приоритеты, результаты и план следующей недели."],
+  ["Месяц", "Общая картина и направление на следующий месяц."],
+  ["Состояние", "Сон, энергия, привычки и самочувствие."],
+  ["Смысл", "Что для тебя важно, твои принципы и решения."],
+  ["Цели и проекты", "Чего хочешь достичь и что для этого делаешь."],
+  ["Люди", "Важные разговоры, договорённости и встречи."],
+  ["Потребление", "Что хочешь прочитать, посмотреть и изучить."],
+  ["База знаний", "Твои выводы, разборы и идеи для применения."],
+  ["Заметки", "Мысли, которые хочется сохранить."],
+];
+const steps = [
+  ["Скопируй шаблон", "Добавь Life OS в своё пространство Notion."],
+  ["Открой «Сегодня»", "Выбери главное дело или запиши, как прошёл день."],
+  [
+    "Вернись в конце недели",
+    "Посмотри, что получилось и что хочешь сделать дальше.",
+  ],
+];
+---
+
+<div class="life-page">
+  <section class="life-hero" aria-labelledby="life-title">
+    <div class="life-hero-copy">
+      <p class="life-eyebrow">
+        Life OS <span>Бесплатный шаблон · Notion</span>
+      </p>
+      <h1 id="life-title">
+        Одно место, где видно, <em>как ты живёшь</em> и куда идёшь.
+      </h1>
+      <p class="life-lead">
+        Life OS — бесплатный шаблон для Notion. Планы, цели, состояние, люди и
+        знания — вместе, чтобы видеть связь между тем, что для тебя важно, и
+        тем, как проходят твои дни.
+      </p>
+      <a class="studio-button" href="#life-start">
+        С чего начать
+      </a>
+    </div>
+    <figure class="life-map">
+      <figcaption>Схема разделов</figcaption>
+      <div class="life-map-head">
+        <span>Life OS</span>
+        <span class="life-map-light" aria-hidden="true"></span>
+      </div>
+      <div class="life-map-core">
+        <span>Сегодня</span>
+        <small>Главное на день · Задачи · Итог</small>
+      </div>
+      <div class="life-map-rhythm">
+        <span>Неделя</span>
+        <span>Месяц</span>
+      </div>
+      <div class="life-map-modules">
+        <span>Цели и проекты</span>
+        <span>Состояние</span>
+        <span>Люди</span>
+        <span>Смысл</span>
+        <span>База знаний</span>
+        <span>Заметки</span>
+      </div>
+      <p>Планы, действия и наблюдения — в одном месте.</p>
+    </figure>
+  </section>
+
+  <section
+    class="life-context life-section"
+    aria-labelledby="life-context-title"
+  >
+    <h2 id="life-context-title">Каждый день складывается в твою жизнь.</h2>
+    <div>
+      <p>
+        Дела, привычки, люди и информация влияют на то, куда ты движешься. Но за
+        повседневностью не всегда видно общую картину.
+      </p>
+      <p>
+        Когда записываешь планы и возвращаешься к результатам, становится
+        понятнее: что работает, что стоит изменить и чему ты хочешь отдавать
+        время.
+      </p>
+    </div>
+  </section>
+
+  <section class="life-section" aria-labelledby="life-insights-title">
+    <div class="life-section-heading">
+      <p class="life-eyebrow">Общая картина</p>
+      <h2 id="life-insights-title">
+        Пока всё в голове, общая картина размыта.
+      </h2>
+      <p>
+        Кажется, что двигаешься к цели, нормально отдыхаешь и много учишься.
+        Записи помогают увидеть, как обстоят дела на самом деле.
+      </p>
+      <strong class="life-manifest">
+        Life OS показывает. Решения остаются за тобой.
+      </strong>
+    </div>
+    <div class="life-insights">
+      {insights.map((item) => (
+        <article class="life-panel">
+          <p class="life-card-tag">{item.tag}</p>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+    <p class="life-afterword">
+      Не нужно помнить всю свою жизнь.{" "}
+      <span>Можно к ней вернуться и посмотреть.</span>
+    </p>
+  </section>
+
+  <section class="life-section" aria-labelledby="life-rhythm-title">
+    <div class="life-section-heading">
+      <p class="life-eyebrow">Ритм работы</p>
+      <h2 id="life-rhythm-title">От сегодняшних дел — к общей картине.</h2>
+    </div>
+    <div class="life-rhythms">
+      {rhythms.map((item) => (
+        <article class="life-rhythm">
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+          <div class="life-time">
+            {item.time}
+            {item.note && <small>{item.note}</small>}
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="life-footnote">
+      Начать можно с малого: главное на день и несколько строк вечером.
+      Остальные разделы подключай по мере необходимости.
+    </p>
+  </section>
+
+  <section class="life-section" aria-labelledby="life-modules-title">
+    <div class="life-section-heading">
+      <p class="life-eyebrow">Устройство шаблона</p>
+      <h2 id="life-modules-title">У каждого — своё место.</h2>
+    </div>
+    <div class="life-modules">
+      {modules.map(([title, text]) => (
+        <article class="life-module">
+          <span class="life-module-mark" aria-hidden="true">
+            +
+          </span>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section
+    class="life-section life-start"
+    id="life-start"
+    aria-labelledby="life-start-title"
+  >
+    <div class="life-section-heading">
+      <p class="life-eyebrow">Первый шаг</p>
+      <h2 id="life-start-title">Начни с одного дня.</h2>
+      <p>
+        Не нужно сначала настраивать все разделы или расписывать жизнь на год.
+      </p>
+    </div>
+    <ol class="life-steps">
+      {steps.map(([title, text], index) => (
+        <li>
+          <span class="life-step-number">{index + 1}</span>
+          <div>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="life-section life-author" aria-labelledby="life-author-title">
+    <div>
+      <p class="life-eyebrow">От автора</p>
+      <h2 id="life-author-title">Почему я это сделал</h2>
+      <p class="life-author-phrase">«Быть честным с самим собой»</p>
+    </div>
+    <div class="life-author-story">
+      <p>
+        Меня зацепила фраза «быть честным с самим собой». Но я понял: одного
+        желания мало. Чтобы честно смотреть на свою жизнь, нужно иметь перед
+        глазами что-то конкретное — что ты делал, что откладывал, как себя
+        чувствовал и что получилось.
+      </p>
+      <p>
+        Без этого легко опираться на впечатления и помнить только отдельные
+        моменты. Мне хотелось видеть реальное состояние своей жизни и свой
+        прогресс, а не пытаться каждый раз восстановить всё по памяти.
+      </p>
+      <p>
+        Life OS — моя попытка собрать эту информацию в одном месте. Чтобы лучше
+        понимать, что происходит, делать выводы и иметь больше контроля над
+        своей жизнью.
+      </p>
+      <p class="life-reading">
+        <strong>Подробнее о подходе:</strong> Что такое мастерская · Что
+        решается в мастерской
+      </p>
+    </div>
+  </section>
+</div>
+
+<style>
+  .life-page {
+    --life-orange: #ff692e;
+    color: #f1eeee;
+  }
+  .life-page :is(h1, h2, h3, p, figure) {
+    margin: 0;
+  }
+  .life-page :is(h1, h2, h3) {
+    font-family: Unbounded, sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    overflow-wrap: anywhere;
+  }
+  .life-page p {
+    font:
+      400 15px/1.85 Manrope,
+      sans-serif;
+    color: #b5b0b3;
+  }
+  .life-page h1 {
+    font-size: clamp(30px, 3.6vw, 51px);
+    line-height: 1.26;
+  }
+  .life-page h1 em {
+    color: var(--life-orange);
+    font-style: normal;
+  }
+  .life-page h2 {
+    font-size: clamp(25px, 2.6vw, 36px);
+    line-height: 1.35;
+  }
+  .life-page h3 {
+    font-size: 19px;
+    line-height: 1.45;
+  }
+  .life-page .life-eyebrow {
+    font:
+      12px/1.6 Iosevka,
+      monospace;
+    color: var(--life-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 22px;
+  }
+  .life-eyebrow span {
+    display: block;
+    color: #969094;
+    letter-spacing: 0.025em;
+    margin-top: 5px;
+  }
+  .life-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 46px;
+    align-items: center;
+    padding: 45px 0 78px;
+  }
+  .life-page .life-lead {
+    margin: 25px 0 28px;
+  }
+  .life-hero .studio-button {
+    max-width: 100%;
+  }
+  .life-page .life-map {
+    padding: 25px;
+    background:
+      radial-gradient(ellipse at 100% 0%, #ff692e12, transparent 70%), #151418;
+    border: 1px solid #664332;
+    position: relative;
+    clip-path: polygon(
+      18px 0,
+      100% 0,
+      100% calc(100% - 18px),
+      calc(100% - 18px) 100%,
+      0 100%,
+      0 18px
+    );
+  }
+  .life-map figcaption {
+    color: #9f9691;
+    font:
+      11px/1.5 Iosevka,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 25px;
+  }
+  .life-map-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font:
+      22px/1.4 Unbounded,
+      sans-serif;
+    margin-bottom: 24px;
+  }
+  .life-map-light {
+    width: 6px;
+    height: 6px;
+    background: var(--life-orange);
+    box-shadow: 0 0 15px #ff692e80;
+  }
+  .life-map-core {
+    border: 1px solid #9c5135;
+    background: #ff692e0b;
+    padding: 23px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    font:
+      18px/1.4 Unbounded,
+      sans-serif;
+  }
+  .life-map-core small {
+    font:
+      11px/1.6 Manrope,
+      sans-serif;
+    color: #a79a92;
+  }
+  .life-map-rhythm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .life-map-rhythm span {
+    border: 1px solid #4b3b34;
+    padding: 14px;
+    font-size: 13px;
+  }
+  .life-map-modules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 15px;
+    margin-top: 20px;
+  }
+  .life-map-modules span {
+    font-size: 11px;
+    color: #aaa3a0;
+    padding: 10px 0;
+    border-bottom: 1px solid #352b28;
+  }
+  .life-page .life-map > p {
+    font-size: 11px;
+    line-height: 1.7;
+    margin-top: 23px;
+    color: #8f8580;
+  }
+  .life-section {
+    padding: 70px 0;
+    border-top: 1px solid #44322a;
+  }
+  .life-section-heading {
+    max-width: 800px;
+    margin-bottom: 34px;
+  }
+  .life-section-heading > p:not(.life-eyebrow) {
+    margin-top: 22px;
+  }
+  .life-context {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+  }
+  .life-context p + p {
+    margin-top: 16px;
+  }
+  .life-manifest {
+    display: block;
+    font:
+      500 15px/1.8 Manrope,
+      sans-serif;
+    margin-top: 20px;
+    color: #e6b49b;
+  }
+  .life-insights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .life-panel {
+    position: relative;
+    padding: 30px;
+    border: 1px solid #4b3830;
+    background: linear-gradient(140deg, #ff692e09, transparent 65%), #151418;
+    clip-path: polygon(
+      14px 0,
+      100% 0,
+      100% calc(100% - 14px),
+      calc(100% - 14px) 100%,
+      0 100%,
+      0 14px
+    );
+  }
+  .life-page .life-card-tag {
+    color: #cc8060;
+    font:
+      11px/1.5 Iosevka,
+      monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .life-panel h3 {
+    margin-bottom: 16px;
+    max-width: 400px;
+  }
+  .life-panel > p:last-child {
+    font-size: 14px;
+  }
+  .life-page .life-afterword {
+    color: #e3d1c5;
+    border-left: 2px solid var(--life-orange);
+    padding-left: 22px;
+    margin-top: 32px;
+    font-size: 18px;
+  }
+  .life-afterword span {
+    color: #9f9895;
+  }
+  .life-rhythms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+  .life-rhythm {
+    padding: 26px 0 0;
+    border-top: 2px solid #cf693c;
+    display: flex;
+    flex-direction: column;
+  }
+  .life-rhythm h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  .life-rhythm > p {
+    flex: 1;
+  }
+  .life-time {
+    font:
+      13px/1.8 Iosevka,
+      monospace;
+    color: #f2a079;
+    margin-top: 24px;
+    padding: 15px 0;
+    border-top: 1px solid #3c3029;
+  }
+  .life-time small {
+    display: block;
+    font:
+      11px/1.6 Manrope,
+      sans-serif;
+    color: #96908c;
+  }
+  .life-page .life-footnote {
+    max-width: 740px;
+    margin-top: 28px;
+    font-size: 14px;
+  }
+  .life-modules {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 35px;
+  }
+  .life-module {
+    padding: 25px 0 25px 30px;
+    border-top: 1px solid #3f322d;
+    position: relative;
+  }
+  .life-module-mark {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    color: #c87852;
+    font:
+      20px/1.5 Iosevka,
+      monospace;
+  }
+  .life-module h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+  }
+  .life-module p {
+    font-size: 14px;
+  }
+  .life-start {
+    background: radial-gradient(
+      ellipse at 100% 40%,
+      #ff692e0c,
+      transparent 70%
+    );
+  }
+  .life-steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 0;
+    margin: 0;
+  }
+  .life-steps li {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 23px;
+    border-top: 1px solid #63412f;
+  }
+  .life-step-number {
+    font:
+      14px/1.5 Iosevka,
+      monospace;
+    color: #f39262;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #6e4833;
+    display: grid;
+    place-items: center;
+  }
+  .life-steps h3 {
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+  .life-steps p {
+    font-size: 14px;
+  }
+  .life-author {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 65px;
+  }
+  .life-page .life-author-phrase {
+    color: #d58b68;
+    font-size: 18px;
+    margin-top: 25px;
+  }
+  .life-author-story p + p {
+    margin-top: 22px;
+  }
+  .life-page .life-reading {
+    font-size: 12px;
+    padding-top: 25px;
+    border-top: 1px solid #3f322c;
+    color: #938a85;
+  }
+  .life-reading strong {
+    display: block;
+    font-weight: 500;
+    color: #c0b4ad;
+    margin-bottom: 7px;
+  }
+  @media (max-width: 950px) {
+    .life-hero {
+      grid-template-columns: 1fr;
+      gap: 35px;
+    }
+    .life-map {
+      max-width: 560px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .life-context,
+    .life-author {
+      gap: 35px;
+    }
+  }
+  @media (max-width: 650px) {
+    .life-hero {
+      padding: 25px 0 45px;
+    }
+    .life-section {
+      padding: 45px 0;
+    }
+    .life-insights,
+    .life-rhythms,
+    .life-context,
+    .life-author,
+    .life-steps {
+      grid-template-columns: 1fr;
+    }
+    .life-insights {
+      gap: 12px;
+    }
+    .life-panel {
+      padding: 25px 22px;
+    }
+    .life-page .life-map {
+      padding: 22px;
+    }
+    .life-rhythms {
+      gap: 20px;
+    }
+    .life-rhythm > p {
+      max-width: 340px;
+    }
+    .life-time {
+      margin-top: 15px;
+    }
+    .life-page .life-afterword {
+      font-size: 16px;
+    }
+    .life-steps {
+      gap: 0;
+    }
+    .life-steps li {
+      flex-direction: row;
+      gap: 18px;
+      padding: 22px 0;
+    }
+    .life-step-number {
+      flex: 0 0 32px;
+    }
+    .life-modules {
+      grid-template-columns: 1fr;
+    }
+    .life-module {
+      padding-block: 22px;
+    }
+    .life-module-mark {
+      top: 21px;
+    }
+  }
+</style>
