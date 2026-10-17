@@ -19,6 +19,13 @@ const Pages = {
 };
 const Content = Pages[page];
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const isComparison = /\/(refine|preview)\//.test(Astro.url.pathname);
+const prefix =
+  refinement && isComparison
+    ? `${base}/refine/${refinement}`
+    : !isComparison
+      ? base
+      : `${base}/preview/${edition}`;
 ---
 
 <Studio
@@ -31,16 +38,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   title={`${siteDocumentTitles[page]} · Jetix`}
 >
   <article class="studio-document">
-    <a
-      class="document-back"
-      href={
-        refinement
-          ? `${base}/refine/${refinement}/`
-          : `${base}/preview/${edition}/`
-      }
-    >
+    <a class="document-back" href={`${prefix}/`}>
       На главную
     </a>
+    <nav class="document-navigation" aria-label="Разделы сайта">
+      {Object.entries(siteDocumentTitles).map(([slug, label]) => (
+        <a
+          href={`${prefix}/${slug}/`}
+          aria-current={slug === page ? "page" : undefined}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
     <div class="document-copy">
       <Content />
     </div>

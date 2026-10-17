@@ -18,6 +18,7 @@ for p in assets.glob('*.css'):
   return match.group(0)
  s=re.sub(r'url\(([^)]+)\)',embedFont,s)
  p.write_text(s)
+selected=len(sys.argv)>2 and sys.argv[2]=='selected'
 refinements=len(sys.argv)>2 and sys.argv[2]=='refinements'
 routeRoot='refine' if refinements else 'preview'
 editions=['glow','line','facet'] if refinements else ['glass','type','diagram']
@@ -25,20 +26,22 @@ routeMap={}
 for edition in editions:
  routeMap[f'/{routeRoot}/{edition}/']=edition+'.html'
  for page in ['firm','agency','interviews','life-os']:routeMap[f'/{routeRoot}/{edition}/{page}/']=f'{edition}-{page}.html'
+if selected:routeMap={'/':'index.html', **{f'/{page}/':f'{page}.html' for page in ['firm','agency','interviews','life-os']}}
 for route,name in routeMap.items():
  s=(r/'dist'/route.strip('/')/'index.html').read_text()
  # Astro emits inline bundled scripts here; keep any explicit local script self-contained as well.
  s=re.sub(r'(<script\b[^>]*?)\s+src="(/_astro/[^\"]+)"[^>]*>(</script>)',lambda m:'<script type="module">'+(r/'dist'/m.group(2).lstrip('/')).read_text()+'</script>',s)
  s=s.replace('/_astro/','assets/').replace('href="/favicon.svg"','href="assets/favicon.svg"')
- for old,new in sorted(routeMap.items(),key=lambda pair:len(pair[0]),reverse=True):s=s.replace(old,new)
+ for old,new in sorted(routeMap.items(),key=lambda pair:len(pair[0]),reverse=True):s=s.replace('href="'+old,'href="'+new)
  (out/name).write_text(s)
-shutil.copyfile(out/(editions[0]+'.html'),out/'index.html')
+if not selected:shutil.copyfile(out/(editions[0]+'.html'),out/'index.html')
 readme='JETIX — три оформления\n\nРаспакуйте архив целиком и откройте index.html в браузере.\nСверху — переключатель: стеклянные плашки, типографика, схемы.\nКарточки проектов ведут на внутренние страницы в том же оформлении.\nСкриншоты кейса открываются крупно.\nПапку assets оставляйте рядом с HTML-файлами. Установка и сервер не требуются.\nЭто локальное превью, сайт не опубликован.\n'
 if refinements:readme=readme.replace('стеклянные плашки, типографика, схемы','мягкое свечение, тонкий контур, срезанные углы')
+if selected:readme='JETIX — выбранный стиль «Срезанные углы»\n\nРаспакуйте архив целиком и откройте index.html.\nГлавная, фирма, агентство, интервью и Life.OS связаны ссылками.\nСкриншоты кейса открываются крупно.\nПапку assets оставляйте рядом с HTML-файлами. Установка и сервер не требуются.\n'
 (out/'README.txt').write_text(readme)
 (assets/'licenses').mkdir(exist_ok=True)
 for file in (r/'src/assets/fonts').glob('LICENSE*'):shutil.copyfile(file,assets/'licenses'/file.name)
-archive=out.parent/('jetix-typography-three-options.zip' if refinements else 'jetix-three-sites.zip')
+archive=out.parent/('jetix-site.zip' if selected else 'jetix-typography-three-options.zip' if refinements else 'jetix-three-sites.zip')
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
  for p in out.rglob('*'):
   if p.is_file():z.write(p,p.relative_to(out))

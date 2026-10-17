@@ -42,11 +42,15 @@ const preset = activeEdition
   : lab.looks.find((item) => item.id === look);
 const labActive = Boolean(preset);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const homeHref = refinement
-  ? `${base}/refine/${refinement}/`
-  : activeEdition
-    ? `${base}/preview/${activeEdition.id}/`
-    : `${base}/`;
+const isComparison = /\/(refine|preview)\//.test(Astro.url.pathname);
+const homeHref =
+  refinement && !isComparison
+    ? `${base}/`
+    : refinement
+      ? `${base}/refine/${refinement}/`
+      : activeEdition
+        ? `${base}/preview/${activeEdition.id}/`
+        : `${base}/`;
 ---
 
 <!doctype html>
@@ -77,6 +81,7 @@ const homeHref = refinement
         "detail-page": article,
       },
     ]}
+    data-page={pageSlug || "home"}
     data-refinement={refinement}
     data-edition={activeEdition?.id}
     data-look={activeEdition ? "haze" : look}
@@ -88,7 +93,7 @@ const homeHref = refinement
     <a class="studio-skip" href="#main">
       {d.ui.skip}
     </a>
-    {refinement ? (
+    {refinement && !isComparison ? null : refinement ? (
       <div
         class="edition-switch"
         role="navigation"
