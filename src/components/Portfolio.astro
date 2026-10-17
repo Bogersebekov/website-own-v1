@@ -1,0 +1,45 @@
+---
+// Портфолио: слоты под файлы из public/portfolio/{course,sites,video}/.
+// Файл ищется при сборке по имени слота и расширениям ниже. Нет файла — нейтральная заглушка.
+import fs from 'node:fs';
+import path from 'node:path';
+import { portfolio as pf } from '../data/site.ru';
+interface Props { only?: string[] }
+const { only } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pub = path.join(process.cwd(), 'public', 'portfolio');
+const IMG = ['webp', 'jpg', 'jpeg', 'png', 'avif'];
+const find = (dir: string, name: string, exts: string[]) => {
+  for (const e of exts) if (fs.existsSync(path.join(pub, dir, `${name}.${e}`))) return `${base}/portfolio/${dir}/${name}.${e}`;
+  return '';
+};
+const groups = pf.groups.filter((g) => !only || only.includes(g.id)).map((g) => ({
+  ...g,
+  slots: g.slots.map((s) => ({
+    ...s,
+    img: find(g.id, s.file, IMG),
+    video: g.kind === 'video' ? find(g.id, s.file, ['mp4', 'webm']) : '',
+  })),
+}));
+---
+<div class="pf">
+  {groups.map((g) => (
+    <div class="pf__group">
+      <h3 class="pf__title">{g.title}</h3>
+      <div class="pf__grid">
+        {g.slots.map((s, i) => (
+          <figure class={`pf__slot ${s.img || s.video ? '' : 'is-empty'}`}>
+            {s.video ? (
+              <video src={s.video} poster={s.img || undefined} controls preload="metadata" playsinline></video>
+            ) : s.img ? (
+              <img src={s.img} alt={s.caption || `${g.title} — пример ${i + 1}`} loading="lazy" decoding="async" />
+            ) : (
+              <div class="pf__ph" aria-hidden="true"><span class="code">{String(i + 1).padStart(2, '0')}</span><span>{pf.empty}</span></div>
+            )}
+            {s.caption && <figcaption>{s.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
