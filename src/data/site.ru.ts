@@ -14,6 +14,7 @@ export const site = {
     telegram: 'https://t.me/ferheiser',
     github: 'https://github.com/Bogersebekov',
     youtube: '',
+    instagram: 'https://www.instagram.com/goddziilla/',
     // Шаблон Life OS в Notion: ссылки ещё нет, кнопка ведёт в «Связь».
     lifeOs: '',
   },

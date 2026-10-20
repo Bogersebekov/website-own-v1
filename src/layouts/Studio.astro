@@ -185,7 +185,10 @@ const homeHref =
         <span>{h.name}</span>
         <nav aria-label={d.ui.social}>
           <span>YouTube</span>
-          <span>Instagram</span>
+          <a href={site.links.instagram} target="_blank" rel="noopener">
+            Instagram
+            <Arrow />
+          </a>
           <a href={site.links.telegram}>
             Telegram
             <Arrow />
